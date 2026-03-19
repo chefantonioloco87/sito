@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locoselli Academy — Impara Gratis</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nero:#060504;--avorio:#f4efe6;--oro:#c4962a;--oro2:#e8c96a;
+  --grigio:#7a7066;--marrone:#181310;--card:#120f0c;
+  --bg:#fafaf7;--testo:#1a1510;--testo2:#2d2520;--bordo:#ddd5c0;
+  --verde:#1a5c30;--verde-bg:#eaf4ee;--rosso:#7a1010;--rosso-bg:#fceaea;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--testo);font-family:'EB Garamond',serif;font-size:19px;line-height:1.8;overflow-x:hidden;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.02);}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:300;background:rgba(6,5,4,0.97);border-bottom:1px solid rgba(196,150,42,0.15);padding:16px 52px;display:flex;justify-content:space-between;align-items:center;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--oro);text-decoration:none;}
+.nav-back{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grigio);text-decoration:none;transition:color 0.3s;}
+.nav-back:hover{color:var(--oro);}
+.nav-tag{background:var(--oro);color:var(--nero);font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#060504 0%,#1a1208 100%);padding:90px 52px 70px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(196,150,42,0.07) 0%,transparent 70%);}
+.hero-label{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--oro2);margin-bottom:20px;display:block;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,7vw,80px);font-weight:300;line-height:1;color:#fff;margin-bottom:10px;}
+.hero-h1 em{font-style:italic;color:var(--oro);}
+.hero-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:21px;color:rgba(244,239,230,0.55);margin-bottom:40px;}
+.hero-desc{font-family:'EB Garamond',serif;font-size:18px;line-height:1.75;color:rgba(244,239,230,0.6);max-width:620px;margin:0 auto 50px;}
+.hero-stats{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;}
+.hstat-n{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--oro);line-height:1;display:block;}
+.hstat-l{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(244,239,230,0.4);}
+
+/* CARDS HOME */
+.home-section{padding:80px 52px;max-width:1180px;margin:0 auto;}
+.home-label{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--oro);margin-bottom:14px;display:block;}
+.home-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1.1;color:var(--testo);margin-bottom:10px;}
+.home-h em{font-style:italic;color:var(--oro);}
+.home-p{font-family:'EB Garamond',serif;font-size:18px;color:var(--grigio);margin-bottom:52px;max-width:560px;}
+
+/* MANIFESTI CARDS */
+.manifesti-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:60px;}
+.mcard{background:#fff;border:1px solid var(--bordo);overflow:hidden;cursor:pointer;transition:box-shadow 0.3s,transform 0.2s;position:relative;}
+.mcard:hover{box-shadow:0 8px 40px rgba(196,150,42,0.14);transform:translateY(-3px);}
+.mcard-img{width:100%;height:220px;object-fit:cover;filter:brightness(0.8);display:block;transition:filter 0.4s;}
+.mcard:hover .mcard-img{filter:brightness(0.95);}
+.mcard-color{width:100%;height:220px;display:flex;align-items:center;justify-content:center;font-size:72px;}
+.mcard-body{padding:32px 28px;}
+.mcard-tag{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--oro);display:block;margin-bottom:12px;}
+.mcard-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--testo);margin-bottom:10px;line-height:1.2;}
+.mcard-desc{font-size:16px;line-height:1.65;color:var(--grigio);margin-bottom:20px;}
+.mcard-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--bordo);padding-top:16px;}
+.mcard-meta{font-family:'Montserrat',sans-serif;font-size:10px;color:var(--grigio);letter-spacing:1px;}
+.mcard-btn{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--oro);background:none;border:1px solid rgba(196,150,42,0.35);padding:8px 18px;cursor:pointer;transition:all 0.25s;}
+.mcard-btn:hover{background:var(--oro);color:#fff;}
+.mcard-free{position:absolute;top:16px;right:16px;background:var(--oro);color:#fff;font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;}
+
+/* QUIZ SECTION */
+.quiz-home{background:var(--marrone);padding:70px 52px;}
+.quiz-home-inner{max-width:1180px;margin:0 auto;}
+.quiz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:44px;}
+.quiz-card{background:rgba(6,5,4,0.6);border:1px solid rgba(196,150,42,0.09);padding:28px 22px;cursor:pointer;transition:border-color 0.3s,background 0.3s;}
+.quiz-card:hover{border-color:rgba(196,150,42,0.35);background:rgba(6,5,4,0.9);}
+.quiz-card-icon{font-size:28px;margin-bottom:14px;display:block;}
+.quiz-card-title{font-family:'Cormorant Garamond',serif;font-size:17px;color:#f4efe6;margin-bottom:8px;line-height:1.2;}
+.quiz-card-info{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:1px;color:var(--grigio);margin-bottom:16px;}
+.quiz-card-btn{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--oro);background:none;border:none;cursor:pointer;padding:0;transition:color 0.3s;}
+.quiz-card-btn:hover{color:var(--oro2);}
+
+/* EMAIL FORM */
+.email-section{background:linear-gradient(135deg,#0e0b08,#1c1410);padding:80px 52px;text-align:center;}
+.email-inner{max-width:620px;margin:0 auto;}
+.email-h{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,50px);font-weight:300;color:#fff;margin-bottom:12px;}
+.email-h em{font-style:italic;color:var(--oro);}
+.email-p{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:rgba(244,239,230,0.55);margin-bottom:36px;line-height:1.65;}
+.email-benefits{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.email-benefit{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(244,239,230,0.5);display:flex;align-items:center;gap:8px;}
+.email-benefit span{color:var(--oro);}
+.email-form{display:flex;gap:0;max-width:480px;margin:0 auto 16px;}
+.email-input{flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(196,150,42,0.3);border-right:none;padding:16px 22px;font-family:'EB Garamond',serif;font-size:17px;color:#fff;outline:none;transition:border-color 0.3s;}
+.email-input::placeholder{color:rgba(244,239,230,0.3);}
+.email-input:focus{border-color:var(--oro);}
+.email-submit{background:var(--oro);color:var(--nero);border:none;padding:16px 28px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background 0.3s;white-space:nowrap;}
+.email-submit:hover{background:var(--oro2);}
+.email-privacy{font-family:'Montserrat',sans-serif;font-size:10px;color:rgba(244,239,230,0.3);letter-spacing:1px;}
+.email-success{display:none;background:rgba(26,92,48,0.2);border:1px solid rgba(26,92,48,0.4);padding:20px;color:#6aad7a;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:16px;}
+
+/* READER */
+#reader{display:none;min-height:100vh;background:var(--bg);}
+.reader-wrap{max-width:760px;margin:0 auto;padding:52px 32px 100px;}
+.reader-back{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grigio);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-bottom:40px;transition:color 0.3s;padding:0;}
+.reader-back:hover{color:var(--oro);}
+.reader-header{margin-bottom:44px;padding-bottom:30px;border-bottom:2px solid var(--bordo);}
+.reader-tag{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--oro);display:block;margin-bottom:14px;font-weight:500;}
+.reader-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,56px);font-weight:300;line-height:1.05;color:var(--testo);margin-bottom:8px;}
+.reader-h1 em{font-style:italic;color:var(--oro);}
+.reader-sub{font-style:italic;font-size:21px;color:var(--grigio);margin-bottom:22px;}
+.reader-meta{display:flex;gap:14px;flex-wrap:wrap;}
+.reader-meta-item{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--testo2);background:#f0ede6;padding:6px 14px;font-weight:500;}
+
+/* ARTICLE */
+.article h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--testo);margin:48px 0 16px;padding-top:22px;border-top:2px solid var(--bordo);}
+.article h2 em{font-style:italic;color:var(--oro);}
+.article h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;font-style:italic;color:#5a3e00;margin:28px 0 10px;}
+.article p{color:#222;margin-bottom:18px;font-size:19px;line-height:1.82;}
+.article p strong{color:#111;font-weight:700;}
+.article ul,.article ol{margin:0 0 20px 28px;}
+.article li{color:#222;margin-bottom:8px;font-size:18px;line-height:1.75;}
+.article li strong{color:#111;font-weight:700;}
+
+.callout{background:#fffbf0;border-left:4px solid var(--oro);padding:20px 24px;margin:26px 0;border-radius:0 4px 4px 0;}
+.callout p{color:#222;margin:0;font-size:17px;}
+.callout strong{color:#111;font-weight:700;}
+.tip{background:#edfaf2;border-left:4px solid var(--verde);padding:20px 24px;margin:24px 0;border-radius:0 4px 4px 0;}
+.tip-lbl{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:6px;font-weight:700;}
+.tip p{color:#222;margin:0;font-size:17px;}
+.warning{background:#fff8f0;border-left:4px solid #c4520a;padding:20px 24px;margin:24px 0;}
+.warning-lbl{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c4520a;display:block;margin-bottom:6px;font-weight:700;}
+.warning p{color:#222;margin:0;font-size:17px;}
+
+.data-table{width:100%;border-collapse:collapse;margin:22px 0;font-size:16px;}
+.data-table th{background:#f5f0e0;padding:12px 15px;text-align:left;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#5a3e00;border-bottom:2px solid var(--bordo);font-weight:500;}
+.data-table td{padding:12px 15px;color:#222;border-bottom:1px solid var(--bordo);vertical-align:top;line-height:1.55;}
+.data-table tr:nth-child(even) td{background:#fafaf7;}
+.data-table td strong{color:#111;font-weight:700;}
+
+.chapter-divider{display:flex;align-items:center;gap:16px;margin:44px 0 0;}
+.chapter-divider::before,.chapter-divider::after{content:'';flex:1;height:1px;background:var(--bordo);}
+.chapter-divider span{font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--oro);white-space:nowrap;}
+
+/* CTA DOPO ARTICOLO */
+.article-cta{margin-top:60px;background:linear-gradient(135deg,#0e0b08,#1c1410);padding:44px 40px;text-align:center;border-radius:4px;}
+.article-cta h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:10px;}
+.article-cta h3 em{font-style:italic;color:var(--oro);}
+.article-cta p{font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:rgba(244,239,230,0.55);margin-bottom:26px;}
+.cta-btn{display:inline-block;background:var(--oro);color:var(--nero);padding:14px 36px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;transition:background 0.3s;}
+.cta-btn:hover{background:var(--oro2);}
+
+/* PROGRESS BAR */
+.progress-wrap{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(196,150,42,0.1);z-index:400;}
+.progress-bar{height:100%;background:var(--oro);width:0%;transition:width 0.1s;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .manifesti-grid{grid-template-columns:1fr;}
+  .quiz-grid{grid-template-columns:repeat(2,1fr);}
+  .home-section{padding:52px 22px;}
+  .quiz-home,.email-section{padding:60px 22px;}
+  .reader-wrap{padding:36px 20px 80px;}
+  .email-form{flex-direction:column;}
+  .email-input{border-right:1px solid rgba(196,150,42,0.3);border-bottom:none;}
+  .hero{padding:70px 22px 50px;}
+  .hero-stats{gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-wrap"><div class="progress-bar" id="progBar"></div></div>
+
+<!-- NAV -->
+<nav>
+  <a href="locoselli-final.html" class="nav-logo">Locoselli</a>
+  <a href="locoselli-final.html" class="nav-back">← Torna al Sito</a>
+  <span class="nav-tag">100% Gratuito</span>
+</nav>
+
+<!-- HOME VIEW -->
+<div id="home-view">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-label">Locoselli Academy · Contenuti Gratuiti</span>
+    <h1 class="hero-h1">Impara dall'<em>eccellenza</em><br>— gratis</h1>
+    <p class="hero-sub">Manifesti, guide e quiz firmati Chef Antonio Locoselli</p>
+    <p class="hero-desc">Ho messo per iscritto tutto quello che so. Tre manifesti profondi, cinque moduli con quiz interattivi e una newsletter mensile con ricette e tecniche esclusive. Tutto gratis, tutto tuo.</p>
+    <div class="hero-stats">
+      <div><span class="hstat-n">3</span><span class="hstat-l">Manifesti gratuiti</span></div>
+      <div><span class="hstat-n">5</span><span class="hstat-l">Moduli con quiz</span></div>
+      <div><span class="hstat-n">40</span><span class="hstat-l">Domande di verifica</span></div>
+      <div><span class="hstat-n">∞</span><span class="hstat-l">Accesso illimitato</span></div>
+    </div>
+  </div>
+
+  <!-- MANIFESTI -->
+  <div class="home-section">
+    <span class="home-label">I Manifesti</span>
+    <h2 class="home-h">Tre guide per <em>cambiare</em><br>il tuo modo di cucinare</h2>
+    <p class="home-p">Non sono ricette. Sono filosofia, tecnica e visione. Leggili, assimilali, applicali.</p>
+
+    <div class="manifesti-grid">
+
+      <!-- MANIFESTO 1: CBT -->
+      <div class="mcard" onclick="openManifesto('cbt')">
+        <div class="mcard-color" style="background:linear-gradient(135deg,#0e0b08,#1c1410);">
+          <span>🌡️</span>
+        </div>
+        <span class="mcard-free">Gratuito</span>
+        <div class="mcard-body">
+          <span class="mcard-tag">Manifesto I · CBT</span>
+          <h3 class="mcard-title">La Bibbia della Cottura Sous Vide</h3>
+          <p class="mcard-desc">Temperatura, tempo e precisione assoluta. Tutto quello che devi sapere sulla cottura a bassa temperatura per trasformare ogni ingrediente in un capolavoro.</p>
+          <div class="mcard-footer">
+            <span class="mcard-meta">⏱ 10 min · 🌡️ Tecnica</span>
+            <button class="mcard-btn">Leggi Ora →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MANIFESTO 2: MOLECOLARE -->
+      <div class="mcard" onclick="openManifesto('mol')">
+        <div class="mcard-color" style="background:linear-gradient(135deg,#0a0d1a,#101830);">
+          <span>🔬</span>
+        </div>
+        <span class="mcard-free">Gratuito</span>
+        <div class="mcard-body">
+          <span class="mcard-tag">Manifesto II · Molecolare</span>
+          <h3 class="mcard-title">Il Manifesto della Cucina Molecolare</h3>
+          <p class="mcard-desc">Storia, filosofia e tecniche della cucina di avanguardia. Sferificazione, gel, spume e azoto liquido spiegati da chi li usa ogni giorno al ristorante.</p>
+          <div class="mcard-footer">
+            <span class="mcard-meta">⏱ 10 min · 🔬 Avanguardia</span>
+            <button class="mcard-btn">Leggi Ora →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MANIFESTO 3: CUCINA ITALIANA -->
+      <div class="mcard" onclick="openManifesto('ita')">
+        <div class="mcard-color" style="background:linear-gradient(135deg,#1a0a06,#2d1510);">
+          <span>🇮🇹</span>
+        </div>
+        <span class="mcard-free">Gratuito</span>
+        <div class="mcard-body">
+          <span class="mcard-tag">Manifesto III · Tradizione</span>
+          <h3 class="mcard-title">L'Anima della Cucina Italiana</h3>
+          <p class="mcard-desc">Territorio, stagionalità, memoria e identità. La cucina italiana non è una serie di ricette — è una filosofia di vita che nasce dalla terra e dalle persone.</p>
+          <div class="mcard-footer">
+            <span class="mcard-meta">⏱ 10 min · 🍝 Tradizione</span>
+            <button class="mcard-btn">Leggi Ora →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BONUS SECTION -->
+    <div style="background:linear-gradient(135deg,#0e0b08,#181310);padding:44px 40px;margin-bottom:60px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+      <div>
+        <span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--oro2);display:block;margin-bottom:14px;">✦ Contenuto Bonus</span>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:12px;line-height:1.2;">I 10 Errori che<br>ogni cuoco fa <em>sempre</em></h3>
+        <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:17px;color:rgba(244,239,230,0.55);margin-bottom:22px;">Gli errori più comuni in cucina che separano un dilettante da un professionista. Li ho commessi anch'io — ora te li svelo.</p>
+        <button onclick="openManifesto('errori')" style="background:var(--oro);color:var(--nero);border:none;padding:13px 30px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background 0.3s;">Leggi Gratis →</button>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:90px;line-height:1;">⚠️</div>
+        <p style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(244,239,230,0.3);margin-top:10px;">Bonus Esclusivo</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUIZ SECTION -->
+  <div class="quiz-home">
+    <div class="quiz-home-inner">
+      <span class="home-label" style="color:var(--oro2);">I Moduli con Quiz</span>
+      <h2 class="home-h" style="color:#f4efe6;">Leggi e <em>metti alla prova</em><br>le tue conoscenze</h2>
+      <p style="font-family:'EB Garamond',serif;font-size:18px;color:var(--grigio);margin-bottom:0;max-width:560px;">Cinque moduli completi con articolo + quiz finale. Ogni risposta sbagliata ha una spiegazione — impari di più dagli errori che dalle risposte giuste.</p>
+      <div class="quiz-grid">
+        <div class="quiz-card">
+          <span class="quiz-card-icon">🔬</span>
+          <h4 class="quiz-card-title">Cucina Molecolare Base</h4>
+          <p class="quiz-card-info">8 domande · 12 min lettura</p>
+          <button class="quiz-card-btn" onclick="window.open('locoselli-free-academy.html','_blank')">Inizia →</button>
+        </div>
+        <div class="quiz-card">
+          <span class="quiz-card-icon">🍝</span>
+          <h4 class="quiz-card-title">Pasta Fresca Italiana</h4>
+          <p class="quiz-card-info">8 domande · 10 min lettura</p>
+          <button class="quiz-card-btn" onclick="window.open('locoselli-free-academy.html','_blank')">Inizia →</button>
+        </div>
+        <div class="quiz-card">
+          <span class="quiz-card-icon">🍰</span>
+          <h4 class="quiz-card-title">Pasticceria Molecolare</h4>
+          <p class="quiz-card-info">8 domande · 11 min lettura</p>
+          <button class="quiz-card-btn" onclick="window.open('locoselli-free-academy.html','_blank')">Inizia →</button>
+        </div>
+        <div class="quiz-card">
+          <span class="quiz-card-icon">🌡️</span>
+          <h4 class="quiz-card-title">CBT Sous Vide</h4>
+          <p class="quiz-card-info">8 domande · 10 min lettura</p>
+          <button class="quiz-card-btn" onclick="window.open('locoselli-free-academy.html','_blank')">Inizia →</button>
+        </div>
+        <div class="quiz-card">
+          <span class="quiz-card-icon">🧼</span>
+          <h4 class="quiz-card-title">Pulizia & HACCP</h4>
+          <p class="quiz-card-info">8 domande · 9 min lettura</p>
+          <button class="quiz-card-btn" onclick="window.open('locoselli-free-academy.html','_blank')">Inizia →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL FORM -->
+  <div class="email-section">
+    <div class="email-inner">
+      <span style="font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--oro2);display:block;margin-bottom:16px;">Newsletter Mensile</span>
+      <h2 class="email-h">Ricevi le mie tecniche<br><em>direttamente</em> nella tua inbox</h2>
+      <p class="email-p">Ogni mese una ricetta esclusiva, una tecnica molecolare spiegata passo per passo, e un segreto dal mio ristorante. Solo contenuti che non trovi da nessun'altra parte.</p>
+      <div class="email-benefits">
+        <div class="email-benefit"><span>✦</span> Ricetta esclusiva mensile</div>
+        <div class="email-benefit"><span>✦</span> Tecnica professionale</div>
+        <div class="email-benefit"><span>✦</span> Sconto sui corsi</div>
+        <div class="email-benefit"><span>✦</span> Zero spam</div>
+      </div>
+      <div class="email-form">
+        <input type="email" class="email-input" placeholder="La tua email..." id="emailInput">
+        <button class="email-submit" onclick="submitEmail()">Iscriviti Gratis</button>
+      </div>
+      <div class="email-success" id="emailSuccess">
+        ✓ Perfetto! Benvenuto nella famiglia Locoselli. Controlla la tua email!
+      </div>
+      <p class="email-privacy">Nessuno spam. Disiscrizione gratuita in qualsiasi momento.</p>
+    </div>
+  </div>
+
+</div><!-- end home-view -->
+
+<!-- READER VIEW -->
+<div id="reader-view">
+  <div class="progress-wrap"><div class="progress-bar" id="progBar2"></div></div>
+  <div class="reader-wrap" id="readerContent"></div>
+</div>
+
+<script>
+// ══ MANIFESTI CONTENT ══
+const manifesti = {
+
+  // ── CBT ──
+  cbt: {
+    tag: 'Manifesto I · CBT',
+    title: 'La Bibbia della Cottura Sous Vide',
+    subtitle: 'Temperatura, tempo e precisione assoluta',
+    meta: ['🌡️ CBT', '⏱ 10 min lettura', '👨‍🍳 Chef Antonio Locoselli'],
+    corsoLink: 'https://gumroad.com/l/TUOLINK',
+    corsoNome: 'CBT — Carne, Pesce & Verdure',
+    html: `
+      <h2>Perché la <em>temperatura</em> è tutto</h2>
+      <p>Ho imparato questa lezione a mie spese. Per anni ho cucinato come tutti: padella caldissima, occhio e intuito. Poi ho scoperto il sous vide e ho capito che stavo lasciando sul tavolo il 40% del potenziale di ogni ingrediente.</p>
+      <p>La cottura tradizionale è brutale. Cuoci una bistecca in padella a 220°C perché vuoi 58°C al cuore — ma per arrivarci l'esterno supera i 90°C, le proteine si contraggono, i succhi fuoriescono. Il risultato? Una zona grigia attorno a un cuore rosso. Buona, ma non eccezionale.</p>
+      <p>Il sous vide risolve questo problema alla radice: <strong>imposti la temperatura finale e tutta la cottura avviene esattamente a quella temperatura</strong>. Zero margine di errore. Zero zona grigia. Risultato perfetto ogni volta.</p>
+      <div class="callout"><p><strong>La regola fondamentale:</strong> In cottura tradizionale lottiamo contro la temperatura. In sous vide lavoriamo con essa. È una differenza filosofica prima ancora che tecnica.</p></div>
+
+      <div class="chapter-divider"><span>La Scienza</span></div>
+      <h2>Cosa succede alle <em>proteine</em></h2>
+      <p>Le proteine si denaturano — cioè cambiano struttura — a temperature precise. Ogni proteina ha la sua soglia. La miosina nelle carni rosse inizia a denaturarsi a 50°C. L'actina, che rende la carne dura e asciutta, si denatura a 65-70°C.</p>
+      <p>Questo significa che cuocendo tra 54°C e 62°C ottieni carne tenera, succosa, con miosina denaturata ma actina intatta. È la finestra del perfetto sous vide per la carne rossa.</p>
+      <p>Il collagene, invece, si converte in gelatina solo a temperature più alte e con tempi lunghi. Per tagli ricchi di collagene (guancia, stinco, costato) serve 68-72°C per 24-72 ore. Il risultato è una carne che si scioglie in bocca — impossibile da replicare in altro modo.</p>
+      <table class="data-table">
+        <tr><th>Alimento</th><th>Temperatura</th><th>Tempo</th><th>Risultato</th></tr>
+        <tr><td><strong>Filetto di manzo</strong></td><td>54°C</td><td>1-2h</td><td>Al sangue, rosa uniforme</td></tr>
+        <tr><td><strong>Controfiletto</strong></td><td>56°C</td><td>1-4h</td><td>Al punto, succoso</td></tr>
+        <tr><td><strong>Guancia di manzo</strong></td><td>72°C</td><td>48h</td><td>Fondente, gelatinosa</td></tr>
+        <tr><td><strong>Petto di pollo</strong></td><td>63°C</td><td>1-3h</td><td>Succoso, pastorizzato</td></tr>
+        <tr><td><strong>Salmone</strong></td><td>43°C</td><td>30-40 min</td><td>Traslucido, setoso</td></tr>
+        <tr><td><strong>Branzino</strong></td><td>52°C</td><td>20-25 min</td><td>Umido, delicato</td></tr>
+        <tr><td><strong>Carote</strong></td><td>85°C</td><td>1.5h</td><td>Morbide, strutturate</td></tr>
+        <tr><td><strong>Uova intere</strong></td><td>63°C</td><td>1h</td><td>Albume appena rappreso</td></tr>
+      </table>
+
+      <div class="chapter-divider"><span>La Tecnica</span></div>
+      <h2>Come si fa: <em>passo dopo passo</em></h2>
+      <h3>1. La Marinatura nel Sacchetto</h3>
+      <p>Prima di sigillare, condisci l'alimento direttamente nel sacchetto. Aromi, erbe, grassi — tutto si concentra durante la cottura perché non c'è evaporazione. Una noce di burro, un rametto di timo e uno spicchio d'aglio schiacciato fanno miracoli su un filetto di manzo.</p>
+      <p>Attenzione: <strong>l'aglio crudo a lungo in sous vide può sviluppare note sgradevoli</strong>. Blanching 30 secondi prima di aggiungerlo, oppure usa aglio in polvere.</p>
+      <h3>2. Il Sottovuoto</h3>
+      <p>Il sottovuoto serve per tre motivi: conduzione del calore efficiente, protezione da ossidazione, e concentrazione degli aromi. Per i liquidi (salse, marinature) usa la tecnica dell'immersione: immergi il sacchetto nell'acqua fino al bordo prima di sigillare — l'acqua fa pressione ed espelle l'aria.</p>
+      <h3>3. La Cottura</h3>
+      <p>Il roner mantiene l'acqua alla temperatura impostata con precisione di ±0,1°C. Usa un contenitore termico o copri la vasca per limitare l'evaporazione nelle cotture lunghe. Nei tempi lunghi (24h+) aggiungi acqua se necessario.</p>
+      <div class="tip"><span class="tip-lbl">✦ Trucco di Antonio</span><p>Per le cotture lunghissime (48-72h), aggiungi una pallina da ping pong forata o tante palline di plastica alla superficie dell'acqua. Riducono l'evaporazione del 90% e non interferiscono con la circolazione.</p></div>
+      <h3>4. La Finitura — il passo che non si salta mai</h3>
+      <p>La carne uscita dal sous vide è perfettamente cotta ma pallida e priva di crosta. La reazione di Maillard — che crea sapori complessi e colore dorato — avviene sopra i 140°C. Il sous vide non ci arriva mai.</p>
+      <p><strong>La finitura è obbligatoria: 30-60 secondi per lato in padella caldissima, al grill o con cannello.</strong> Non di più. Asciuga sempre la carne con carta assorbente prima: l'umidità crea vapore e impedisce la crosta.</p>
+
+      <div class="chapter-divider"><span>La Sicurezza</span></div>
+      <h2><em>Sicurezza alimentare</em>: quello che devi sapere</h2>
+      <p>Il sous vide a basse temperature non sterilizza — pastorizza. La differenza è importante: la pastorizzazione riduce la carica batterica a livelli sicuri, non la azzera. Il parametro chiave è la combinazione tempo-temperatura.</p>
+      <div class="warning"><span class="warning-lbl">⚠️ Regola d'oro</span><p>La zona di pericolo batterica è 4°C – 54°C. Non lasciare mai il prodotto in questo range per più di 4 ore totali — tra preparazione, cottura e servizio. Fuori da questo range sei al sicuro.</p></div>
+      <ul>
+        <li>Temperatura <strong>sotto i 54°C</strong> → massimo 4 ore totali</li>
+        <li>Cottura <strong>sopra i 63°C</strong> → pastorizzazione efficace (pollo, maiale)</li>
+        <li>Scongelamento → <strong>sempre in frigorifero</strong>, mai a temperatura ambiente</li>
+        <li>Prodotto cotto → abbatti subito a 3°C o usa entro 30 minuti</li>
+        <li>Il sacchetto gonfiato → <strong>buttare sempre</strong>, segnale di proliferazione batterica</li>
+      </ul>
+
+      <div class="chapter-divider"><span>Il Mindset</span></div>
+      <h2>Perché il sous vide <em>cambia tutto</em></h2>
+      <p>Il sous vide non è una scorciatoia — è uno strumento di precisione. Come un termometro di qualità o un coltello affilato, ti permette di lavorare meglio. Ma non sostituisce la tecnica, il gusto e la visione del cuoco.</p>
+      <p>Nel mio ristorante uso il sous vide ogni giorno, per ogni proteina. Ma il piatto che arriva al tavolo ha sempre una finitura manuale, un'attenzione al dettaglio, un elemento di sorpresa che nessuna macchina può replicare.</p>
+      <p>La tecnologia è al servizio dell'emozione. Non il contrario.</p>
+    `
+  },
+
+  // ── MOLECOLARE ──
+  mol: {
+    tag: 'Manifesto II · Cucina Molecolare',
+    title: 'Il Manifesto della Cucina Molecolare',
+    subtitle: 'Storia, filosofia e tecniche di avanguardia',
+    meta: ['🔬 Molecolare', '⏱ 10 min lettura', '👨‍🍳 Chef Antonio Locoselli'],
+    corsoLink: 'https://gumroad.com/l/TUOLINK',
+    corsoNome: 'Cucina Molecolare Avanzata',
+    html: `
+      <h2>Non è magia. È <em>scienza</em>.</h2>
+      <p>La prima volta che ho visto una sferificazione l'ho creduta un trucco. Una sfera di succo di pomodoro che scoppiava in bocca come una bomba di sapore — sembrava impossibile. Poi ho capito che era semplicemente chimica applicata.</p>
+      <p>La cucina molecolare nasce dalla domanda giusta: <strong>perché succede quello che succede quando cuociamo?</strong> Perché il pane lievita? Perché la maionese non si separa? Perché il caramello diventa amaro? Rispondere a queste domande ci dà il controllo totale sulla cucina.</p>
+      <div class="callout"><p><strong>Definizione:</strong> La gastronomia molecolare è la disciplina scientifica che studia le trasformazioni fisiche e chimiche degli ingredienti durante la cottura. L'obiettivo non è spettacolare — è capire per controllare.</p></div>
+
+      <div class="chapter-divider"><span>Le Origini</span></div>
+      <h2>Da Ferran Adrià al <em>mio ristorante</em></h2>
+      <p>Ferran Adrià al Bulli negli anni '90, Heston Blumenthal al Fat Duck in Inghilterra, Hervé This nei laboratori di Parigi — sono stati loro i pionieri. Hanno capito che la cucina non era solo tradizione e intuito, ma anche fisica e chimica.</p>
+      <p>Oggi queste tecniche sono entrate nei ristoranti di tutto il mondo — incluso il mio a Steinfurt. Non per fare spettacolo, ma per creare emozioni che la cucina tradizionale non può replicare.</p>
+      <p>Il mio approccio: <strong>stupire senza storpiare</strong>. La tecnica è al servizio del sapore, non il contrario. Una sfera di pomodoro deve sapere di pomodoro in modo intenso e puro — non deve sembrare una caviglia futuristica senza gusto.</p>
+
+      <div class="chapter-divider"><span>I Gelificanti</span></div>
+      <h2>Dare <em>forma</em> al gusto</h2>
+      <p>I gelificanti trasformano i liquidi in gel. Ogni gelificante ha proprietà diverse — temperatura di fusione, texture, stabilità al calore. Usarli correttamente significa avere un vocabolario di texture infinito.</p>
+      <table class="data-table">
+        <tr><th>Gelificante</th><th>Dose</th><th>Temp. gel</th><th>Caratteristica unica</th></tr>
+        <tr><td><strong>Agar agar</strong></td><td>0,2-2%</td><td>35-45°C</td><td>Regge fino a 85°C — gel termostabile</td></tr>
+        <tr><td><strong>Gelatina</strong></td><td>1,5-2%</td><td>~35°C</td><td>Si scioglie in bocca — sensazione vellutata</td></tr>
+        <tr><td><strong>Carragenina iota</strong></td><td>0,4-1%</td><td>40-70°C</td><td>Gel elastico e cremoso</td></tr>
+        <tr><td><strong>Carragenina kappa</strong></td><td>0,2-0,5%</td><td>35-50°C</td><td>Gel rigido, ottimo da tagliare</td></tr>
+        <tr><td><strong>Metilcellulosa</strong></td><td>1-2%</td><td>Si solidifica a caldo</td><td>Inversa: solida a caldo, liquida a freddo</td></tr>
+        <tr><td><strong>Agar + Gellan</strong></td><td>0,3%+0,3%</td><td>45°C</td><td>Gel fluido — si rompe come gelatina ma è termostabile</td></tr>
+      </table>
+      <div class="tip"><span class="tip-lbl">✦ Trucco di Antonio</span><p>Per capire la consistenza finale di un gel prima di impiattare: versa alcune gocce di preparazione calda su un cucchiaio freddo. In 20 secondi hai la risposta. Se è troppo morbido aggiungi gelificante, se è troppo duro aggiungi liquido.</p></div>
+
+      <div class="chapter-divider"><span>La Sferificazione</span></div>
+      <h2>La tecnica che ha <em>cambiato tutto</em></h2>
+      <p>La sferificazione è la tecnica simbolo della cucina molecolare. Crea sfere con un involucro gelatinoso sottilissimo e un interno completamente liquido. Al morso esplodono liberando tutto il sapore in modo istantaneo e sorprendente.</p>
+      <p>Si basa sulla reazione tra alginato di sodio (estratto da alghe) e calcio. Il calcio provoca la gelificazione dell'alginato formando una membrana. Due tecniche principali:</p>
+      <h3>Sferificazione Diretta</h3>
+      <p>Si scioglie l'alginato nel liquido da sferificare (0,5g per 100ml). Si immerge in un bagno di cloruro di calcio (0,5g per 100ml d'acqua). La membrana si forma in 1-3 minuti. La sfera continua a gelificare anche fuori dal bagno — va servita subito.</p>
+      <h3>Sferificazione Inversa</h3>
+      <p>Si scioglie il calcio nel liquido (lattato di calcio è meglio del cloruro — meno amaro). Si immerge in un bagno di alginato. La membrana si forma dall'esterno. La sfera non gelifica all'interno nel tempo — si può preparare in anticipo.</p>
+      <div class="warning"><span class="warning-lbl">⚠️ Errore comune</span><p>I liquidi acidi (pH sotto 4) bloccano la gelificazione dell'alginato. Succo di limone, aceto, vino — controllare sempre il pH con cartine o pHmetro. Correggere con citrato di sodio fino a pH 4,5 minimo.</p></div>
+
+      <div class="chapter-divider"><span>Emulsioni e Spume</span></div>
+      <h2><em>Aria</em> e leggerezza</h2>
+      <p>La lecitina di soia è l'emulsionante miracoloso della cucina molecolare. Sciolta in un liquido allo 0,3-1%, con il mixer a immersione inclinato crea bolle stabili e piene di sapore — le chiamiamo <em>arie</em>. Si posizionano sul piatto come nuvole saporite.</p>
+      <p>Il sifone con N2O è un altro strumento fondamentale. Trasforma quasi qualsiasi liquido in spuma, mousse o chantilly. La regola: più il liquido è ricco (panna, tuorli, gelatina) più la spuma è stabile.</p>
+      <h3>Come usare il sifone</h3>
+      <ul>
+        <li>Riempi al massimo per 2/3</li>
+        <li>Filtra sempre il liquido — i grumi bloccano l'ugello</li>
+        <li>Per sifone 0,5L: 1-2 cariche N2O</li>
+        <li>Agita vigorosamente dopo ogni carica</li>
+        <li>Testa prima su un piattino — regola il numero di cariche</li>
+      </ul>
+
+      <div class="chapter-divider"><span>Il Mindset</span></div>
+      <h2>Molecolare non significa <em>artificiale</em></h2>
+      <p>Il più grande malinteso sulla cucina molecolare è che sia sinonimo di artificiale, chimico, lontano dalla natura. È esattamente il contrario. L'agar agar viene dalle alghe. La lecitina di soia è un grasso naturale. Il calcio è nei latticini. L'azoto è nell'aria che respiriamo.</p>
+      <p>La cucina molecolare usa la chimica per esaltare gli ingredienti naturali, non per sostituirli. Una sfera di pomodoro contiene solo pomodoro — nessun additivo, nessun conservante. Solo la comprensione profonda di cosa rende un pomodoro straordinario.</p>
+      <p>Quando cucino una sferificazione di burrata con pomodoro e basilico voglio che il cliente chiuda gli occhi e pensi all'estate in Puglia. La tecnica è invisibile — l'emozione è tutto.</p>
+    `
+  },
+
+  // ── CUCINA ITALIANA ──
+  ita: {
+    tag: 'Manifesto III · Tradizione',
+    title: "L'Anima della Cucina Italiana",
+    subtitle: 'Territorio, memoria e identità',
+    meta: ['🇮🇹 Tradizione', '⏱ 10 min lettura', '👨‍🍳 Chef Antonio Locoselli'],
+    corsoLink: 'https://gumroad.com/l/TUOLINK',
+    corsoNome: 'Pasta Fresca Italiana',
+    html: `
+      <h2>La cucina italiana non è <em>un menu</em></h2>
+      <p>La cucina italiana è un sistema di valori. È rispetto per la stagionalità, fedeltà al territorio, memoria collettiva tramandata attraverso i piatti. Non esistono ricette italiane — esistono ricette pugliesi, siciliane, emiliane, venete. Ogni vallata ha la sua versione, ogni nonna ha il suo segreto.</p>
+      <p>Sono cresciuto con i profumi della cucina di nonna Maria in Puglia. Lei non usava bilance, non seguiva ricette scritte. Cucinava con le mani, con il naso, con la memoria del corpo. Quel sapere è la cosa più preziosa che ho ricevuto.</p>
+      <div class="callout"><p><strong>La mia filosofia:</strong> La cucina italiana contemporanea non deve scegliere tra tradizione e innovazione. Deve onorarle entrambe — conoscendo le radici così profondamente da poterle reinterpretare con rispetto e creatività.</p></div>
+
+      <div class="chapter-divider"><span>Le Basi</span></div>
+      <h2>I <em>pilastri</em> della cucina italiana</h2>
+      <h3>1. La Stagionalità</h3>
+      <p>Il pomodoro di agosto e il pomodoro di gennaio non sono lo stesso alimento. La cucina italiana nasce da ingredienti stagionali perché per secoli non c'era alternativa. Questo limite è diventato forza: ogni stagione ha i suoi piatti, ogni mese ha i suoi sapori.</p>
+      <p>Nel mio menu cambio ogni settimana. Non per moda — per necessità. Usare un ingrediente fuori stagione significa usarlo al 50% del suo potenziale. Perché accontentarsi?</p>
+      <h3>2. Il Territorio</h3>
+      <p>L'olio pugliese è amaro e intenso. Quello ligure è delicato e floreale. L'uno non è superiore all'altro — sono diversi perché vengono da terre diverse, con clima diverso, con varietà diverse. Rispettare il territorio significa usare l'ingrediente giusto nel piatto giusto.</p>
+      <h3>3. La Semplicità</h3>
+      <p>La pasta al pomodoro sembra semplice. Ma la qualità dei pomodori, il tipo di pasta, la temperatura dell'acqua, il tempo di cottura, la quantità di sale, il momento in cui si aggiunge la pasta alla salsa — ogni variabile conta. La semplicità italiana è in realtà complessità nascosta.</p>
+      <table class="data-table">
+        <tr><th>Regione</th><th>Ingrediente simbolo</th><th>Tecnica caratteristica</th></tr>
+        <tr><td><strong>Puglia</strong></td><td>Orecchiette, cime di rapa, burrata</td><td>Pasta di semola, verdure amare</td></tr>
+        <tr><td><strong>Emilia-Romagna</strong></td><td>Parmigiano, prosciutto, sfoglia all'uovo</td><td>Pasta ripiena, ragù lento</td></tr>
+        <tr><td><strong>Sicilia</strong></td><td>Pistacchio, agrumi, tonno, mandorle</td><td>Agrodolce, influenze arabe</td></tr>
+        <tr><td><strong>Veneto</strong></td><td>Radicchio, baccalà, asparagi bianchi</td><td>Risotto, bigoli trafilati</td></tr>
+        <tr><td><strong>Toscana</strong></td><td>Bistecca, fagioli, tartufo, pane sciocco</td><td>Cotture lunghe, zuppe rustiche</td></tr>
+        <tr><td><strong>Liguria</strong></td><td>Basilico, pinoli, acciughe, pesto</td><td>Focaccia, trofie, pasta al pesto</td></tr>
+      </table>
+
+      <div class="chapter-divider"><span>Le Tecniche</span></div>
+      <h2>I fondamentali che <em>nessuno insegna</em></h2>
+      <h3>Il Soffritto</h3>
+      <p>Non è semplicemente "cipolla in padella". Il soffritto è la base aromatica di metà della cucina italiana. La cipolla deve appassire lentamente a fuoco bassissimo fino a diventare quasi trasparente — non dorata, non bruciata. Ci vogliono 15-20 minuti. Chi ha fretta brucia la cipolla e distrugge il piatto.</p>
+      <p>La mirepoix italiana — sedano, carota, cipolla in proporzioni 1:1:2 — è la fondamenta di ogni ragù, ogni stufato, ogni brodo. Impararla bene significa imparare a cucinare italiano.</p>
+      <h3>La Mantecatura</h3>
+      <p>È il momento in cui la pasta diventa un piatto italiano e non solo pasta condita. Si scola 1 minuto prima del tempo e si completa la cottura in padella con il condimento e un mestolo di acqua di cottura. Il movimento rotatorio crea un'emulsione naturale tra amido, grassi e acqua. Il risultato è cremosità senza panna, senza formaggi aggiunti, solo la magia della tecnica.</p>
+      <div class="tip"><span class="tip-lbl">✦ Consiglio di Antonio</span><p>L'acqua di cottura della pasta è oro. L'amido che rilascia è l'emulsionante naturale che crea la cremosità. Tienila sempre da parte — ne basta un mestolo per salvare un piatto.</p></div>
+      <h3>Il Brodo</h3>
+      <p>Il brodo fatto in casa è la differenza tra un buon piatto e un piatto straordinario. Richiede tempo — 3-4 ore — ma si può fare in grandi quantità e congelare. Un brodo di carne fatto bene ha una concentrazione di sapore che nessun dado può replicare. È la base di risotti, minestre, salse.</p>
+
+      <div class="chapter-divider"><span>La Filosofia</span></div>
+      <h2>Perché la cucina italiana è <em>immortale</em></h2>
+      <p>La cucina italiana ha 2000 anni di storia. Ha resistito a conquiste, invasioni, mode e globalizzazione. Perché? Perché non è una cucina di ricette — è una cucina di principi. Il principio della stagionalità, della semplicità, del rispetto per l'ingrediente.</p>
+      <p>Quando cucino un piatto tradizionale pugliese nel mio ristorante in Germania, non lo faccio per nostalgia. Lo faccio perché quei principi funzionano sempre, ovunque, per chiunque. La mia nonna aveva ragione — lei semplicemente non sapeva spiegare il perché in termini chimici. Io sì. E questo cambia tutto.</p>
+      <p>La mia cucina fonde tradizione e molecolare non per essere originale — ma perché è onesta. Sono pugliese, ho studiato la chimica degli alimenti, lavoro in Germania. Il mio piatto non può essere solo uno di questi — deve essere tutti e tre insieme.</p>
+    `
+  },
+
+  // ── BONUS: 10 ERRORI ──
+  errori: {
+    tag: 'Bonus Esclusivo',
+    title: 'I 10 Errori che ogni cuoco fa sempre',
+    subtitle: 'E come evitarli per sempre',
+    meta: ['⚠️ Bonus', '⏱ 8 min lettura', '👨‍🍳 Chef Antonio Locoselli'],
+    corsoLink: 'https://gumroad.com/l/TUOLINK',
+    corsoNome: 'Percorso Chef Completo',
+    html: `
+      <p>Ho sbagliato tutti questi errori. Alcuni per anni, prima di capire perché i miei piatti non erano al livello che volevo. Ve li racconto perché possiate evitarli e risparmiare il tempo che ho perso io.</p>
+
+      <h2>Errore 1: Padella <em>non abbastanza calda</em></h2>
+      <p>È l'errore più comune e più distruttivo. Una padella fredda o tiepida non rosola — lessa. La carne si attacca, rilascia liquidi, diventa grigia invece di dorata. La reazione di Maillard (quella che crea il sapore e il colore) avviene solo sopra i 140°C. Prima di mettere qualsiasi cosa in padella, aspetta che sia fumante.</p>
+      <div class="tip"><span class="tip-lbl">✦ Come capire se la padella è pronta</span><p>Metti una goccia d'acqua: deve evaporare immediatamente e "danzare" sulla superficie. Se rimane ferma e bolle lentamente, aspetta ancora.</p></div>
+
+      <h2>Errore 2: Troppa roba in padella</h2>
+      <p>Mettere troppi ingredienti abbassa la temperatura della padella. Il risultato: tutto rilascia acqua e invece di rosolare bolle nel proprio liquido. La regola è semplice: mai sovraffollare. Meglio due giri che uno mediocre.</p>
+
+      <h2>Errore 3: Non asciugare la carne prima di cuocerla</h2>
+      <p>L'umidità in superficie crea vapore quando tocca la padella calda. Il vapore impedisce la rosolatura. Prima di cuocere qualsiasi proteina, tampona sempre con carta assorbente fino a che la superficie è completamente asciutta. Questo vale doppiamente per il pesce.</p>
+
+      <h2>Errore 4: Salare la pasta <em>dopo</em></h2>
+      <p>La pasta assorbe il sapore durante la cottura, non dopo. L'acqua deve essere "salata come il mare" — letteralmente. Un litro d'acqua richiede circa 10g di sale (un cucchiaio abbondante). Sale aggiunto dopo rimane in superficie.</p>
+
+      <h2>Errore 5: Buttare via l'acqua di cottura della pasta</h2>
+      <p>L'acqua di cottura è ricca di amido — è l'emulsionante naturale che crea la cremosità nella mantecatura. Prima di scolare, metti sempre da parte almeno un mestolo. Ti servirà per legare il sugo alla pasta.</p>
+
+      <h2>Errore 6: Cuocere il soffritto a fuoco alto</h2>
+      <p>Il soffritto vuole pazienza e fuoco basso. La cipolla deve appassire lentamente fino a diventare quasi trasparente — non dorarsi. Se la cipolla diventa dorata velocemente, il fuoco è troppo alto. Il soffritto bruciato rovina tutto il piatto.</p>
+
+      <h2>Errore 7: Non assaggiare durante la cottura</h2>
+      <p>Sembra ovvio ma pochissimi lo fanno davvero. Assaggiare continuamente è l'unico modo per capire dove si è e dove si vuole arrivare. Il palato si allena assaggiando — non guardando ricette su YouTube.</p>
+
+      <h2>Errore 8: Tagliare la carne subito dopo la cottura</h2>
+      <p>La carne deve riposare dopo la cottura. Durante il riposo i succhi si redistribuiscono uniformemente nella carne. Se tagli subito, i succhi fuoriescono tutti in una volta e la carne diventa asciutta. Regola: riposa per la metà del tempo di cottura, minimo 5 minuti.</p>
+      <div class="tip"><span class="tip-lbl">✦ Quanto riposo?</span><p>Una bistecca da 2 cm: 5 minuti. Un pollo intero: 15 minuti. Un arrosto da 2 kg: 30 minuti. Coprire con un foglio di alluminio per mantenere il calore.</p></div>
+
+      <h2>Errore 9: Usare olio di oliva per le alte temperature</h2>
+      <p>L'olio extravergine di oliva ha un punto di fumo relativamente basso (~180-200°C). Per le rosolature ad alta temperatura usa olio di semi di girasole o di arachidi. L'olio EVO è per condire a freddo, per i soffritti lenti, per le marinature — non per friggere a 220°C.</p>
+
+      <h2>Errore 10: Seguire le ricette alla lettera <em>senza capire perché</em></h2>
+      <p>Questo è l'errore più importante e meno ovvio. Le ricette sono mappe, non leggi. Se non capisci perché un ingrediente è lì o perché un passaggio è necessario, non puoi adattarti quando le cose vanno storte — e in cucina vanno sempre storte.</p>
+      <p>Impara il principio, non la ricetta. Impara perché si fa il soffritto, perché si manteca la pasta, perché la carne riposa. Quando capisci il perché, puoi cucinare qualsiasi cosa con qualsiasi ingrediente.</p>
+      <div class="callout"><p><strong>La mia nonna</strong> non sapeva spiegare perché aggiungeva un cucchiaio di acqua di cottura alla pasta. Ma lo faceva sempre. Era la chimica del suo corpo che aveva imparato in decenni di cucina. Io ho imparato a spiegare il perché — voi potete imparare entrambe le cose.</p></div>
+    `
+  }
+};
+
+// ══ NAVIGATION ══
+const homeView = document.getElementById('home-view');
+const readerView = document.getElementById('reader-view');
+
+function openManifesto(id) {
+  const m = manifesti[id];
+  if (!m) return;
+  homeView.style.display = 'none';
+  readerView.style.display = 'block';
+  window.scrollTo(0, 0);
+
+  document.getElementById('readerContent').innerHTML = `
+    <button class="reader-back" onclick="closeReader()">← Torna ai Manifesti</button>
+    <div class="reader-header">
+      <span class="reader-tag">${m.tag}</span>
+      <h1 class="reader-h1">${m.title.replace(/(\w+)$/, '<em>$1</em>')}</h1>
+      <p class="reader-sub">${m.subtitle}</p>
+      <div class="reader-meta">
+        ${m.meta.map(t => `<span class="reader-meta-item">${t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="article">${m.html}</div>
+    <div class="article-cta">
+      <h3>Vuoi andare più in <em>profondità</em>?</h3>
+      <p>Questo manifesto è solo l'inizio. Il corso completo include video lezioni, esercitazioni pratiche e la mia supervisione diretta.</p>
+      <a href="${m.corsoLink}" target="_blank" class="cta-btn">Scopri il Corso: ${m.corsoNome} →</a>
+    </div>
+  `;
+}
+
+function closeReader() {
+  homeView.style.display = 'block';
+  readerView.style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+// ══ EMAIL FORM ══
+function submitEmail() {
+  const email = document.getElementById('emailInput').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('emailInput').style.borderColor = '#c4520a';
+    return;
+  }
+  document.getElementById('emailInput').style.borderColor = 'rgba(196,150,42,0.3)';
+  document.getElementById('emailSuccess').style.display = 'block';
+  document.getElementById('emailInput').value = '';
+  document.getElementById('emailInput').placeholder = 'Grazie! Controlla la tua email ✓';
+}
+
+// ══ PROGRESS BAR ══
+window.addEventListener('scroll', () => {
+  const h = document.body.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  document.getElementById('progBar').style.width = pct + '%';
+  const pb2 = document.getElementById('progBar2');
+  if (pb2) pb2.style.width = pct + '%';
+});
+
+// ══ SCROLL REVEAL ══
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.mcard, .quiz-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locoselli Academy — Moduli Gratuiti</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Tenor+Sans&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f5f2ec;
+  --testo: #111111;
+  --testo2: #222222;
+  --testo3: #555555;
+  --oro: #7a5e10;
+  --oro-bg: #fdf6e3;
+  --verde: #1a5c30;
+  --verde-bg: #e6f4ec;
+  --rosso: #7a1010;
+  --rosso-bg: #fceaea;
+  --bordo: #d4cabb;
+  --nero: #080706;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--testo); font-family:'EB Garamond', serif; font-size:19px; line-height:1.8; }
+
+/* ── NAV ── */
+nav {
+  position:sticky; top:0; z-index:200;
+  background:#fff; border-bottom:2px solid var(--oro);
+  padding:14px 40px; display:flex; justify-content:space-between; align-items:center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.nav-logo { font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--oro); text-decoration:none; cursor:pointer; }
+.nav-center { font-family:'Tenor Sans',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--testo3); }
+.nav-tag { background:var(--oro); color:#fff; font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:2px; }
+
+/* ── VIEWS ── */
+.view { display:none; }
+.view.active { display:block; }
+
+/* ── HOME ── */
+.home-hero {
+  background: linear-gradient(135deg, #1a1208 0%, #2d2010 100%);
+  color: #fff; text-align:center; padding: 80px 40px 60px;
+}
+.home-hero-label { font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--oro-chiaro,#d4b96a); margin-bottom:16px; display:block; }
+.home-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(36px,6vw,64px); font-weight:400; line-height:1.05; margin-bottom:10px; }
+.home-hero h1 em { color:var(--oro-chiaro,#d4b96a); font-style:italic; }
+.home-hero p { font-style:italic; font-size:20px; color:rgba(255,255,255,0.65); margin-bottom:32px; }
+.home-hero-desc { font-size:17px; color:rgba(255,255,255,0.6); max-width:580px; margin:0 auto; line-height:1.7; }
+
+.modules-wrap { max-width:1060px; margin:0 auto; padding:60px 30px 80px; }
+.modules-label { font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--testo3); margin-bottom:32px; display:block; }
+.modules-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+
+.mcard {
+  background:#fff; border:1px solid var(--bordo); border-radius:4px;
+  padding:28px 24px; cursor:pointer;
+  transition:border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  position:relative;
+}
+.mcard:hover { border-color:var(--oro); box-shadow:0 4px 20px rgba(154,120,32,0.12); transform:translateY(-2px); }
+.mcard-num { font-family:'Playfair Display',serif; font-size:44px; color:rgba(154,120,32,0.12); line-height:1; margin-bottom:12px; }
+.mcard-icon { font-size:26px; margin-bottom:10px; display:block; }
+.mcard h3 { font-family:'Playfair Display',serif; font-size:18px; font-weight:400; color:#111111; margin-bottom:8px; line-height:1.2; }
+.mcard p { font-size:13px; line-height:1.6; color:#444444; margin-bottom:16px; font-family:'Tenor Sans',sans-serif; }
+.mcard-tags { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.mcard-tag { font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--oro); border:1px solid rgba(154,120,32,0.3); padding:3px 9px; border-radius:2px; }
+.mcard-free { font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--verde); }
+.mcard-done { position:absolute; top:14px; right:14px; background:var(--verde); color:#fff; border-radius:50%; width:24px; height:24px; display:none; align-items:center; justify-content:center; font-size:12px; font-family:'Tenor Sans',sans-serif; }
+.mcard.done .mcard-done { display:flex; }
+.mcard.done { border-color:var(--verde); }
+
+/* ── READER ── */
+.reader-wrap { max-width:740px; margin:0 auto; padding:40px 30px 80px; }
+
+.reader-back {
+  font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--testo3); background:none; border:none; cursor:pointer; padding:0;
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:36px;
+  transition:color 0.2s;
+}
+.reader-back:hover { color:var(--oro); }
+
+.reader-header { margin-bottom:40px; padding-bottom:28px; border-bottom:2px solid var(--bordo); }
+.reader-num { font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--oro); display:block; margin-bottom:12px; font-weight:700; }
+.reader-title { font-family:'Playfair Display',serif; font-size:clamp(30px,5vw,48px); font-weight:400; line-height:1.1; color:#111111; margin-bottom:8px; }
+.reader-title em { font-style:italic; color:var(--oro); }
+.reader-sub { font-style:italic; font-size:20px; color:#444444; margin-bottom:20px; }
+.reader-meta { display:flex; gap:16px; flex-wrap:wrap; }
+.reader-meta span { font-family:'Tenor Sans',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#333333; background:#f0ede6; padding:5px 12px; border-radius:2px; font-weight:600; }
+
+/* ── ARTICLE BODY ── */
+.article h2 {
+  font-family:'Playfair Display',serif; font-size:26px; font-weight:400;
+  color:#111111; margin:44px 0 14px; padding-top:20px;
+  border-top:2px solid var(--bordo);
+}
+.article h2 em { font-style:italic; color:var(--oro); }
+.article h3 { font-family:'Playfair Display',serif; font-size:20px; font-weight:400; font-style:italic; color:#4a3800; margin:28px 0 10px; }
+.article p { color:#222222; margin-bottom:16px; font-size:19px; line-height:1.82; }
+.article p strong { color:#111111; font-weight:700; }
+.article ul, .article ol { margin:0 0 18px 28px; }
+.article li { color:#222222; margin-bottom:8px; font-size:18px; line-height:1.75; }
+.article li strong { color:#111111; font-weight:700; }
+
+.callout {
+  background:#fffbf0; border-left:4px solid var(--oro);
+  padding:18px 22px; margin:24px 0; border-radius:0 4px 4px 0;
+}
+.callout p { color:#222222; margin:0; font-size:17px; }
+.callout strong { color:#111111; font-weight:700; }
+.tip { background:#edfaf2; border-left:4px solid var(--verde); padding:18px 22px; margin:24px 0; border-radius:0 4px 4px 0; }
+.tip-lbl { font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--verde); display:block; margin-bottom:6px; font-weight:700; }
+.tip p { color:#222222; margin:0; font-size:17px; }
+
+.data-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:16px; }
+.data-table th { background:#f5f0e0; padding:11px 14px; text-align:left; font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#5a3e00; border-bottom:2px solid var(--bordo); }
+.data-table td { padding:11px 14px; color:#222222; border-bottom:1px solid var(--bordo); vertical-align:top; line-height:1.55; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table td strong { color:#111111; font-weight:700; }
+.data-table tr:nth-child(even) td { background:#fafaf7; }
+
+/* ── QUIZ ── */
+.quiz-wrap {
+  margin-top:56px; background:#ffffff; border:2px solid #cccccc;
+  border-radius:6px; overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.1);
+}
+.quiz-head { background:linear-gradient(135deg,#1a1208,#2d2010); padding:28px 32px; }
+.quiz-head-label { font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:4px; text-transform:uppercase; color:#d4b96a; display:block; margin-bottom:8px; }
+.quiz-head h2 { font-family:'Playfair Display',serif; font-size:24px; font-weight:400; color:#ffffff; margin-bottom:4px; }
+.quiz-head p { font-size:14px; color:rgba(255,255,255,0.7); font-family:'Tenor Sans',sans-serif; }
+.quiz-body { padding:32px; background:#ffffff; }
+
+.question { margin-bottom:32px; }
+.q-num { font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--oro); display:block; margin-bottom:8px; font-weight:700; }
+.q-text { font-size:19px; color:#111111; margin-bottom:14px; font-style:italic; line-height:1.5; font-weight:400; }
+.options { display:flex; flex-direction:column; gap:8px; }
+.opt {
+  background:#f8f8f8; border:2px solid #cccccc; border-radius:4px;
+  padding:13px 16px; cursor:pointer; display:flex; align-items:center; gap:12px;
+  font-size:17px; color:#111111; transition:border-color 0.2s, background 0.2s;
+  font-family:'EB Garamond',serif;
+}
+.opt:hover { border-color:var(--oro); background:#fffbf0; }
+.opt.selected-correct { background:#e6f4ec; border-color:var(--verde); color:#0a3d1f; font-weight:600; }
+.opt.selected-wrong { background:#fceaea; border-color:var(--rosso); color:#5a0000; font-weight:600; }
+.opt.reveal-correct { background:#e6f4ec; border-color:var(--verde); }
+.opt.disabled { cursor:default; pointer-events:none; }
+.opt-letter {
+  width:30px; height:30px; border-radius:50%; border:2px solid #bbbbbb; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Tenor Sans',sans-serif; font-size:12px; font-weight:700; color:#444444;
+}
+.opt.selected-correct .opt-letter { border-color:var(--verde); background:var(--verde); color:#fff; }
+.opt.selected-wrong .opt-letter { border-color:var(--rosso); background:var(--rosso); color:#fff; }
+.opt.reveal-correct .opt-letter { border-color:var(--verde); background:var(--verde); color:#fff; }
+
+.feedback { display:none; margin-top:10px; padding:12px 16px; border-radius:4px; font-size:15px; line-height:1.55; font-family:'Tenor Sans',sans-serif; font-weight:600; }
+.feedback.show { display:block; }
+.feedback.ok { background:#e6f4ec; color:#0a3d1f; border-left:4px solid var(--verde); }
+.feedback.no { background:#fceaea; color:#5a0000; border-left:4px solid var(--rosso); }
+
+.q-divider { height:1px; background:var(--bordo); margin:0 0 28px; }
+
+.quiz-submit-btn {
+  display:none; background:var(--oro); color:#fff; border:none; border-radius:4px;
+  padding:14px 36px; font-family:'Tenor Sans',sans-serif; font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; cursor:pointer; margin-top:16px;
+  transition:background 0.2s, transform 0.2s;
+}
+.quiz-submit-btn:hover { background:#7a6018; transform:translateY(-1px); }
+
+/* RESULT */
+.quiz-result { display:none; text-align:center; padding:48px 28px; }
+.result-pct { font-family:'Playfair Display',serif; font-size:80px; font-weight:400; color:var(--oro); line-height:1; margin-bottom:6px; }
+.result-lbl { font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:#444444; margin-bottom:14px; display:block; }
+.result-badge { display:inline-block; background:#f5f0e0; border:2px solid #c4a840; border-radius:4px; padding:8px 20px; font-family:'Tenor Sans',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#5a3e00; font-weight:700; margin-bottom:18px; }
+.result-msg { font-style:italic; font-size:18px; color:#333333; max-width:420px; margin:0 auto 28px; line-height:1.65; }
+.result-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-retry { background:none; border:1px solid var(--bordo); border-radius:4px; padding:11px 24px; font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--testo3); cursor:pointer; transition:border-color 0.2s; }
+.btn-retry:hover { border-color:var(--oro); color:var(--oro); }
+.btn-next { background:var(--oro); border:none; border-radius:4px; padding:12px 26px; font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#fff; cursor:pointer; transition:background 0.2s; }
+.btn-next:hover { background:#7a6018; }
+
+.upgrade-box { margin-top:48px; background:linear-gradient(135deg,#1a1208,#2d2010); border-radius:6px; padding:36px 32px; text-align:center; }
+.upgrade-box h3 { font-family:'Playfair Display',serif; font-size:22px; color:#fff; margin-bottom:10px; }
+.upgrade-box p { font-style:italic; font-size:16px; color:rgba(255,255,255,0.55); margin-bottom:22px; }
+.upgrade-box a { display:inline-block; background:var(--oro); color:#fff; text-decoration:none; border-radius:4px; padding:12px 30px; font-family:'Tenor Sans',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; transition:background 0.2s; }
+.upgrade-box a:hover { background:#c49a28; }
+
+@media(max-width:820px) {
+  nav { padding:12px 18px; }
+  .modules-grid { grid-template-columns:1fr; }
+  .home-hero { padding:60px 22px 44px; }
+  .modules-wrap, .reader-wrap { padding:32px 18px 60px; }
+  .quiz-body { padding:22px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" onclick="showHome()">Antonio Locoselli</span>
+  <span class="nav-center" id="navCenter">Locoselli Academy</span>
+  <span class="nav-tag">Gratuito</span>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="view active" id="view-home">
+  <div class="home-hero">
+    <span class="home-hero-label">Locoselli Academy · Free Modules</span>
+    <h1>Impara dalle <em>basi</em></h1>
+    <p>Cinque moduli gratuiti firmati Chef Antonio Locoselli</p>
+    <p class="home-hero-desc">Leggi gli articoli, assimila i concetti fondamentali e metti alla prova le tue conoscenze con i quiz finali. Ogni modulo completato ti avvicina alla cucina professionale.</p>
+  </div>
+  <div class="modules-wrap">
+    <span class="modules-label">Scegli il tuo modulo — clicca per iniziare</span>
+    <div class="modules-grid">
+      <div class="mcard" id="card-0" onclick="showModule(0)">
+        <div class="mcard-num">01</div>
+        <span class="mcard-icon">🔬</span>
+        <h3>Cucina Molecolare Base</h3>
+        <p>Sferificazione, gelificanti, emulsioni e azoto liquido. La scienza al servizio dell'emozione.</p>
+        <div class="mcard-tags">
+          <span class="mcard-tag">12 min</span>
+          <span class="mcard-tag">8 domande</span>
+          <span class="mcard-free">✦ Gratuito</span>
+        </div>
+        <div class="mcard-done">✓</div>
+      </div>
+      <div class="mcard" id="card-1" onclick="showModule(1)">
+        <div class="mcard-num">02</div>
+        <span class="mcard-icon">🍝</span>
+        <h3>Pasta Fresca Italiana</h3>
+        <p>Farine, uova, riposo della sfoglia e formati regionali. Le radici della cucina italiana.</p>
+        <div class="mcard-tags">
+          <span class="mcard-tag">10 min</span>
+          <span class="mcard-tag">8 domande</span>
+          <span class="mcard-free">✦ Gratuito</span>
+        </div>
+        <div class="mcard-done">✓</div>
+      </div>
+      <div class="mcard" id="card-2" onclick="showModule(2)">
+        <div class="mcard-num">03</div>
+        <span class="mcard-icon">🍰</span>
+        <h3>Pasticceria Molecolare</h3>
+        <p>Gel, spume, sferificazione dolce e gelato all'azoto. Dessert che sorprendono davvero.</p>
+        <div class="mcard-tags">
+          <span class="mcard-tag">11 min</span>
+          <span class="mcard-tag">8 domande</span>
+          <span class="mcard-free">✦ Gratuito</span>
+        </div>
+        <div class="mcard-done">✓</div>
+      </div>
+      <div class="mcard" id="card-3" onclick="showModule(3)">
+        <div class="mcard-num">04</div>
+        <span class="mcard-icon">🌡️</span>
+        <h3>CBT — Cottura Sous Vide</h3>
+        <p>Temperature, tempi, collagene e sicurezza. La precisione che cambia tutto.</p>
+        <div class="mcard-tags">
+          <span class="mcard-tag">10 min</span>
+          <span class="mcard-tag">8 domande</span>
+          <span class="mcard-free">✦ Gratuito</span>
+        </div>
+        <div class="mcard-done">✓</div>
+      </div>
+      <div class="mcard" id="card-4" onclick="showModule(4)">
+        <div class="mcard-num">05</div>
+        <span class="mcard-icon">🧼</span>
+        <h3>Pulizia & HACCP</h3>
+        <p>Catena del freddo, zone di pericolo, igiene e normative. Le basi che proteggono tutti.</p>
+        <div class="mcard-tags">
+          <span class="mcard-tag">9 min</span>
+          <span class="mcard-tag">8 domande</span>
+          <span class="mcard-free">✦ Gratuito</span>
+        </div>
+        <div class="mcard-done">✓</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODULO 0: MOLECOLARE ══════════ -->
+<div class="view" id="view-0">
+  <div class="reader-wrap">
+    <button class="reader-back" onclick="showHome()">← Tutti i moduli</button>
+    <div class="reader-header">
+      <span class="reader-num">Modulo 01 · Gratuito</span>
+      <h1 class="reader-title">Cucina <em>Molecolare</em> Base</h1>
+      <p class="reader-sub">Scienza al servizio dell'emozione</p>
+      <div class="reader-meta">
+        <span>🔬 Molecolare</span><span>⏱ 12 min lettura</span><span>❓ 8 domande</span>
+      </div>
+    </div>
+
+    <div class="article">
+      <h2>Cos'è la <em>Cucina Molecolare</em>?</h2>
+      <p>La cucina molecolare non è un trucco di prestigio. È l'applicazione consapevole dei principi della chimica e della fisica alla trasformazione degli alimenti. Nata negli anni '90 grazie a Ferran Adrià e Heston Blumenthal, si è evoluta in una disciplina seria, oggi presente in tutte le grandi cucine del mondo.</p>
+      <p>Per me, Antonio Locoselli, la cucina molecolare è uno strumento di narrazione. Ogni tecnica deve servire il sapore, non sopraffarla. <strong>Stupire senza storpiare</strong>: questo è il principio che guida ogni mio piatto.</p>
+      <div class="callout">
+        <p><strong>Definizione:</strong> La gastronomia molecolare studia le trasformazioni fisiche e chimiche degli ingredienti durante la cottura. L'obiettivo è comprendere i meccanismi per controllarli con precisione.</p>
+      </div>
+
+      <h2>I <em>Gelificanti</em>: dare forma al gusto</h2>
+      <p>I gelificanti si sciolgono in un liquido e formano un gel al variare della temperatura. Sono la base di moltissime preparazioni molecolari.</p>
+      <table class="data-table">
+        <tr><th>Gelificante</th><th>Origine</th><th>Temp. gel</th><th>Caratteristica</th></tr>
+        <tr><td><strong>Agar Agar</strong></td><td>Alghe rosse</td><td>35–45°C</td><td>Regge fino a 85°C, gel termo-stabile</td></tr>
+        <tr><td><strong>Gelatina</strong></td><td>Collagene animale</td><td>~35°C (si scioglie)</td><td>Gel morbido, si scioglie a temp. corporea</td></tr>
+        <tr><td><strong>Carragenina</strong></td><td>Alghe</td><td>40–70°C</td><td>Gel elastico, buona resistenza al taglio</td></tr>
+        <tr><td><strong>Metilcellulosa</strong></td><td>Vegetale</td><td>Inversa: solida a caldo!</td><td>Si solidifica a caldo, liquida a freddo</td></tr>
+      </table>
+      <div class="tip">
+        <span class="tip-lbl">✦ Consiglio di Antonio</span>
+        <p>Fai sempre la prova su un cucchiaino: qualche gocce di preparazione calda in freezer per 2 minuti ti mostra subito la consistenza finale. Correggi prima di impiattare.</p>
+      </div>
+
+      <h2>La <em>Sferificazione</em>: liquidi che scoppiano</h2>
+      <p>La sferificazione crea sfere con un involucro gelatinoso e interno liquido. Al morso il liquido esplode liberando tutto il sapore. Si basa sulla reazione tra <strong>alginato di sodio</strong> e <strong>cloruro di calcio</strong>.</p>
+      <h3>Sferificazione Diretta</h3>
+      <p>Si aggiunge l'alginato al liquido e si immerge in un bagno di cloruro di calcio. La sfera continua a gelificare anche fuori dal bagno, quindi va servita immediatamente.</p>
+      <ul>
+        <li><strong>Alginato:</strong> 0,5 g per 100 ml di liquido</li>
+        <li><strong>Bagno calcio:</strong> 0,5 g di cloruro di calcio per 100 ml d'acqua</li>
+        <li><strong>Tempo:</strong> 1–3 minuti secondo la dimensione</li>
+      </ul>
+      <h3>Sferificazione Inversa</h3>
+      <p>Si aggiunge il calcio al liquido e si immerge in bagno di alginato. Ideale per latticini o quando si vuole una sfera stabile nel tempo.</p>
+      <div class="tip">
+        <span class="tip-lbl">✦ Errore comune</span>
+        <p>Liquidi molto acidi (pH &lt; 4) bloccano la gelificazione dell'alginato. Correggi il pH a 4,5–5 con citrato di sodio prima di procedere.</p>
+      </div>
+
+      <h2>Le <em>Emulsioni</em>: unire ciò che non si unisce</h2>
+      <p>Un'emulsione è una dispersione stabile di due liquidi immiscibili (acqua e grasso). La <strong>lecitina di soia</strong> è l'emulsionante più usato in cucina molecolare. Si usa allo 0,3–1% e con il mixer inclinato crea <em>arie</em>: spume leggere di bolle saporite.</p>
+
+      <h2>Le <em>Spume</em> con il Sifone</h2>
+      <p>Il sifone con cariche N2O incorpora gas in un liquido producendo spume, mousse e chantilly saporite. La consistenza dipende dalla quantità di grassi o gelatina nella base:</p>
+      <ul>
+        <li><strong>Spuma liquida:</strong> base acquosa pura, molto leggera, poca stabilità</li>
+        <li><strong>Spuma cremosa:</strong> base con panna o tuorli, più stabile e vellutata</li>
+        <li><strong>Mousse ferma:</strong> aggiunta di gelatina alla base, regge a temperatura ambiente</li>
+      </ul>
+
+      <h2>L'<em>Azoto Liquido</em> in Cucina</h2>
+      <p>L'azoto liquido bolle a −196°C e permette di surgelare istantaneamente qualsiasi preparazione, creando texture croccanti fuori e morbide dentro, gelati ultra-cremosi e polveri da ingredienti grassi.</p>
+      <div class="callout">
+        <p><strong>Sicurezza:</strong> Usa sempre guanti e occhiali protettivi. Non chiudere mai contenitori ermetici con azoto liquido — la pressione può causare esplosioni.</p>
+      </div>
+    </div>
+
+    <!-- QUIZ 0 -->
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <span class="quiz-head-label">✦ Quiz Finale — Modulo 01</span>
+        <h2>Metti alla prova le tue conoscenze</h2>
+        <p id="prog-0">0 / 8 risposte date</p>
+      </div>
+      <div class="quiz-body" id="qbody-0">
+        <div class="question">
+          <span class="q-num">Domanda 1 di 8</span>
+          <p class="q-text">A quale temperatura si scioglie la gelatina animale?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,0,0,1)"><span class="opt-letter">A</span>A circa 20°C</div>
+            <div class="opt" onclick="answer(0,0,1,1)"><span class="opt-letter">B</span>A circa 35°C</div>
+            <div class="opt" onclick="answer(0,0,2,1)"><span class="opt-letter">C</span>A circa 60°C</div>
+            <div class="opt" onclick="answer(0,0,3,1)"><span class="opt-letter">D</span>A circa 100°C</div>
+          </div>
+          <div class="feedback" id="fb-0-0"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 2 di 8</span>
+          <p class="q-text">Nella sferificazione diretta, cosa si aggiunge al liquido da sferificare?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,1,0,2)"><span class="opt-letter">A</span>Cloruro di calcio</div>
+            <div class="opt" onclick="answer(0,1,1,2)"><span class="opt-letter">B</span>Agar agar</div>
+            <div class="opt" onclick="answer(0,1,2,2)"><span class="opt-letter">C</span>Alginato di sodio</div>
+            <div class="opt" onclick="answer(0,1,3,2)"><span class="opt-letter">D</span>Lecitina di soia</div>
+          </div>
+          <div class="feedback" id="fb-0-1"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 3 di 8</span>
+          <p class="q-text">Perché i liquidi molto acidi (pH &lt; 4) creano problemi nella sferificazione?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,2,0,1)"><span class="opt-letter">A</span>Rendono il sapore troppo forte</div>
+            <div class="opt" onclick="answer(0,2,1,1)"><span class="opt-letter">B</span>Inibiscono la gelificazione dell'alginato</div>
+            <div class="opt" onclick="answer(0,2,2,1)"><span class="opt-letter">C</span>Sciolgono il cloruro di calcio</div>
+            <div class="opt" onclick="answer(0,2,3,1)"><span class="opt-letter">D</span>Fanno scurire la sfera</div>
+          </div>
+          <div class="feedback" id="fb-0-2"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 4 di 8</span>
+          <p class="q-text">La metilcellulosa è un gelificante "inverso". Cosa significa?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,3,0,1)"><span class="opt-letter">A</span>Si solidifica a caldo e diventa liquida a freddo</div>
+            <div class="opt" onclick="answer(0,3,1,1)"><span class="opt-letter">B</span>Si solidifica a freddo e si scioglie a caldo</div>
+            <div class="opt" onclick="answer(0,3,2,1)"><span class="opt-letter">C</span>Non è commestibile</div>
+            <div class="opt" onclick="answer(0,3,3,1)"><span class="opt-letter">D</span>Si usa solo con l'azoto liquido</div>
+          </div>
+          <div class="feedback" id="fb-0-3"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 5 di 8</span>
+          <p class="q-text">A quanti gradi Celsius bolle l'azoto liquido?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,4,0,2)"><span class="opt-letter">A</span>−20°C</div>
+            <div class="opt" onclick="answer(0,4,1,2)"><span class="opt-letter">B</span>−78°C</div>
+            <div class="opt" onclick="answer(0,4,2,2)"><span class="opt-letter">C</span>−196°C</div>
+            <div class="opt" onclick="answer(0,4,3,2)"><span class="opt-letter">D</span>−100°C</div>
+          </div>
+          <div class="feedback" id="fb-0-4"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 6 di 8</span>
+          <p class="q-text">Qual è la concentrazione corretta di agar agar per un gel morbido (tipo pannacotta)?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,5,0,1)"><span class="opt-letter">A</span>0,1 g per 100 ml</div>
+            <div class="opt" onclick="answer(0,5,1,1)"><span class="opt-letter">B</span>0,5 g per 100 ml</div>
+            <div class="opt" onclick="answer(0,5,2,1)"><span class="opt-letter">C</span>5 g per 100 ml</div>
+            <div class="opt" onclick="answer(0,5,3,1)"><span class="opt-letter">D</span>10 g per 100 ml</div>
+          </div>
+          <div class="feedback" id="fb-0-5"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 7 di 8</span>
+          <p class="q-text">Cosa produce la lecitina di soia con il mixer a immersione inclinato?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,6,0,1)"><span class="opt-letter">A</span>Sferificazioni</div>
+            <div class="opt" onclick="answer(0,6,1,1)"><span class="opt-letter">B</span>Spume aeree chiamate "arie"</div>
+            <div class="opt" onclick="answer(0,6,2,1)"><span class="opt-letter">C</span>Gelificazione rapida</div>
+            <div class="opt" onclick="answer(0,6,3,1)"><span class="opt-letter">D</span>Cristallizzazione dello zucchero</div>
+          </div>
+          <div class="feedback" id="fb-0-6"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 8 di 8</span>
+          <p class="q-text">Cosa distingue la sferificazione inversa da quella diretta?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(0,7,0,0)"><span class="opt-letter">A</span>Il calcio viene aggiunto al liquido, non al bagno</div>
+            <div class="opt" onclick="answer(0,7,1,0)"><span class="opt-letter">B</span>Si usa solo con dolci</div>
+            <div class="opt" onclick="answer(0,7,2,0)"><span class="opt-letter">C</span>Non si usa l'alginato</div>
+            <div class="opt" onclick="answer(0,7,3,0)"><span class="opt-letter">D</span>Si usa solo l'agar</div>
+          </div>
+          <div class="feedback" id="fb-0-7"></div>
+        </div>
+        <button class="quiz-submit-btn" id="sub-0" onclick="showResult(0,8)">Vedi il Risultato</button>
+        <div class="quiz-result" id="res-0"></div>
+      </div>
+    </div>
+    <div class="upgrade-box">
+      <h3>Vuoi andare più in profondità?</h3>
+      <p>Questo è solo un assaggio. Il corso completo include video lezioni, sessioni pratiche e la mia supervisione diretta.</p>
+      <a href="#">Scopri il Corso Completo</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODULO 1: PASTA FRESCA ══════════ -->
+<div class="view" id="view-1">
+  <div class="reader-wrap">
+    <button class="reader-back" onclick="showHome()">← Tutti i moduli</button>
+    <div class="reader-header">
+      <span class="reader-num">Modulo 02 · Gratuito</span>
+      <h1 class="reader-title">Pasta <em>Fresca</em> Italiana</h1>
+      <p class="reader-sub">Radici, tecnica e tradizione</p>
+      <div class="reader-meta"><span>🍝 Pasta</span><span>⏱ 10 min lettura</span><span>❓ 8 domande</span></div>
+    </div>
+    <div class="article">
+      <h2>La <em>Farina</em>: tutto inizia da qui</h2>
+      <p>La pasta fresca nasce dalla scelta della farina. Non tutte le farine sono uguali: la differenza determina la consistenza dell'impasto, la capacità di assorbire le uova, la tenuta in cottura e il sapore finale.</p>
+      <table class="data-table">
+        <tr><th>Farina</th><th>Proteine</th><th>Uso ideale</th></tr>
+        <tr><td><strong>Farina 00</strong></td><td>9–11%</td><td>Sfoglia sottile, tagliatelle, lasagne</td></tr>
+        <tr><td><strong>Semola rimacinata</strong></td><td>12–14%</td><td>Orecchiette, mafaldine, trofie</td></tr>
+        <tr><td><strong>Mix 00 + Semola 50/50</strong></td><td>~12%</td><td>Versatile, usato in molte regioni</td></tr>
+        <tr><td><strong>Farro / integrali</strong></td><td>variabile</td><td>Pasta rustica, sapore intenso</td></tr>
+      </table>
+      <div class="tip">
+        <span class="tip-lbl">✦ Consiglio di Antonio</span>
+        <p>Per la sfoglia all'uovo classica uso sempre farina 00 con almeno 11% di proteine. Se la trovi, la farina per pasta fresca dei mulini artigianali fa la differenza.</p>
+      </div>
+
+      <h2>Le <em>Uova</em>: cuore dell'impasto</h2>
+      <p>La pasta all'uovo tradizionale usa tuorli, non albumi. I tuorli danno colore, grasso e lecitina naturale che rendono l'impasto elastico. La proporzione classica emiliana è <strong>1 tuorlo ogni 10 g di farina</strong>, oppure 1 uovo intero ogni 100 g.</p>
+      <p>La qualità delle uova impatta enormemente sul colore: le uova con tuorlo arancione intenso danno un colore oro che nessun colorante può replicare.</p>
+
+      <h2>Il <em>Riposo</em>: il passo che in molti saltano</h2>
+      <p>Dopo aver impastato almeno 10 minuti a mano, l'impasto va avvolto nella pellicola e lasciato riposare a temperatura ambiente per <strong>almeno 30 minuti</strong>, meglio 1 ora. Perché?</p>
+      <ul>
+        <li>Il <strong>glutine</strong> si rilassa: l'impasto diventa più estensibile e facile da tirare</li>
+        <li>L'<strong>umidità</strong> si distribuisce uniformemente in tutta la massa</li>
+        <li>Il <strong>sapore</strong> migliora grazie alle fermentazioni enzimatiche</li>
+      </ul>
+      <div class="callout">
+        <p><strong>Attenzione:</strong> Un impasto senza riposo si ritira mentre lo stendi. Il glutine troppo teso "ricorda" la forma precedente e torna indietro come un elastico.</p>
+      </div>
+
+      <h2>Sfogliare: a <em>mano</em> o con la macchina</h2>
+      <p>Con il mattarello si ottiene una sfoglia con micro-rugosità che catturano il sugo meglio di una pasta liscia. La macchina dà uniformità e velocità. Spessori indicativi:</p>
+      <ul>
+        <li><strong>Tagliatelle / Pappardelle:</strong> 1–1,5 mm (impostazione 5–6 su 9)</li>
+        <li><strong>Lasagne:</strong> 1–1,5 mm</li>
+        <li><strong>Tortellini / Ravioli:</strong> 0,8–1 mm (impostazione 6–7)</li>
+        <li><strong>Sfoglia trasparente:</strong> 0,5 mm (impostazione 8–9)</li>
+      </ul>
+
+      <h2>I <em>Formati</em> Regionali</h2>
+      <ul>
+        <li><strong>Tagliatelle</strong> (Emilia): all'uovo, larghezza 8 mm, con ragù bolognese</li>
+        <li><strong>Orecchiette</strong> (Puglia): semola e acqua, con cime di rapa e acciughe</li>
+        <li><strong>Trofie</strong> (Liguria): semola e acqua, con pesto genovese</li>
+        <li><strong>Pici</strong> (Toscana): grossi spaghetti di acqua e farina, con aglione</li>
+        <li><strong>Bigoli</strong> (Veneto): trafilati al bronzo, con salsa d'anatra</li>
+      </ul>
+
+      <h2>Cottura e <em>Mantecatura</em></h2>
+      <p>La pasta fresca cuoce velocemente: tagliatelle in 2–3 minuti, pasta ripiena in 3–4. L'<strong>acqua di cottura</strong> è ricca di amido: è la migliore salsa per mantecare. Non buttarla prima di aver impiattato.</p>
+      <div class="tip">
+        <span class="tip-lbl">✦ Tecnica professionale</span>
+        <p>Scola la pasta 30 secondi prima che sia pronta e finisci la cottura direttamente in padella con il sugo e un mestolo di acqua di cottura. La mantecatura avviene lì, non nel piatto.</p>
+      </div>
+    </div>
+
+    <!-- QUIZ 1 -->
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <span class="quiz-head-label">✦ Quiz Finale — Modulo 02</span>
+        <h2>Metti alla prova le tue conoscenze</h2>
+        <p id="prog-1">0 / 8 risposte date</p>
+      </div>
+      <div class="quiz-body" id="qbody-1">
+        <div class="question">
+          <span class="q-num">Domanda 1 di 8</span>
+          <p class="q-text">Qual è la proporzione classica emiliana per la sfoglia all'uovo?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,0,0,1)"><span class="opt-letter">A</span>1 uovo per 50 g di farina</div>
+            <div class="opt" onclick="answer(1,0,1,1)"><span class="opt-letter">B</span>1 tuorlo ogni 10 g di farina</div>
+            <div class="opt" onclick="answer(1,0,2,1)"><span class="opt-letter">C</span>2 uova per 200 g di farina</div>
+            <div class="opt" onclick="answer(1,0,3,1)"><span class="opt-letter">D</span>1 albume ogni 100 g di farina</div>
+          </div>
+          <div class="feedback" id="fb-1-0"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 2 di 8</span>
+          <p class="q-text">Perché è importante il riposo dell'impasto?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,1,0,1)"><span class="opt-letter">A</span>Per raffreddarlo</div>
+            <div class="opt" onclick="answer(1,1,1,1)"><span class="opt-letter">B</span>Il glutine si rilassa e l'umidità si distribuisce uniformemente</div>
+            <div class="opt" onclick="answer(1,1,2,1)"><span class="opt-letter">C</span>Per farlo lievitare</div>
+            <div class="opt" onclick="answer(1,1,3,1)"><span class="opt-letter">D</span>Per asciugarlo prima della stesura</div>
+          </div>
+          <div class="feedback" id="fb-1-1"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 3 di 8</span>
+          <p class="q-text">Quale farina è più adatta per orecchiette e pasta pugliese?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,2,0,2)"><span class="opt-letter">A</span>Farina 00</div>
+            <div class="opt" onclick="answer(1,2,1,2)"><span class="opt-letter">B</span>Farina integrale di farro</div>
+            <div class="opt" onclick="answer(1,2,2,2)"><span class="opt-letter">C</span>Semola rimacinata di grano duro</div>
+            <div class="opt" onclick="answer(1,2,3,2)"><span class="opt-letter">D</span>Farina di riso</div>
+          </div>
+          <div class="feedback" id="fb-1-2"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 4 di 8</span>
+          <p class="q-text">A che spessore si stende la sfoglia per tagliatelle?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,3,0,1)"><span class="opt-letter">A</span>0,2 mm</div>
+            <div class="opt" onclick="answer(1,3,1,1)"><span class="opt-letter">B</span>1–1,5 mm</div>
+            <div class="opt" onclick="answer(1,3,2,1)"><span class="opt-letter">C</span>3 mm</div>
+            <div class="opt" onclick="answer(1,3,3,1)"><span class="opt-letter">D</span>5 mm</div>
+          </div>
+          <div class="feedback" id="fb-1-3"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 5 di 8</span>
+          <p class="q-text">Qual è la larghezza corretta delle tagliatelle secondo la tradizione emiliana?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,4,0,2)"><span class="opt-letter">A</span>4 mm</div>
+            <div class="opt" onclick="answer(1,4,1,2)"><span class="opt-letter">B</span>6 mm</div>
+            <div class="opt" onclick="answer(1,4,2,2)"><span class="opt-letter">C</span>8 mm</div>
+            <div class="opt" onclick="answer(1,4,3,2)"><span class="opt-letter">D</span>12 mm</div>
+          </div>
+          <div class="feedback" id="fb-1-4"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 6 di 8</span>
+          <p class="q-text">Perché l'acqua di cottura della pasta è preziosa?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,5,0,1)"><span class="opt-letter">A</span>Perché si può riutilizzare per cucinare verdure</div>
+            <div class="opt" onclick="answer(1,5,1,1)"><span class="opt-letter">B</span>Contiene amido e sali che aiutano a mantecare il sugo</div>
+            <div class="opt" onclick="answer(1,5,2,1)"><span class="opt-letter">C</span>È più pulita dell'acqua del rubinetto</div>
+            <div class="opt" onclick="answer(1,5,3,1)"><span class="opt-letter">D</span>Perché è calda e serve a riscaldare il piatto</div>
+          </div>
+          <div class="feedback" id="fb-1-5"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 7 di 8</span>
+          <p class="q-text">La pasta fresca ripiena richiede una sfoglia:</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,6,0,1)"><span class="opt-letter">A</span>Più spessa (2–3 mm) per non rompersi</div>
+            <div class="opt" onclick="answer(1,6,1,1)"><span class="opt-letter">B</span>Più sottile (0,8–1 mm) per uniformità e leggerezza</div>
+            <div class="opt" onclick="answer(1,6,2,1)"><span class="opt-letter">C</span>Identica alle tagliatelle</div>
+            <div class="opt" onclick="answer(1,6,3,1)"><span class="opt-letter">D</span>Senza uova per maggiore resistenza</div>
+          </div>
+          <div class="feedback" id="fb-1-6"></div>
+        </div>
+        <div class="q-divider"></div>
+        <div class="question">
+          <span class="q-num">Domanda 8 di 8</span>
+          <p class="q-text">Qual è la tecnica professionale per la mantecatura della pasta?</p>
+          <div class="options">
+            <div class="opt" onclick="answer(1,7,0,1)"><span class="opt-letter">A</span>Condire nel piatto con olio crudo</div>
+            <div class="opt" onclick="answer(1,7,1,1)"><span class="opt-letter">B</span>Scolare al dente e finire in padella con sugo e acqua di cottura</div>
+            <div class="opt" onclick="answer(1,7,2,1)"><span class="opt-letter">C</span>Raffreddare sotto acqua fredda poi condire</div>
+            <div class="opt" onclick="answer(1,7,3,1)"><span class="opt-letter">D</span>Aggiungere burro a fuoco spento nel piatto</div>
+          </div>
+          <div class="feedback" id="fb-1-7"></div>
+        </div>
+        <button class="quiz-submit-btn" id="sub-1" onclick="showResult(1,8)">Vedi il Risultato</button>
+        <div class="quiz-result" id="res-1"></div>
+      </div>
+    </div>
+    <div class="upgrade-box">
+      <h3>Vuoi andare più in profondità?</h3>
+      <p>Il corso completo include video lezioni, esercitazioni pratiche e la mia supervisione diretta.</p>
+      <a href="#">Scopri il Corso Completo</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODULO 2: PASTICCERIA ══════════ -->
+<div class="view" id="view-2">
+  <div class="reader-wrap">
+    <button class="reader-back" onclick="showHome()">← Tutti i moduli</button>
+    <div class="reader-header">
+      <span class="reader-num">Modulo 03 · Gratuito</span>
+      <h1 class="reader-title">Pasticceria <em>Molecolare</em></h1>
+      <p class="reader-sub">Dolcezza, scienza e meraviglia</p>
+      <div class="reader-meta"><span>🍰 Pasticceria</span><span>⏱ 11 min lettura</span><span>❓ 8 domande</span></div>
+    </div>
+    <div class="article">
+      <h2>Perché la <em>Pasticceria Molecolare</em>?</h2>
+      <p>La pasticceria molecolare non rompe le regole della pasticceria classica: le estende. Ci permette di creare texture, temperature e presentazioni impossibili con la sola tecnica tradizionale. Un dessert molecolare ben eseguito stupisce visivamente, sorprende alla prima cucchiaiata e soddisfa al gusto. <strong>L'emozione visiva deve sempre essere seguita dall'emozione gustativa.</strong></p>
+
+      <h2>Il <em>Cioccolato</em> in Chiave Molecolare</h2>
+      <p>Il cioccolato è un sistema colloïdale complesso. La temperatura di lavorazione è cruciale per la corretta precristallizzazione del burro di cacao.</p>
+      <table class="data-table">
+        <tr><th>Tipo</th><th>Temp. di fusione</th><th>Temp. di tempera</th></tr>
+        <tr><td>Fondente (70%+)</td><td>50–55°C</td><td>31–32°C</td></tr>
+        <tr><td>Al latte</td><td>45–50°C</td><td>29–30°C</td></tr>
+        <tr><td>Bianco</td><td>40–45°C</td><td>27–28°C</td></tr>
+      </table>
+      <div class="tip">
+        <span class="tip-lbl">✦ Tecnica: cioccolato con azoto</span>
+        <p>Versando cioccolato fuso nell'azoto liquido si creano scaglie o polveri croccanti con texture impossibile da ottenere altrimenti.</p>
+      </div>
+
+      <h2>Le <em>Spume Dolci</em> con il Sifone</h2>
+      <p>Il sifone con N2O funziona anche in pasticceria per mousse leggere, panne cotte aeree, ganache spumose:</p>
+      <ul>
+        <li><strong>Panna semi-montata:</strong> base classica, risultato stabile</li>
+        <li><strong>Crema inglese:</strong> con 2 g di gelatina per 250 ml, ottima mousse</li>
+        <li><strong>Ganache diluita:</strong> 1 parte panna + 2 parti cioccolato, effetto vellutato</li>
+        <li><strong>Curd di frutta:</strong> con tuorli e burro, spuma al limone o passion fruit</li>
+      </ul>
+
+      <h2>Gel e <em>Textures</em> per Pasticceria</h2>
+      <h3>Gelée da inserti (agar + zucchero)</h3>
+      <p>Per inserti fruttati: 100 g di purea, 50 g di zucchero, 1,5 g di agar. Porta a 90°C, togli dal fuoco, versa negli stampi. L'agar, a differenza della gelatina, regge la cottura del dolce attorno.</p>
+      <h3>Glassa a specchio (mirror glaze)</h3>
+      <p>Va usata a <strong>32–35°C</strong> sul dessert gelato. Sotto i 30°C fa fili; sopra i 37°C non copre correttamente.</p>
+
+      <h2>La <em>Sferificazione Dolce</em></h2>
+      <p>Il caviale di fragola, le sfere di lampone, il "tuorlo" di mango — sono sferificazioni dolci. Attenzione: le puree di frutta hanno spesso pH basso. Correggi sempre con citrato di sodio o bicarbonato fino a pH 4,5.</p>
+      <div class="callout">
+        <p><strong>Calcolo del pH:</strong> Fragola ≈ pH 3,2–3,5 · Lampone ≈ pH 3,4. Correggi con citrato di sodio prima della sferificazione. Usa un pH-metro o cartine al tornasole.</p>
+      </div>
+
+      <h2>I <em>Gelati</em> Molecolari</h2>
+      <p>L'azoto liquido surgela istantaneamente creando cristalli di ghiaccio microscopici: texture burrosa e liscia. La base si prepara (panna + latte + zucchero + aromi) e si versa l'azoto mescolando costantemente. Il gelato è pronto in 2–3 minuti e va servito subito.</p>
+      <div class="tip">
+        <span class="tip-lbl">✦ Dal mio ristorante</span>
+        <p>Uso spesso la tecnica del gelato all'azoto durante il servizio: lo preparo davanti agli ospiti. L'effetto è spettacolare — ma il gusto è sempre il protagonista.</p>
+      </div>
+    </div>
+
+    <!-- QUIZ 2 -->
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <span class="quiz-head-label">✦ Quiz Finale — Modulo 03</span>
+        <h2>Metti alla prova le tue conoscenze</h2>
+        <p id="prog-2">0 / 8 risposte date</p>
+      </div>
+      <div class="quiz-body" id="qbody-2">
+        <div class="question"><span class="q-num">Domanda 1 di 8</span><p class="q-text">A che temperatura va usata la glassa a specchio (mirror glaze)?</p><div class="options"><div class="opt" onclick="answer(2,0,0,1)"><span class="opt-letter">A</span>20–22°C</div><div class="opt" onclick="answer(2,0,1,1)"><span class="opt-letter">B</span>32–35°C</div><div class="opt" onclick="answer(2,0,2,1)"><span class="opt-letter">C</span>50–55°C</div><div class="opt" onclick="answer(2,0,3,1)"><span class="opt-letter">D</span>10–12°C</div></div><div class="feedback" id="fb-2-0"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 2 di 8</span><p class="q-text">Qual è il problema nell'usare puree di frutta acida per la sferificazione?</p><div class="options"><div class="opt" onclick="answer(2,1,0,1)"><span class="opt-letter">A</span>Sono troppo dolci</div><div class="opt" onclick="answer(2,1,1,1)"><span class="opt-letter">B</span>Il pH basso inibisce la gelificazione dell'alginato</div><div class="opt" onclick="answer(2,1,2,1)"><span class="opt-letter">C</span>Non si mescolano con l'acqua</div><div class="opt" onclick="answer(2,1,3,1)"><span class="opt-letter">D</span>Sono troppo colorate</div></div><div class="feedback" id="fb-2-1"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 3 di 8</span><p class="q-text">Qual è la temperatura di tempera del cioccolato fondente al 70%?</p><div class="options"><div class="opt" onclick="answer(2,2,0,2)"><span class="opt-letter">A</span>20–22°C</div><div class="opt" onclick="answer(2,2,1,2)"><span class="opt-letter">B</span>25–26°C</div><div class="opt" onclick="answer(2,2,2,2)"><span class="opt-letter">C</span>31–32°C</div><div class="opt" onclick="answer(2,2,3,2)"><span class="opt-letter">D</span>40–42°C</div></div><div class="feedback" id="fb-2-2"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 4 di 8</span><p class="q-text">Come si crea il "cioccolato in polvere" con l'azoto liquido?</p><div class="options"><div class="opt" onclick="answer(2,3,0,1)"><span class="opt-letter">A</span>Grattando il cioccolato temperato</div><div class="opt" onclick="answer(2,3,1,1)"><span class="opt-letter">B</span>Versando cioccolato fuso nell'azoto liquido</div><div class="opt" onclick="answer(2,3,2,1)"><span class="opt-letter">C</span>Mescolando cacao con maltodestrine</div><div class="opt" onclick="answer(2,3,3,1)"><span class="opt-letter">D</span>Liofilizzando il cioccolato</div></div><div class="feedback" id="fb-2-3"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 5 di 8</span><p class="q-text">Per un inserimento gelatinoso in un dolce che deve cuocere, cosa si usa?</p><div class="options"><div class="opt" onclick="answer(2,4,0,1)"><span class="opt-letter">A</span>Solo gelatina animale</div><div class="opt" onclick="answer(2,4,1,1)"><span class="opt-letter">B</span>Agar agar mescolato a purea e zucchero</div><div class="opt" onclick="answer(2,4,2,1)"><span class="opt-letter">C</span>Solo panna montata</div><div class="opt" onclick="answer(2,4,3,1)"><span class="opt-letter">D</span>Glucosio liquido</div></div><div class="feedback" id="fb-2-4"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 6 di 8</span><p class="q-text">Perché il gelato all'azoto liquido ha una texture particolarmente cremosa?</p><div class="options"><div class="opt" onclick="answer(2,5,0,1)"><span class="opt-letter">A</span>Contiene più grasso degli altri gelati</div><div class="opt" onclick="answer(2,5,1,1)"><span class="opt-letter">B</span>La surgelazione istantanea crea cristalli di ghiaccio microscopici</div><div class="opt" onclick="answer(2,5,2,1)"><span class="opt-letter">C</span>Viene mescolato più a lungo</div><div class="opt" onclick="answer(2,5,3,1)"><span class="opt-letter">D</span>Contiene più zucchero</div></div><div class="feedback" id="fb-2-5"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 7 di 8</span><p class="q-text">Quante cariche N2O si usano nel sifone da 0,5 L per una mousse?</p><div class="options"><div class="opt" onclick="answer(2,6,0,1)"><span class="opt-letter">A</span>Sempre una sola carica</div><div class="opt" onclick="answer(2,6,1,1)"><span class="opt-letter">B</span>1–2 cariche secondo la densità della base</div><div class="opt" onclick="answer(2,6,2,1)"><span class="opt-letter">C</span>5 o più cariche</div><div class="opt" onclick="answer(2,6,3,1)"><span class="opt-letter">D</span>Non si usano cariche</div></div><div class="feedback" id="fb-2-6"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 8 di 8</span><p class="q-text">Il sifone con N2O in pasticceria può essere usato per:</p><div class="options"><div class="opt" onclick="answer(2,7,0,1)"><span class="opt-letter">A</span>Solo panna montata</div><div class="opt" onclick="answer(2,7,1,1)"><span class="opt-letter">B</span>Mousse, ganache spumose, curd, creme inglesi aerate</div><div class="opt" onclick="answer(2,7,2,1)"><span class="opt-letter">C</span>Solo preparazioni fredde</div><div class="opt" onclick="answer(2,7,3,1)"><span class="opt-letter">D</span>Solo cioccolato fuso</div></div><div class="feedback" id="fb-2-7"></div></div>
+        <button class="quiz-submit-btn" id="sub-2" onclick="showResult(2,8)">Vedi il Risultato</button>
+        <div class="quiz-result" id="res-2"></div>
+      </div>
+    </div>
+    <div class="upgrade-box"><h3>Vuoi andare più in profondità?</h3><p>Il corso completo include video lezioni, sessioni pratiche e la mia supervisione diretta.</p><a href="#">Scopri il Corso Completo</a></div>
+  </div>
+</div>
+
+<!-- ══════════ MODULO 3: CBT ══════════ -->
+<div class="view" id="view-3">
+  <div class="reader-wrap">
+    <button class="reader-back" onclick="showHome()">← Tutti i moduli</button>
+    <div class="reader-header">
+      <span class="reader-num">Modulo 04 · Gratuito</span>
+      <h1 class="reader-title">CBT — Cottura <em>Sous Vide</em></h1>
+      <p class="reader-sub">Precisione, temperatura e controllo assoluto</p>
+      <div class="reader-meta"><span>🌡️ Sous Vide</span><span>⏱ 10 min lettura</span><span>❓ 8 domande</span></div>
+    </div>
+    <div class="article">
+      <h2>Cos'è la <em>Cottura Sous Vide</em>?</h2>
+      <p>CBT o Sous Vide (francese: "sotto vuoto") è una tecnica in cui gli alimenti vengono confezionati sottovuoto e immersi in acqua a temperatura costante e precisa, mantenuta dal <strong>roner (circolatore termico)</strong>.</p>
+      <div class="callout">
+        <p><strong>Il principio:</strong> In cottura tradizionale la padella è a 200°C ma vuoi carne rosa a 58°C al cuore. Con il sous vide imposti 58°C e l'intera cottura avviene a quella temperatura. Impossibile sbagliare.</p>
+      </div>
+
+      <h2>Temperature e <em>Tempi</em>: la tabella fondamentale</h2>
+      <table class="data-table">
+        <tr><th>Alimento</th><th>Temperatura</th><th>Tempo</th><th>Risultato</th></tr>
+        <tr><td>Petto di pollo</td><td>63–65°C</td><td>1–4h</td><td>Succoso, pastorizzato</td></tr>
+        <tr><td>Manzo (taglio nobile)</td><td>54–56°C</td><td>1–4h</td><td>Rosa, tenero</td></tr>
+        <tr><td>Manzo (taglio duro)</td><td>68–72°C</td><td>24–72h</td><td>Fondente, collagene sciolto</td></tr>
+        <tr><td>Salmone</td><td>42–46°C</td><td>30–45 min</td><td>Traslucido, setoso</td></tr>
+        <tr><td>Branzino</td><td>52–54°C</td><td>20–30 min</td><td>Morbido, umido</td></tr>
+        <tr><td>Carote</td><td>85°C</td><td>1–2h</td><td>Morbide ma strutturate</td></tr>
+      </table>
+
+      <h2>Il <em>Collagene</em>: il segreto dei tagli duri</h2>
+      <p>I tagli ricchi di collagene (guancia, stinco, costato) cotti a 68–72°C per 48–72 ore subiscono la <strong>gelatinizzazione del collagene</strong>: le proteine si trasformano in gelatina, rendendo la carne fondente e umida. Il sous vide cattura tutti i liquidi nel sacchetto, riciclabili come salsa eccellente.</p>
+
+      <h2>La <em>Sicurezza Alimentare</em> nel Sous Vide</h2>
+      <p>La zona di pericolo batterica è 4–54°C. Regole fondamentali:</p>
+      <ul>
+        <li>Mai cuocere sous vide sotto i 54°C per più di <strong>4 ore</strong> senza abbattimento immediato</li>
+        <li>63°C è la soglia UE per pollo e maiale interi</li>
+        <li>Il liquido nel sacchetto va filtrato e consumato subito o abbattuto</li>
+      </ul>
+      <div class="tip">
+        <span class="tip-lbl">✦ Regola d'oro</span>
+        <p>La "zona di pericolo" batterica è 4–54°C. Fuori da questo range sei al sicuro. Non lasciare mai il prodotto in questa zona per più di 4 ore totali.</p>
+      </div>
+
+      <h2>La <em>Finitura</em>: il passo che non si salta</h2>
+      <p>La carne uscita dal sous vide è cotta perfettamente ma grigia, priva della <strong>reazione di Maillard</strong> (la crosta dorata). La finitura in padella caldissima è fondamentale: <strong>30–60 secondi per lato a fuoco massimo</strong>.</p>
+      <p>Asciuga sempre la carne con carta assorbente prima: l'umidità genera vapore che impedisce la crosta.</p>
+    </div>
+
+    <!-- QUIZ 3 -->
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <span class="quiz-head-label">✦ Quiz Finale — Modulo 04</span>
+        <h2>Metti alla prova le tue conoscenze</h2>
+        <p id="prog-3">0 / 8 risposte date</p>
+      </div>
+      <div class="quiz-body" id="qbody-3">
+        <div class="question"><span class="q-num">Domanda 1 di 8</span><p class="q-text">Qual è il principio fondamentale della cottura sous vide?</p><div class="options"><div class="opt" onclick="answer(3,0,0,1)"><span class="opt-letter">A</span>Cuocere a temperatura altissima per brevissimo tempo</div><div class="opt" onclick="answer(3,0,1,1)"><span class="opt-letter">B</span>Cuocere sottovuoto in acqua a temperatura costante e precisa</div><div class="opt" onclick="answer(3,0,2,1)"><span class="opt-letter">C</span>Cuocere con vapore a pressione</div><div class="opt" onclick="answer(3,0,3,1)"><span class="opt-letter">D</span>Cuocere avvolti nella carta da forno</div></div><div class="feedback" id="fb-3-0"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 2 di 8</span><p class="q-text">A che temperatura si cuoce il salmone sous vide per una texture setosa?</p><div class="options"><div class="opt" onclick="answer(3,1,0,2)"><span class="opt-letter">A</span>60–65°C</div><div class="opt" onclick="answer(3,1,1,2)"><span class="opt-letter">B</span>52–54°C</div><div class="opt" onclick="answer(3,1,2,2)"><span class="opt-letter">C</span>42–46°C</div><div class="opt" onclick="answer(3,1,3,2)"><span class="opt-letter">D</span>70°C</div></div><div class="feedback" id="fb-3-1"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 3 di 8</span><p class="q-text">Cosa succede al collagene dei tagli duri cotti a 68–72°C per 48–72 ore?</p><div class="options"><div class="opt" onclick="answer(3,2,0,1)"><span class="opt-letter">A</span>Si indurisce ulteriormente</div><div class="opt" onclick="answer(3,2,1,1)"><span class="opt-letter">B</span>Si gelatinizza rendendo la carne fondente</div><div class="opt" onclick="answer(3,2,2,1)"><span class="opt-letter">C</span>Evapora dal sacchetto</div><div class="opt" onclick="answer(3,2,3,1)"><span class="opt-letter">D</span>Si scompone in grassi</div></div><div class="feedback" id="fb-3-2"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 4 di 8</span><p class="q-text">Qual è la "zona di pericolo" batterica nella cottura sous vide?</p><div class="options"><div class="opt" onclick="answer(3,3,0,1)"><span class="opt-letter">A</span>0–20°C</div><div class="opt" onclick="answer(3,3,1,1)"><span class="opt-letter">B</span>4–54°C</div><div class="opt" onclick="answer(3,3,2,1)"><span class="opt-letter">C</span>60–80°C</div><div class="opt" onclick="answer(3,3,3,1)"><span class="opt-letter">D</span>100°C e oltre</div></div><div class="feedback" id="fb-3-3"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 5 di 8</span><p class="q-text">Perché è fondamentale asciugare la carne prima della finitura in padella?</p><div class="options"><div class="opt" onclick="answer(3,4,0,1)"><span class="opt-letter">A</span>Per evitare che si attacchi</div><div class="opt" onclick="answer(3,4,1,1)"><span class="opt-letter">B</span>L'umidità crea vapore che impedisce la reazione di Maillard</div><div class="opt" onclick="answer(3,4,2,1)"><span class="opt-letter">C</span>Per salare meglio la superficie</div><div class="opt" onclick="answer(3,4,3,1)"><span class="opt-letter">D</span>Per raffreddare la carne</div></div><div class="feedback" id="fb-3-4"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 6 di 8</span><p class="q-text">Qual è la temperatura indicata per la pastorizzazione del pollo (normativa UE)?</p><div class="options"><div class="opt" onclick="answer(3,5,0,2)"><span class="opt-letter">A</span>50°C</div><div class="opt" onclick="answer(3,5,1,2)"><span class="opt-letter">B</span>56°C</div><div class="opt" onclick="answer(3,5,2,2)"><span class="opt-letter">C</span>63°C</div><div class="opt" onclick="answer(3,5,3,2)"><span class="opt-letter">D</span>75°C</div></div><div class="feedback" id="fb-3-5"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 7 di 8</span><p class="q-text">Quanto dura la finitura in padella dopo il sous vide?</p><div class="options"><div class="opt" onclick="answer(3,6,0,2)"><span class="opt-letter">A</span>5–10 minuti per lato</div><div class="opt" onclick="answer(3,6,1,2)"><span class="opt-letter">B</span>2–3 minuti per lato</div><div class="opt" onclick="answer(3,6,2,2)"><span class="opt-letter">C</span>30–60 secondi per lato a fuoco massimo</div><div class="opt" onclick="answer(3,6,3,2)"><span class="opt-letter">D</span>Non serve la finitura</div></div><div class="feedback" id="fb-3-6"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 8 di 8</span><p class="q-text">Il liquido rimasto nel sacchetto dopo la cottura sous vide è:</p><div class="options"><div class="opt" onclick="answer(3,7,0,1)"><span class="opt-letter">A</span>Da gettare, non è commestibile</div><div class="opt" onclick="answer(3,7,1,1)"><span class="opt-letter">B</span>Prezioso: ricco di succhi e collagene, ottimo per salse</div><div class="opt" onclick="answer(3,7,2,1)"><span class="opt-letter">C</span>Acqua con sale, nessun utilizzo</div><div class="opt" onclick="answer(3,7,3,1)"><span class="opt-letter">D</span>Utile solo per lavare le padelle</div></div><div class="feedback" id="fb-3-7"></div></div>
+        <button class="quiz-submit-btn" id="sub-3" onclick="showResult(3,8)">Vedi il Risultato</button>
+        <div class="quiz-result" id="res-3"></div>
+      </div>
+    </div>
+    <div class="upgrade-box"><h3>Vuoi andare più in profondità?</h3><p>Il corso completo include video lezioni, sessioni pratiche e la mia supervisione diretta.</p><a href="#">Scopri il Corso Completo</a></div>
+  </div>
+</div>
+
+<!-- ══════════ MODULO 4: HACCP ══════════ -->
+<div class="view" id="view-4">
+  <div class="reader-wrap">
+    <button class="reader-back" onclick="showHome()">← Tutti i moduli</button>
+    <div class="reader-header">
+      <span class="reader-num">Modulo 05 · Gratuito</span>
+      <h1 class="reader-title">Pulizia & <em>HACCP</em></h1>
+      <p class="reader-sub">Le basi che proteggono te e i tuoi clienti</p>
+      <div class="reader-meta"><span>🧼 Igiene</span><span>⏱ 9 min lettura</span><span>❓ 8 domande</span></div>
+    </div>
+    <div class="article">
+      <h2>Cos'è l'<em>HACCP</em>?</h2>
+      <p>HACCP (Hazard Analysis and Critical Control Points) è un sistema di gestione della sicurezza alimentare basato sull'identificazione e il controllo dei rischi. È un obbligo di legge (Regolamento CE 852/2004) ma soprattutto è una filosofia di lavoro che protegge te e chi mangia i tuoi piatti.</p>
+      <div class="callout">
+        <p><strong>I 7 Principi HACCP:</strong> 1) Analisi dei pericoli · 2) Identificazione dei CCP · 3) Limiti critici · 4) Monitoraggio · 5) Azioni correttive · 6) Verifica · 7) Documentazione</p>
+      </div>
+
+      <h2>La <em>Catena del Freddo</em></h2>
+      <table class="data-table">
+        <tr><th>Alimento</th><th>Temp. di conservazione</th><th>Note</th></tr>
+        <tr><td>Carne fresca</td><td>0 – +4°C</td><td>Consumare entro 2–3 giorni</td></tr>
+        <tr><td>Pesce fresco</td><td>0 – +2°C</td><td>Consumare entro 24–48h</td></tr>
+        <tr><td>Latticini</td><td>+4°C</td><td>Rispettare la data di scadenza</td></tr>
+        <tr><td>Prodotti cotti</td><td>Abbattere a +3°C entro 90 min</td><td>Mai raffreddare a temp. ambiente</td></tr>
+        <tr><td>Surgelati</td><td>−18°C o inferiore</td><td>Non ricongelare dopo scongelamento</td></tr>
+      </table>
+
+      <h2>Le <em>Temperature Critiche</em></h2>
+      <p>La zona di pericolo è tra +4°C e +63°C. In questo range i batteri si moltiplicano rapidamente:</p>
+      <ul>
+        <li>Alimenti caldi: servire <strong>sopra i +63°C</strong></li>
+        <li>Alimenti freddi: conservare <strong>sotto i +4°C</strong></li>
+        <li>Cottura: raggiungere almeno <strong>+75°C al cuore</strong></li>
+        <li>Scongelamento: sempre <strong>in frigorifero</strong>, mai a temperatura ambiente</li>
+      </ul>
+
+      <h2>L'<em>Igiene Personale</em></h2>
+      <p>Il 40% delle contaminazioni alimentari origina dalle mani del personale:</p>
+      <ul>
+        <li>Lavare le mani con acqua calda e sapone per <strong>almeno 20 secondi</strong></li>
+        <li>Dopo: aver toccato carne cruda, essere andati in bagno, aver starnutito, aver toccato rifiuti</li>
+        <li>Capelli coperti con cuffia, niente gioielli né orologi in cucina</li>
+        <li>Ferite coperte con cerotti <strong>colorati (blu)</strong> e guanto protettivo</li>
+      </ul>
+      <div class="tip">
+        <span class="tip-lbl">✦ In cucina professionale</span>
+        <p>Il lavaggio delle mani non è negoziabile. Prima di iniziare, dopo ogni pausa, dopo ogni cambio di categoria di alimenti. È la prima linea di difesa.</p>
+      </div>
+
+      <h2>La <em>Separazione</em> degli Alimenti</h2>
+      <p>Prevenire la contaminazione crociata con i <strong>taglieri colorati</strong>:</p>
+      <ul>
+        <li><strong>Rosso</strong> → carni crude</li>
+        <li><strong>Blu</strong> → pesce</li>
+        <li><strong>Verde</strong> → verdure</li>
+        <li><strong>Giallo</strong> → pollame</li>
+        <li><strong>Bianco</strong> → formaggi e pane</li>
+        <li><strong>Marrone</strong> → carne cotta</li>
+      </ul>
+      <p>Riponi sempre gli alimenti crudi <strong>sotto</strong> quelli cotti in frigorifero.</p>
+
+      <h2>Pulizia vs <em>Sanificazione</em></h2>
+      <p>Non sono la stessa cosa! La sequenza corretta è sempre:</p>
+      <p><strong>1) Rimuovi residui grossolani → 2) Lava con detergente → 3) Risciacqua → 4) Disinfetta → 5) Risciacqua → 6) Asciuga</strong></p>
+      <p>Saltare un passaggio riduce l'efficacia dell'intera operazione.</p>
+
+      <h2>Il <em>Registro HACCP</em></h2>
+      <p>Va aggiornato ogni giorno e conservato per almeno <strong>2 anni</strong>. Deve includere:</p>
+      <ul>
+        <li>Temperature frigoriferi e abbattitori (mattino e sera)</li>
+        <li>Temperature di cottura rilevate con sonda</li>
+        <li>Date di ricezione e scadenza delle merci</li>
+        <li>Registri delle pulizie straordinarie e non conformità</li>
+      </ul>
+    </div>
+
+    <!-- QUIZ 4 -->
+    <div class="quiz-wrap">
+      <div class="quiz-head">
+        <span class="quiz-head-label">✦ Quiz Finale — Modulo 05</span>
+        <h2>Metti alla prova le tue conoscenze</h2>
+        <p id="prog-4">0 / 8 risposte date</p>
+      </div>
+      <div class="quiz-body" id="qbody-4">
+        <div class="question"><span class="q-num">Domanda 1 di 8</span><p class="q-text">Cosa significa l'acronimo HACCP?</p><div class="options"><div class="opt" onclick="answer(4,0,0,1)"><span class="opt-letter">A</span>High Accuracy Cooking Control Process</div><div class="opt" onclick="answer(4,0,1,1)"><span class="opt-letter">B</span>Hazard Analysis and Critical Control Points</div><div class="opt" onclick="answer(4,0,2,1)"><span class="opt-letter">C</span>Hygienic and Clean Cooking Practices</div><div class="opt" onclick="answer(4,0,3,1)"><span class="opt-letter">D</span>Healthy Alimentary Care and Control Plan</div></div><div class="feedback" id="fb-4-0"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 2 di 8</span><p class="q-text">Qual è la zona di temperatura definita "zona di pericolo" batterico?</p><div class="options"><div class="opt" onclick="answer(4,1,0,1)"><span class="opt-letter">A</span>0°C – 4°C</div><div class="opt" onclick="answer(4,1,1,1)"><span class="opt-letter">B</span>4°C – 63°C</div><div class="opt" onclick="answer(4,1,2,1)"><span class="opt-letter">C</span>63°C – 100°C</div><div class="opt" onclick="answer(4,1,3,1)"><span class="opt-letter">D</span>−18°C – 0°C</div></div><div class="feedback" id="fb-4-1"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 3 di 8</span><p class="q-text">A quale temperatura massima si conservano carne fresca e latticini?</p><div class="options"><div class="opt" onclick="answer(4,2,0,1)"><span class="opt-letter">A</span>+8°C</div><div class="opt" onclick="answer(4,2,1,1)"><span class="opt-letter">B</span>+4°C</div><div class="opt" onclick="answer(4,2,2,1)"><span class="opt-letter">C</span>+10°C</div><div class="opt" onclick="answer(4,2,3,1)"><span class="opt-letter">D</span>0°C</div></div><div class="feedback" id="fb-4-2"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 4 di 8</span><p class="q-text">Qual è il colore del tagliere per la carne cruda nel sistema HACCP?</p><div class="options"><div class="opt" onclick="answer(4,3,0,2)"><span class="opt-letter">A</span>Verde</div><div class="opt" onclick="answer(4,3,1,2)"><span class="opt-letter">B</span>Blu</div><div class="opt" onclick="answer(4,3,2,2)"><span class="opt-letter">C</span>Rosso</div><div class="opt" onclick="answer(4,3,3,2)"><span class="opt-letter">D</span>Giallo</div></div><div class="feedback" id="fb-4-3"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 5 di 8</span><p class="q-text">Qual è la sequenza corretta per la pulizia di una superficie?</p><div class="options"><div class="opt" onclick="answer(4,4,0,2)"><span class="opt-letter">A</span>Disinfetta → Lava → Asciuga</div><div class="opt" onclick="answer(4,4,1,2)"><span class="opt-letter">B</span>Lava → Disinfetta → Asciuga</div><div class="opt" onclick="answer(4,4,2,2)"><span class="opt-letter">C</span>Rimuovi residui → Lava → Risciacqua → Disinfetta → Risciacqua → Asciuga</div><div class="opt" onclick="answer(4,4,3,2)"><span class="opt-letter">D</span>Asciuga → Disinfetta → Lava</div></div><div class="feedback" id="fb-4-4"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 6 di 8</span><p class="q-text">Dove si ripongono gli alimenti crudi in frigorifero?</p><div class="options"><div class="opt" onclick="answer(4,5,0,2)"><span class="opt-letter">A</span>Sopra i cibi cotti</div><div class="opt" onclick="answer(4,5,1,2)"><span class="opt-letter">B</span>Nello stesso ripiano, non importa</div><div class="opt" onclick="answer(4,5,2,2)"><span class="opt-letter">C</span>Sotto i cibi cotti</div><div class="opt" onclick="answer(4,5,3,2)"><span class="opt-letter">D</span>In un frigorifero separato sempre</div></div><div class="feedback" id="fb-4-5"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 7 di 8</span><p class="q-text">Per quanti anni vanno conservati i registri HACCP?</p><div class="options"><div class="opt" onclick="answer(4,6,0,2)"><span class="opt-letter">A</span>6 mesi</div><div class="opt" onclick="answer(4,6,1,2)"><span class="opt-letter">B</span>1 anno</div><div class="opt" onclick="answer(4,6,2,2)"><span class="opt-letter">C</span>Almeno 2 anni</div><div class="opt" onclick="answer(4,6,3,2)"><span class="opt-letter">D</span>5 anni</div></div><div class="feedback" id="fb-4-6"></div></div>
+        <div class="q-divider"></div>
+        <div class="question"><span class="q-num">Domanda 8 di 8</span><p class="q-text">Lo scongelamento degli alimenti va fatto:</p><div class="options"><div class="opt" onclick="answer(4,7,0,2)"><span class="opt-letter">A</span>A temperatura ambiente sul bancone</div><div class="opt" onclick="answer(4,7,1,2)"><span class="opt-letter">B</span>In acqua calda per velocizzare</div><div class="opt" onclick="answer(4,7,2,2)"><span class="opt-letter">C</span>In frigorifero (0–4°C)</div><div class="opt" onclick="answer(4,7,3,2)"><span class="opt-letter">D</span>Nel microonde sempre</div></div><div class="feedback" id="fb-4-7"></div></div>
+        <button class="quiz-submit-btn" id="sub-4" onclick="showResult(4,8)">Vedi il Risultato</button>
+        <div class="quiz-result" id="res-4"></div>
+      </div>
+    </div>
+    <div class="upgrade-box"><h3>Vuoi andare più in profondità?</h3><p>Il corso completo include video lezioni, sessioni pratiche e la mia supervisione diretta.</p><a href="#">Scopri il Corso Completo</a></div>
+  </div>
+</div>
+
+<script>
+// stato per ogni modulo: array di risposte date
+const state = { 0:[], 1:[], 2:[], 3:[], 4:[] };
+const totalQ = 8;
+
+// messaggi feedback per ogni modulo/domanda [ok, no]
+const fb = {
+  '0-0': ['Esatto! La gelatina si scioglie a ~35°C — alla temperatura corporea. Per questo si "fonde" in bocca.',
+          'Non esatto. La gelatina si scioglie a circa 35°C, la temperatura corporea. Ecco perché fonde in bocca.'],
+  '0-1': ['Corretto! Nella sferificazione diretta si aggiunge l\'alginato al liquido. Il bagno è di cloruro di calcio.',
+          'No. Nella sferificazione diretta si aggiunge l\'alginato di sodio al liquido. Il cloruro di calcio è nel bagno.'],
+  '0-2': ['Bravissimo! L\'acidità elevata blocca la gelificazione dell\'alginato. Si corregge con citrato di sodio.',
+          'Non corretto. Il pH basso inibisce l\'alginato. Correggi con citrato di sodio fino a pH 4,5.'],
+  '0-3': ['Perfetto! La metilcellulosa è un gelificante inverso: solida a caldo, liquida a freddo.',
+          'Sbagliato. La metilcellulosa si solidifica a caldo e diventa liquida quando si raffredda. È davvero inversa!'],
+  '0-4': ['Esatto, −196°C! Questa temperatura estrema permette la surgelazione istantanea.',
+          'Non corretto. L\'azoto liquido bolle a −196°C — è quella temperatura che lo rende così potente.'],
+  '0-5': ['Giusto! 0,5 g per 100 ml è la concentrazione per gel morbidi. Più concentrazione = gel più duro.',
+          'Non esatto. Per gel morbido si usano circa 0,5 g per 100 ml. Più agar = gel più rigido.'],
+  '0-6': ['Esatto! La lecitina crea le "arie" — spume leggere che danno leggerezza e interesse visivo.',
+          'Sbagliato. La lecitina di soia con il mixer inclinato crea le "arie": bolle piene di sapore.'],
+  '0-7': ['Perfetto! Nella sferificazione inversa il calcio va nel liquido e l\'alginato nel bagno.',
+          'Non corretto. Nella sferificazione inversa: calcio nel liquido, alginato nel bagno.'],
+
+  '1-0': ['Corretto! 1 tuorlo ogni 10 g di farina è la regola d\'oro emiliana.',
+          'Non esatto. La proporzione è 1 tuorlo ogni 10 g di farina. I tuorli (non albumi) sono fondamentali.'],
+  '1-1': ['Esatto! Il riposo rilassa il glutine. Senza, l\'impasto si ritira come un elastico.',
+          'Sbagliato. Il riposo fa rilassare il glutine e distribuisce l\'umidità uniformemente.'],
+  '1-2': ['Giusto! La semola rimacinata è la farina del Sud Italia per orecchiette e pasta pugliese.',
+          'Non corretto. Per le orecchiette si usa semola rimacinata di grano duro, più proteica.'],
+  '1-3': ['Perfetto! 1–1,5 mm è lo spessore ideale per tagliatelle e pappardelle.',
+          'Sbagliato. Le tagliatelle si stendono a 1–1,5 mm (impostazione 5–6 della macchina).'],
+  '1-4': ['Bravissimo! 8 mm — esiste persino una misura depositata in Camera di Commercio a Bologna!',
+          'Non esatto. Le tagliatelle emiliane devono essere larghe 8 mm. È una misura ufficiale depositata.'],
+  '1-5': ['Esatto! L\'acqua di cottura è ricca di amido che emulsiona il sugo e crea cremosità.',
+          'Sbagliato. Il valore dell\'acqua sta nell\'amido disciolto che emulsiona il condimento.'],
+  '1-6': ['Corretto! La sfoglia per pasta ripiena deve essere sottile per non appesantire il boccone.',
+          'Non esatto. Per pasta ripiena serve 0,8–1 mm per valorizzare il ripieno senza appesantire.'],
+  '1-7': ['Perfetto! Scolare 30 sec prima, finire in padella con sugo e acqua di cottura.',
+          'Non corretto. La mantecatura professionale avviene in padella, mai nel piatto.'],
+
+  '2-0': ['Esatto! 32–35°C è la finestra perfetta. Fuori da questo range la copertura è imperfetta.',
+          'Non corretto. La mirror glaze va a 32–35°C. Sotto fa fili, sopra i 37°C non copre.'],
+  '2-1': ['Corretto! Le puree acide bloccano l\'alginato. Si corregge con citrato di sodio.',
+          'Sbagliato. Il pH basso blocca la gelificazione. Soluzione: citrato di sodio fino a pH 4,5.'],
+  '2-2': ['Perfetto! 31–32°C per il fondente. Garantisce snap e lucentezza grazie ai cristalli β.',
+          'Non esatto. Il fondente si tempera a 31–32°C per stabilizzare i cristalli del burro di cacao.'],
+  '2-3': ['Bravo! Versando il fuso nell\'azoto si ottengono scaglie croccantissime con texture unica.',
+          'Non corretto. Si versa il cioccolato fuso nell\'azoto liquido per solidificazione istantanea.'],
+  '2-4': ['Corretto! L\'agar regge le alte temperature, a differenza della gelatina che si scioglierebbe.',
+          'Non esatto. Per inserti che cuociono si usa l\'agar, non la gelatina (che si scioglierebbe).'],
+  '2-5': ['Esatto! La surgelazione istantanea crea cristalli microscopici = texture burrosa.',
+          'Sbagliato. Il segreto è la velocità di surgelazione che limita la crescita dei cristalli di ghiaccio.'],
+  '2-6': ['Giusto! 1–2 cariche per 0,5 L. Basi dense ne richiedono di meno, basi liquide di più.',
+          'Non esatto. Per il sifone da 0,5 L si usano 1–2 cariche N2O.'],
+  '2-7': ['Perfetto! Il sifone è versatilissimo: mousse, ganache, curd, creme inglesi e molto altro.',
+          'Sbagliato. Il sifone funziona con moltissime basi liquide con struttura sufficiente.'],
+
+  '3-0': ['Esatto! Acqua a temperatura costante e precisa. Il risultato è sempre perfetto e ripetibile.',
+          'Sbagliato. Il sous vide cuoce sottovuoto in acqua mantenuta a temperatura costante dal roner.'],
+  '3-1': ['Perfetto! 42–46°C dà al salmone quella texture setosa e traslucida impossibile in padella.',
+          'Non esatto. Per salmone setoso si usano 42–46°C. Temperature più alte lo asciugano.'],
+  '3-2': ['Corretto! Il collagene si converte in gelatina, rendendo i tagli duri fondenti e succulenti.',
+          'Sbagliato. A quelle temperature il collagene si gelatinizza trasformando tagli duri in bocconi morbidissimi.'],
+  '3-3': ['Esatto! La zona 4–54°C favorisce i batteri. Massimo 4 ore in questo range.',
+          'Sbagliato. La zona di pericolo è 4–54°C. In questo range i batteri si moltiplicano rapidamente.'],
+  '3-4': ['Bravissimo! L\'umidità genera vapore che impedisce la reazione di Maillard (la crosta).',
+          'Non esatto. L\'umidità crea vapore che "bolle" la carne invece di rosolarla. Asciuga sempre prima.'],
+  '3-5': ['Corretto! 63°C è la soglia minima UE per pollo e maiale nel sous vide.',
+          'Non esatto. La normativa UE indica 63°C per pollo e maiale interi.'],
+  '3-6': ['Giusto! Solo 30–60 secondi a fuoco altissimo. Di più e ricuoci l\'interno.',
+          'Sbagliato. La finitura è 30–60 sec per lato a fuoco massimo. Solo per la crosta esterna.'],
+  '3-7': ['Esatto! Il liquido del sacchetto è concentratissimo di sapore. Filtrato e ridotto è una salsa eccellente.',
+          'Sbagliato! Il liquido del sacchetto è puro sapore: proteine, collagene e succhi. Non buttarlo!'],
+
+  '4-0': ['Esatto! Hazard Analysis and Critical Control Points — il sistema di sicurezza alimentare internazionale.',
+          'Sbagliato. HACCP = Hazard Analysis and Critical Control Points.'],
+  '4-1': ['Corretto! Tra 4°C e 63°C i batteri si moltiplicano rapidamente. Alimenti fuori da questo range sono sicuri.',
+          'Non esatto. La zona di pericolo è 4°C–63°C. Fuori da questo range la moltiplicazione batterica è bloccata.'],
+  '4-2': ['Giusto! +4°C è la temperatura massima sicura per carne e latticini.',
+          'Sbagliato. Carne e latticini vanno conservati a massimo +4°C.'],
+  '4-3': ['Esatto! Rosso per carni crude. Blu (pesce), verde (verdure), giallo (pollame), bianco (formaggi).',
+          'Non esatto. Il rosso è per le carni crude. Blu = pesce · Verde = verdure · Giallo = pollame.'],
+  '4-4': ['Perfetto! Quella è la sequenza completa. Ogni passo ha un ruolo preciso.',
+          'Sbagliato. La sequenza corretta: Rimuovi → Lava → Risciacqua → Disinfetta → Risciacqua → Asciuga.'],
+  '4-5': ['Corretto! I crudi vanno sempre sotto i cotti per evitare contaminazione per caduta.',
+          'Non esatto. I crudi vanno SEMPRE sotto i cotti. I liquidi del crudo non devono cadere sui cotti.'],
+  '4-6': ['Esatto! I registri HACCP vanno conservati almeno 2 anni. Sono la prima cosa richiesta in caso di ispezione.',
+          'Non corretto. I registri vanno conservati almeno 2 anni per le ispezioni sanitarie.'],
+  '4-7': ['Giusto! In frigorifero è l\'unico modo sicuro. A temperatura ambiente la superficie entra subito nella zona di pericolo.',
+          'Sbagliato. Lo scongelamento va fatto in frigorifero a 0–4°C. Mai a temperatura ambiente.'],
+};
+
+function showHome() {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-home').classList.add('active');
+  document.getElementById('navCenter').textContent = 'Locoselli Academy';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showModule(idx) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+idx).classList.add('active');
+  document.getElementById('navCenter').textContent = 'Modulo 0'+(idx+1);
+  window.scrollTo({top:0, behavior:'smooth'});
+  // reset state
+  state[idx] = [];
+  updateProg(idx);
+}
+
+function answer(mod, qIdx, optIdx, correctIdx) {
+  // Already answered?
+  if (state[mod][qIdx] !== undefined) return;
+  state[mod][qIdx] = optIdx;
+
+  const prefix = `${mod}-${qIdx}`;
+  const allOpts = document.querySelectorAll(`#view-${mod} .question:nth-child(${qIdx*2+1}) .opt`);
+  // Disable all
+  allOpts.forEach(o => o.classList.add('disabled'));
+  // Mark chosen
+  const chosen = document.getElementById(`opt-${mod}-${qIdx}-${optIdx}`) || 
+    document.querySelectorAll(`#qbody-${mod} .question`)[qIdx].querySelectorAll('.opt')[optIdx];
+  const correctEl = document.querySelectorAll(`#qbody-${mod} .question`)[qIdx].querySelectorAll('.opt')[correctIdx];
+  
+  if (optIdx === correctIdx) {
+    chosen.classList.add('selected-correct');
+  } else {
+    chosen.classList.add('selected-wrong');
+    correctEl.classList.add('reveal-correct');
+  }
+
+  // Feedback
+  const fbEl = document.getElementById(`fb-${mod}-${qIdx}`);
+  const isOk = optIdx === correctIdx;
+  fbEl.textContent = (isOk ? '✓ ' : '✗ ') + fb[prefix][isOk ? 0 : 1];
+  fbEl.className = 'feedback show ' + (isOk ? 'ok' : 'no');
+
+  updateProg(mod);
+  checkAllAnswered(mod);
+}
+
+function updateProg(mod) {
+  const answered = Object.keys(state[mod]).length;
+  const el = document.getElementById('prog-'+mod);
+  if (el) el.textContent = answered + ' / ' + totalQ + ' risposte date';
+}
+
+function checkAllAnswered(mod) {
+  if (Object.keys(state[mod]).length === totalQ) {
+    const btn = document.getElementById('sub-'+mod);
+    if (btn) { btn.style.display = 'inline-block'; setTimeout(()=>btn.scrollIntoView({behavior:'smooth',block:'center'}),300); }
+  }
+}
+
+function showResult(mod, total) {
+  let score = 0;
+  // correct answers per module/question (index of correct option)
+  const correctMap = {
+    0: [1,2,1,0,2,1,1,0],
+    1: [1,1,2,1,2,1,1,1],
+    2: [1,1,2,1,1,1,1,1],
+    3: [1,2,1,1,1,2,2,1],
+    4: [1,1,1,2,2,2,2,2]
+  };
+  for (let i=0; i<total; i++) {
+    if (state[mod][i] === correctMap[mod][i]) score++;
+  }
+  const pct = Math.round((score/total)*100);
+  let badge, msg;
+  if (pct===100){ badge='🏆 Perfetto!'; msg='Straordinario! Hai risposto correttamente a tutte le domande. Sei pronto per il corso completo.'; }
+  else if (pct>=75){ badge='🥇 Ottimo!'; msg='Eccellente preparazione! Il corso completo ti darà la padronanza totale di questo argomento.'; }
+  else if (pct>=50){ badge='🥈 Buono'; msg='Buona base! Rileggi le sezioni dove hai sbagliato, poi considera il corso completo per colmare le lacune.'; }
+  else { badge='📖 Riprova'; msg='Rileggi l\'articolo con attenzione prima di riprovare. Ci sono concetti fondamentali da consolidare.'; }
+
+  const nextIdx = mod+1;
+  const hasNext = nextIdx < 5;
+  const resEl = document.getElementById('res-'+mod);
+  document.getElementById('sub-'+mod).style.display='none';
+  resEl.style.display='block';
+  resEl.innerHTML = `
+    <div class="result-pct">${pct}%</div>
+    <span class="result-lbl">${score} / ${total} risposte corrette</span>
+    <div class="result-badge">${badge}</div>
+    <p class="result-msg">${msg}</p>
+    <div class="result-btns">
+      <button class="btn-retry" onclick="showModule(${mod})">↺ Riprova</button>
+      ${hasNext ? `<button class="btn-next" onclick="showModule(${nextIdx})">Modulo ${nextIdx+1} →</button>` : `<button class="btn-next" onclick="showHome()">✓ Torna ai Moduli</button>`}
+    </div>`;
+  setTimeout(()=>resEl.scrollIntoView({behavior:'smooth',block:'center'}),200);
+
+  // Mark card as done
+  if (pct>=75) document.getElementById('card-'+mod)?.classList.add('done');
+}
+
+// fix: assign IDs to opts dynamically since they don't have static IDs
+document.querySelectorAll('.question').forEach((q, globalIdx) => {
+  q.querySelectorAll('.opt').forEach((opt, oi) => {
+    // Extract mod and qIdx from onclick
+    const oc = opt.getAttribute('onclick');
+    if (oc) {
+      const m = oc.match(/answer\((\d+),(\d+),(\d+),(\d+)\)/);
+      if (m) opt.id = `opt-${m[1]}-${m[2]}-${m[3]}`;
+    }
+  });
+});
+</script>
+</body>
+</html>
