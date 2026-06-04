@@ -215,6 +215,30 @@ nav.scrolled{background:rgba(6,5,4,0.97);padding:14px 60px;border-bottom:1px sol
   background:rgba(6,5,4,0.26);
 }
 
+/* ══ SPECIAL COURSE ══ */
+.special-course{background:linear-gradient(135deg,#181310 0%,#070504 70%);padding:82px 60px;border-top:1px solid rgba(196,150,42,0.08);border-bottom:1px solid rgba(196,150,42,0.12);}
+.special-course-card{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:0;border:1px solid rgba(196,150,42,0.22);background:rgba(6,5,4,0.58);position:relative;overflow:hidden;}
+.special-course-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(196,150,42,0.17),transparent 34%);pointer-events:none;}
+.special-course-copy{position:relative;padding:48px 46px;}
+.special-date{display:inline-flex;align-items:center;gap:12px;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--oro2);margin-bottom:18px;}
+.special-date::before{content:'';width:34px;height:1px;background:var(--oro);}
+.special-course h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.8vw,60px);font-weight:300;line-height:1.04;color:var(--avorio);margin-bottom:18px;}
+.special-course h2 em{font-style:italic;color:var(--oro);}
+.special-lead{font-family:'EB Garamond',serif;font-size:19px;line-height:1.78;color:#d2cabf;max-width:620px;margin-bottom:28px;}
+.special-points{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:28px;}
+.special-point{background:rgba(196,150,42,0.06);border:1px solid rgba(196,150,42,0.12);padding:18px 16px;}
+.special-point strong{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--oro);margin-bottom:6px;}
+.special-point span{font-family:'EB Garamond',serif;font-size:16px;line-height:1.45;color:#c8bfb0;}
+.special-course-prices{position:relative;padding:48px 42px;background:rgba(196,150,42,0.045);border-left:1px solid rgba(196,150,42,0.16);display:flex;flex-direction:column;justify-content:center;}
+.special-price-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--oro);margin-bottom:18px;}
+.special-price-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;}
+.special-price{border:1px solid rgba(196,150,42,0.22);background:rgba(6,5,4,0.48);padding:24px 20px;text-align:center;}
+.special-price.wide{grid-column:1/-1;background:rgba(196,150,42,0.09);}
+.special-price-num{font-family:'Cormorant Garamond',serif;font-size:44px;font-style:italic;color:var(--oro2);line-height:1;}
+.special-price-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#d2cabf;margin-top:8px;line-height:1.45;}
+.special-note{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--grigio);line-height:1.6;margin:18px 0 22px;}
+.special-course .btn-primary{text-align:center;}
+
 /* ══ MENU DOWNLOADS ══ */
 .menu-section{background:linear-gradient(135deg,#0b0806,#181310);}
 .menu-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;margin-bottom:42px;}
@@ -520,6 +544,11 @@ footer{background:var(--marrone);border-top:1px solid rgba(196,150,42,0.12);padd
   .academy-gateway{padding:60px 22px;}
   .gateway-head{grid-template-columns:1fr;gap:18px;}
   .gateway-grid{grid-template-columns:1fr;}
+  .special-course{padding:56px 22px;}
+  .special-course-card{grid-template-columns:1fr;}
+  .special-course-copy,.special-course-prices{padding:34px 26px;}
+  .special-course-prices{border-left:none;border-top:1px solid rgba(196,150,42,0.16);}
+  .special-points,.special-price-grid{grid-template-columns:1fr;}
   .price-row{gap:8px;}
 }
 .lang-bar{position:fixed;top:0;left:0;right:0;z-index:700;background:rgba(6,5,4,0.97);border-bottom:1px solid rgba(196,150,42,0.2);display:flex;justify-content:center;gap:8px;padding:7px 20px;}
@@ -640,6 +669,41 @@ nav{top:36px!important;}
       </div>
       <span class="gateway-arrow" id="gw3a">Scopri i percorsi</span>
     </a>
+  </div>
+</section>
+
+<!-- SPECIAL COURSE -->
+<section class="special-course" id="impiattamento">
+  <div class="special-course-card">
+    <div class="special-course-copy">
+      <span class="special-date" id="plDate">29-30 giugno 2026</span>
+      <h2 id="plTitle">Corso di <em>impiattamento</em> contemporaneo</h2>
+      <p class="special-lead" id="plLead">Due giornate dedicate a composizione, ritmo, colore e precisione del piatto. Corso per soci Associazione Italiana Cuochi, aperto anche ai non soci.</p>
+      <div class="special-points">
+        <div class="special-point"><strong id="plP1h">Tecnica</strong><span id="plP1">Salse, altezze, vuoti, contrasti e lettura del piatto.</span></div>
+        <div class="special-point"><strong id="plP2h">Formato</strong><span id="plP2">Online oppure in presenza a Steinfurt.</span></div>
+        <div class="special-point"><strong id="plP3h">Livello</strong><span id="plP3">Pensato per cuochi, allievi e appassionati evoluti.</span></div>
+      </div>
+    </div>
+    <div class="special-course-prices">
+      <div class="special-price-title" id="plPriceTitle">Quote corso</div>
+      <div class="special-price-grid">
+        <div class="special-price">
+          <div class="special-price-num">50€</div>
+          <div class="special-price-lbl" id="plPrice1">Soci AIC · online</div>
+        </div>
+        <div class="special-price">
+          <div class="special-price-num">80€</div>
+          <div class="special-price-lbl" id="plPrice2">Soci AIC · in presenza</div>
+        </div>
+        <div class="special-price wide">
+          <div class="special-price-num">150€</div>
+          <div class="special-price-lbl" id="plPrice3">Non soci · 2 giorni</div>
+        </div>
+      </div>
+      <p class="special-note" id="plNote">Posti limitati. Prenotazione via email.</p>
+      <a href="mailto:info@ristorante-locoselli.de?subject=Corso%20impiattamento%2029-30%20giugno" class="btn-primary" id="plBtn">Prenota il corso</a>
+    </div>
   </div>
 </section>
 
@@ -1345,21 +1409,30 @@ hp1:"Manifesti gratuiti",hp2:"Moduli con quiz",hp3:"Percorsi Academy",hp4:"Maste
 gwTag:"Da dove iniziare",gwTitle:"Entra nella mia Academy con un percorso chiaro",gwCopy:"Prima studi gratis, poi scegli se approfondire online, live o in presenza. Il ristorante resta il laboratorio reale dove ogni tecnica viene provata.",
 gw1h:"Manifesti gratuiti",gw1p:"CBT, cucina molecolare e anima italiana spiegate con il mio metodo: tecnica, gusto e identità.",gw1a:"Leggi ora",
 gw2h:"Quiz interattivi",gw2p:"Cinque moduli per capire il tuo livello e trasformare lo studio in pratica concreta.",gw2a:"Mettiti alla prova",
-gw3h:"Percorsi Academy",gw3p:"Dai corsi on demand alla masterclass privata: scegli il formato giusto per crescere davvero.",gw3a:"Scopri i percorsi"
+gw3h:"Percorsi Academy",gw3p:"Dai corsi on demand alla masterclass privata: scegli il formato giusto per crescere davvero.",gw3a:"Scopri i percorsi",
+plDate:"29-30 giugno 2026",plTitle:"Corso di impiattamento contemporaneo",plLead:"Due giornate dedicate a composizione, ritmo, colore e precisione del piatto. Corso per soci Associazione Italiana Cuochi, aperto anche ai non soci.",
+plP1h:"Tecnica",plP1:"Salse, altezze, vuoti, contrasti e lettura del piatto.",plP2h:"Formato",plP2:"Online oppure in presenza a Steinfurt.",plP3h:"Livello",plP3:"Pensato per cuochi, allievi e appassionati evoluti.",
+plPriceTitle:"Quote corso",plPrice1:"Soci AIC · online",plPrice2:"Soci AIC · in presenza",plPrice3:"Non soci · 2 giorni",plNote:"Posti limitati. Prenotazione via email.",plBtn:"Prenota il corso"
 },
 de:{
 hp1:"Kostenlose Manifeste",hp2:"Module mit Quiz",hp3:"Academy Wege",hp4:"Private Masterclasses",
 gwTag:"Wo du startest",gwTitle:"Starte meine Academy mit einem klaren Weg",gwCopy:"Zuerst lernst du kostenlos, dann vertiefst du online, live oder vor Ort. Das Restaurant bleibt das echte Labor, in dem jede Technik erprobt wird.",
 gw1h:"Kostenlose Manifeste",gw1p:"CBT, Molekularküche und italienische Identität erklärt mit meiner Methode: Technik, Geschmack und Haltung.",gw1a:"Jetzt lesen",
 gw2h:"Interaktive Quiz",gw2p:"Fünf Module, um dein Niveau zu verstehen und Lernen in konkrete Praxis zu verwandeln.",gw2a:"Teste dich",
-gw3h:"Academy Wege",gw3p:"Vom On-Demand-Kurs bis zur privaten Masterclass: wähle das Format, das dich wirklich weiterbringt.",gw3a:"Wege entdecken"
+gw3h:"Academy Wege",gw3p:"Vom On-Demand-Kurs bis zur privaten Masterclass: wähle das Format, das dich wirklich weiterbringt.",gw3a:"Wege entdecken",
+plDate:"29.-30. Juni 2026",plTitle:"Kurs: modernes Anrichten",plLead:"Zwei Tage über Komposition, Rhythmus, Farbe und Präzision auf dem Teller. Kurs für Mitglieder der Associazione Italiana Cuochi, auch offen für Nichtmitglieder.",
+plP1h:"Technik",plP1:"Saucen, Höhen, Leerraum, Kontraste und Lesbarkeit des Tellers.",plP2h:"Format",plP2:"Online oder vor Ort in Steinfurt.",plP3h:"Niveau",plP3:"Für Köche, Schüler und fortgeschrittene Kochbegeisterte.",
+plPriceTitle:"Kursgebühren",plPrice1:"AIC-Mitglieder · online",plPrice2:"AIC-Mitglieder · vor Ort",plPrice3:"Nichtmitglieder · 2 Tage",plNote:"Begrenzte Plätze. Reservierung per E-Mail.",plBtn:"Kurs reservieren"
 },
 en:{
 hp1:"Free manifestos",hp2:"Quiz modules",hp3:"Academy paths",hp4:"Private masterclasses",
 gwTag:"Where to start",gwTitle:"Enter my Academy with a clear path",gwCopy:"First you study for free, then you go deeper online, live or in person. The restaurant remains the real lab where every technique is tested.",
 gw1h:"Free manifestos",gw1p:"CBT, molecular cuisine and Italian soul explained through my method: technique, flavor and identity.",gw1a:"Read now",
 gw2h:"Interactive quizzes",gw2p:"Five modules to understand your level and turn study into practical progress.",gw2a:"Test yourself",
-gw3h:"Academy paths",gw3p:"From on-demand courses to private masterclasses: choose the format that helps you truly grow.",gw3a:"Explore paths"
+gw3h:"Academy paths",gw3p:"From on-demand courses to private masterclasses: choose the format that helps you truly grow.",gw3a:"Explore paths",
+plDate:"June 29-30, 2026",plTitle:"Contemporary plating course",plLead:"Two days dedicated to composition, rhythm, color and precision on the plate. Course for Associazione Italiana Cuochi members, also open to non-members.",
+plP1h:"Technique",plP1:"Sauces, height, negative space, contrasts and plate readability.",plP2h:"Format",plP2:"Online or in person in Steinfurt.",plP3h:"Level",plP3:"Designed for chefs, students and advanced food lovers.",
+plPriceTitle:"Course fees",plPrice1:"AIC members · online",plPrice2:"AIC members · in person",plPrice3:"Non-members · 2 days",plNote:"Limited seats. Booking by email.",plBtn:"Book the course"
 }
 };
 
