@@ -432,6 +432,7 @@ nav.scrolled{background:rgba(6,5,4,0.97);padding:14px 60px;border-bottom:1px sol
 .evt-badge{position:absolute;top:-14px;right:26px;background:var(--oro);color:var(--nero);font-size:8px;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;font-weight:500;}
 .evt-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--avorio);margin:10px 0 14px;}
 .evt-desc{font-family:'EB Garamond',serif;font-size:17px;line-height:1.75;color:#ccc4b8;margin-bottom:26px;}
+.evt-note{font-size:12px;line-height:1.7;color:#c8bfb0;background:rgba(196,150,42,0.06);border-left:2px solid rgba(196,150,42,0.45);padding:15px 18px;margin:-8px 0 24px;}
 .evt-details{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:26px;}
 .evt-detail{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--oro2);}
 .price-row{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
@@ -1078,29 +1079,30 @@ nav{top:36px!important;}
     <h2 class="sec-h" id="l25">Live Cooking e Eventi</h2>
     <div class="events-layout">
       <div class="evt-main">
-        <img class="evt-main-img" src="assets/asset-04-c8f44b4dfc5f.jpg" alt="Viaggio in Italia">
+        <img class="evt-main-img" src="assets/asset-04-c8f44b4dfc5f.jpg" alt="Grigliata italiana live cooking">
         <div class="evt-main-body">
-          <span class="evt-badge">In evidenza</span>
-          <span class="sec-tag">Evento Speciale</span>
-          <h3 class="evt-name" id="l26">Viaggio in Italia</h3>
-          <p class="evt-desc" id="l27">Una serata di live cooking unica: cucino dal vivo portandoti in un viaggio gastronomico attraverso la cucina italiana. Tecnica, emozione e sapori autentici in un'esperienza indimenticabile.</p>
+          <span class="evt-badge" id="evtBadge">In evidenza</span>
+          <span class="sec-tag" id="evtTag">Evento Speciale</span>
+          <h3 class="evt-name" id="l26">Grigliata italiana</h3>
+          <p class="evt-desc" id="l27">Una serata a tema grigliata stile italiano: antipasti, pasta, secondi e dessert preparati e raccontati dal vivo sulla griglia. Un percorso completo, conviviale e gastronomico, con la tecnica del live cooking Locoselli.</p>
+          <p class="evt-note" id="evtRain">In caso di pioggia la serata si svolgerà all'interno: continueremo con il live cooking, cucinando in cucina quando necessario, e impiatteremo e spiegheremo ogni piatto davanti agli ospiti.</p>
           <div class="evt-details">
-            <span class="evt-detail">📍 Schlossmühle, Steinfurt</span>
-            <span class="evt-detail">⏱ 3 ore</span>
-            <span class="evt-detail">👥 Max 12 persone</span>
+            <span class="evt-detail" id="evtLoc">📍 Schlossmühle, Steinfurt</span>
+            <span class="evt-detail" id="evtDur">⏱ Serata completa</span>
+            <span class="evt-detail" id="evtPeople">👥 Posti limitati</span>
           </div>
           <div class="price-row">
             <div class="price-box">
-              <div class="price-num">€ 70</div>
-              <div class="price-lbl">Senza Vini</div>
+              <div class="price-num">€ 80</div>
+              <div class="price-lbl" id="evtPriceNoWine">Senza vini</div>
             </div>
             <div class="price-box featured">
-              <div class="recommended">Consigliato</div>
-              <div class="price-num">€ 90</div>
-              <div class="price-lbl">Con Abbinamento Vini</div>
+              <div class="recommended" id="evtRecommended">Consigliato</div>
+              <div class="price-num">€ 100</div>
+              <div class="price-lbl" id="evtPriceWine">Con vini</div>
             </div>
           </div>
-          <a href="mailto:info@ristorante-locoselli.de?subject=Locoselli%20Academy" target="_blank" class="btn-primary">Prenota il Tuo Posto</a>
+          <a href="mailto:info@ristorante-locoselli.de?subject=Live%20Cooking%20Grigliata%20Italiana" target="_blank" class="btn-primary" id="evtBtn">Prenota il Tuo Posto</a>
         </div>
       </div>
       <div class="evt-list">
@@ -1412,7 +1414,10 @@ gw2h:"Quiz interattivi",gw2p:"Cinque moduli per capire il tuo livello e trasform
 gw3h:"Percorsi Academy",gw3p:"Dai corsi on demand alla masterclass privata: scegli il formato giusto per crescere davvero.",gw3a:"Scopri i percorsi",
 plDate:"29-30 giugno 2026 · dalle 11:00",plTitle:"Corso di impiattamento contemporaneo",plLead:"Due giornate dedicate a composizione, ritmo, colore e precisione del piatto. Corso per soci Associazione Italiana Cuochi, aperto anche ai non soci.",
 plP1h:"Tecnica",plP1:"Salse, altezze, vuoti, contrasti e lettura del piatto.",plP2h:"Formato",plP2:"Online oppure in presenza a Steinfurt.",plP3h:"Livello",plP3:"Pensato per cuochi, allievi e appassionati evoluti.",
-plPriceTitle:"Quote corso",plPrice1:"Soci AIC · online",plPrice2:"Soci AIC · in presenza",plPrice3:"Non soci · 2 giorni",plNote:"Posti limitati. Prenotazione via email.",plBtn:"Prenota il corso"
+plPriceTitle:"Quote corso",plPrice1:"Soci AIC · online",plPrice2:"Soci AIC · in presenza",plPrice3:"Non soci · 2 giorni",plNote:"Posti limitati. Prenotazione via email.",plBtn:"Prenota il corso",
+evtBadge:"In evidenza",evtTag:"Evento Speciale",l26:"Grigliata italiana",l27:"Una serata a tema grigliata stile italiano: antipasti, pasta, secondi e dessert preparati e raccontati dal vivo sulla griglia. Un percorso completo, conviviale e gastronomico, con la tecnica del live cooking Locoselli.",
+evtRain:"In caso di pioggia la serata si svolgerà all'interno: continueremo con il live cooking, cucinando in cucina quando necessario, e impiatteremo e spiegheremo ogni piatto davanti agli ospiti.",
+evtLoc:"📍 Schlossmühle, Steinfurt",evtDur:"⏱ Serata completa",evtPeople:"👥 Posti limitati",evtPriceNoWine:"Senza vini",evtRecommended:"Consigliato",evtPriceWine:"Con vini",evtBtn:"Prenota il Tuo Posto"
 },
 de:{
 hp1:"Kostenlose Manifeste",hp2:"Module mit Quiz",hp3:"Academy Wege",hp4:"Private Masterclasses",
@@ -1422,7 +1427,10 @@ gw2h:"Interaktive Quiz",gw2p:"Fünf Module, um dein Niveau zu verstehen und Lern
 gw3h:"Academy Wege",gw3p:"Vom On-Demand-Kurs bis zur privaten Masterclass: wähle das Format, das dich wirklich weiterbringt.",gw3a:"Wege entdecken",
 plDate:"29.-30. Juni 2026 · ab 11:00 Uhr",plTitle:"Kurs: modernes Anrichten",plLead:"Zwei Tage über Komposition, Rhythmus, Farbe und Präzision auf dem Teller. Kurs für Mitglieder der Associazione Italiana Cuochi, auch offen für Nichtmitglieder.",
 plP1h:"Technik",plP1:"Saucen, Höhen, Leerraum, Kontraste und Lesbarkeit des Tellers.",plP2h:"Format",plP2:"Online oder vor Ort in Steinfurt.",plP3h:"Niveau",plP3:"Für Köche, Schüler und fortgeschrittene Kochbegeisterte.",
-plPriceTitle:"Kursgebühren",plPrice1:"AIC-Mitglieder · online",plPrice2:"AIC-Mitglieder · vor Ort",plPrice3:"Nichtmitglieder · 2 Tage",plNote:"Begrenzte Plätze. Reservierung per E-Mail.",plBtn:"Kurs reservieren"
+plPriceTitle:"Kursgebühren",plPrice1:"AIC-Mitglieder · online",plPrice2:"AIC-Mitglieder · vor Ort",plPrice3:"Nichtmitglieder · 2 Tage",plNote:"Begrenzte Plätze. Reservierung per E-Mail.",plBtn:"Kurs reservieren",
+evtBadge:"Im Fokus",evtTag:"Spezialevent",l26:"Italienischer Grillabend",l27:"Ein italienischer Grillabend im Live-Cooking-Format: Antipasti, Pasta, Hauptgänge und Dessert werden live am Grill vorbereitet und erklärt. Ein vollständiges, geselliges und gastronomisches Erlebnis im Locoselli-Stil.",
+evtRain:"Bei Regen findet der Abend im Innenbereich statt: Das Live Cooking bleibt Teil des Erlebnisses, einzelne Vorbereitungen erfolgen dann in der Küche, und wir richten jeden Teller vor den Gästen an und erklären ihn.",
+evtLoc:"📍 Schlossmühle, Steinfurt",evtDur:"⏱ Kompletter Abend",evtPeople:"👥 Begrenzte Plätze",evtPriceNoWine:"Ohne Wein",evtRecommended:"Empfohlen",evtPriceWine:"Mit Wein",evtBtn:"Platz reservieren"
 },
 en:{
 hp1:"Free manifestos",hp2:"Quiz modules",hp3:"Academy paths",hp4:"Private masterclasses",
@@ -1432,7 +1440,10 @@ gw2h:"Interactive quizzes",gw2p:"Five modules to understand your level and turn 
 gw3h:"Academy paths",gw3p:"From on-demand courses to private masterclasses: choose the format that helps you truly grow.",gw3a:"Explore paths",
 plDate:"June 29-30, 2026 · from 11:00",plTitle:"Contemporary plating course",plLead:"Two days dedicated to composition, rhythm, color and precision on the plate. Course for Associazione Italiana Cuochi members, also open to non-members.",
 plP1h:"Technique",plP1:"Sauces, height, negative space, contrasts and plate readability.",plP2h:"Format",plP2:"Online or in person in Steinfurt.",plP3h:"Level",plP3:"Designed for chefs, students and advanced food lovers.",
-plPriceTitle:"Course fees",plPrice1:"AIC members · online",plPrice2:"AIC members · in person",plPrice3:"Non-members · 2 days",plNote:"Limited seats. Booking by email.",plBtn:"Book the course"
+plPriceTitle:"Course fees",plPrice1:"AIC members · online",plPrice2:"AIC members · in person",plPrice3:"Non-members · 2 days",plNote:"Limited seats. Booking by email.",plBtn:"Book the course",
+evtBadge:"Featured",evtTag:"Special Event",l26:"Italian grill night",l27:"An Italian-style grill night in live cooking format: antipasti, pasta, main courses and dessert prepared and explained live on the grill. A complete, convivial and gastronomic Locoselli experience.",
+evtRain:"In case of rain, the evening will take place indoors: live cooking remains part of the experience, some preparations will move to the kitchen when needed, and we will plate and explain every dish in front of the guests.",
+evtLoc:"📍 Schlossmühle, Steinfurt",evtDur:"⏱ Full evening",evtPeople:"👥 Limited seats",evtPriceNoWine:"Without wine",evtRecommended:"Recommended",evtPriceWine:"With wine",evtBtn:"Book Your Seat"
 }
 };
 
