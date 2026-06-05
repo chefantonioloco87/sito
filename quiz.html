@@ -35,6 +35,9 @@ nav {
 .nav-logo { font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:var(--oro); text-decoration:none; cursor:pointer; }
 .nav-center { font-family:'Tenor Sans',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--testo3); }
 .nav-tag { background:var(--oro); color:#fff; font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:2px; }
+.lang-mini { display:flex; gap:6px; align-items:center; }
+.lang-mini button { background:#fff; border:1px solid var(--bordo); color:var(--testo3); font-family:'Tenor Sans',sans-serif; font-size:9px; letter-spacing:2px; padding:6px 9px; cursor:pointer; }
+.lang-mini button.active { background:var(--oro); border-color:var(--oro); color:#fff; }
 
 /* ── VIEWS ── */
 .view { display:none; }
@@ -198,6 +201,7 @@ nav {
   .home-hero { padding:60px 22px 44px; }
   .modules-wrap, .reader-wrap { padding:32px 18px 60px; }
   .quiz-body { padding:22px 18px; }
+  .lang-mini button { padding:6px 7px; }
 }
 </style>
 </head>
@@ -207,7 +211,12 @@ nav {
 <nav>
   <span class="nav-logo" onclick="showHome()">Antonio Locoselli</span>
   <span class="nav-center" id="navCenter">Locoselli Academy</span>
-  <span class="nav-tag">Gratuito</span>
+  <div class="lang-mini">
+    <button id="ql-it" onclick="setFreeLang('it')">IT</button>
+    <button id="ql-de" onclick="setFreeLang('de')">DE</button>
+    <button id="ql-en" onclick="setFreeLang('en')">EN</button>
+  </div>
+  <span class="nav-tag" id="navTag">Gratuito</span>
 </nav>
 
 <!-- ══════════ HOME ══════════ -->
@@ -924,9 +933,180 @@ nav {
 </div>
 
 <script>
+const freeQuizData = {
+  en: {
+    ui: {
+      navTag:"Free", navCenter:"Locoselli Academy", homeLabel:"Locoselli Academy · Free Modules",
+      homeTitle:"Learn from the <em>foundations</em>", homeSub:"Five free modules by Chef Antonio Locoselli",
+      homeDesc:"Read the lessons, absorb the key concepts and test your knowledge with the final quizzes. Every completed module brings you closer to professional cooking.",
+      modulesLabel:"Choose your module — click to start", free:"✦ Free", questions:"8 questions",
+      allModules:"← All modules", module:"Module", reading:"min read", quizLabel:"✦ Final Quiz",
+      quizTitle:"Test your knowledge", answered:"answers given", resultAnswers:"correct answers",
+      retry:"↺ Try again", backHome:"✓ Back to Modules", nextModule:"Module",
+      deeperTitle:"Want to go deeper?", deeperText:"This is only a first taste. The Academy path can include lessons, practice and direct supervision based on your goal.", deeperBtn:"Explore the Academy Path",
+      correct:"Correct. ", wrong:"Not quite. ",
+      result:[
+        ["🏆 Perfect!","Outstanding. You answered every question correctly and you are ready for the Academy path."],
+        ["🥇 Excellent!","Strong preparation. The Academy path helps you take this topic to professional level."],
+        ["🥈 Good","Good base. Read again the sections where you missed something, then go deeper."],
+        ["📖 Try again","Read the lesson carefully before trying again. Some key concepts need to settle."]
+      ]
+    },
+    modules: [
+      {
+        icon:"🔬", time:"12", title:"Molecular Cuisine", card:"Spherification, gels, emulsions and liquid nitrogen. Science serving emotion.",
+        readerTitle:"Basic <em>Molecular</em> Cuisine", sub:"Science serving emotion", meta:["🔬 Molecular","⏱ 12 min read","❓ 8 questions"],
+        sections:[
+          ["What is molecular cuisine?",["Molecular cuisine is not a magic trick. It is the conscious use of chemistry and physics to transform food with precision.","For Antonio Locoselli, every technique must serve flavor, not cover it. The rule is simple: amaze without distorting."]],
+          ["Gelling agents",["Gelling agents dissolve into liquids and create structure. Agar, gelatin, carrageenan and methylcellulose give different textures and react to temperature in different ways.","Agar creates firm heat-stable gels; gelatin melts at body temperature; methylcellulose works in reverse, firm when hot and liquid when cold."]],
+          ["Spherification",["Spherification creates a thin gel membrane around a liquid center. The bite releases the liquid and all its flavor.","Direct spherification uses alginate in the liquid and calcium in the bath. Reverse spherification puts calcium in the liquid and alginate in the bath."]],
+          ["Foams and liquid nitrogen",["Soy lecithin helps create light airs with an immersion blender. A siphon with N2O creates stable foams, mousses and savory creams.","Liquid nitrogen boils at -196°C. It freezes instantly and creates crisp shells, ultra-creamy gelato and powders. Safety glasses and gloves are mandatory."]]
+        ],
+        questions:[
+          ["At what temperature does animal gelatin melt?",["About 20°C","About 35°C","About 60°C","About 100°C"],1,"Gelatin melts around 35°C, close to body temperature, which is why it melts in the mouth."],
+          ["In direct spherification, what is added to the liquid?",["Calcium chloride","Agar agar","Sodium alginate","Soy lecithin"],2,"In direct spherification, alginate goes into the liquid and calcium chloride into the bath."],
+          ["Why do very acidic liquids create problems in spherification?",["They taste too strong","They inhibit alginate gelation","They dissolve calcium chloride","They darken the sphere"],1,"Low pH blocks alginate gelation; sodium citrate is used to correct acidity."],
+          ["Methylcellulose is a reverse gelling agent. What does that mean?",["It sets when hot and becomes liquid when cold","It sets when cold and melts when hot","It is not edible","It only works with liquid nitrogen"],0,"Methylcellulose sets with heat and softens again as it cools."],
+          ["At what temperature does liquid nitrogen boil?",["-20°C","-78°C","-196°C","-100°C"],2,"Liquid nitrogen boils at -196°C, which makes instant freezing possible."],
+          ["What is a good agar agar dose for a soft gel?",["0.1 g per 100 ml","0.5 g per 100 ml","5 g per 100 ml","10 g per 100 ml"],1,"Around 0.5 g per 100 ml gives a soft gel; more agar means a firmer texture."],
+          ["What does soy lecithin create with an angled immersion blender?",["Spheres","Light airs","Fast gels","Sugar crystals"],1,"Lecithin stabilizes bubbles and creates light flavorful airs."],
+          ["What distinguishes reverse from direct spherification?",["Calcium is in the liquid, not in the bath","It is used only for desserts","Alginate is not used","Only agar is used"],0,"In reverse spherification, calcium is in the liquid and alginate in the bath."]
+        ]
+      },
+      {
+        icon:"🍝", time:"10", title:"Pasta, Fillings and Sauces", card:"Flours, eggs, dough resting and regional shapes. The roots of Italian cuisine.",
+        readerTitle:"Italian <em>Fresh Pasta</em>", sub:"Roots, technique and tradition", meta:["🍝 Pasta","⏱ 10 min read","❓ 8 questions"],
+        sections:[
+          ["Flour",["Fresh pasta begins with flour. Protein content, absorption and milling change elasticity, cooking resistance and final flavor.","00 flour is ideal for thin egg pasta; durum wheat semolina gives bite and character to southern shapes."]],
+          ["Eggs and resting",["Traditional egg pasta relies on yolks for color, fat and natural lecithin. The classic Emilian logic is rich, elastic and precise.","Resting the dough is not optional: gluten relaxes, humidity distributes evenly and the sheet rolls out without shrinking."]],
+          ["Rolling and shapes",["Hand rolling creates micro-roughness that catches sauce beautifully. The machine gives speed and consistency.","Tagliatelle, orecchiette, trofie, pici and bigoli are not only shapes: they are regional memories."]],
+          ["Cooking and mantecatura",["Fresh pasta cooks quickly. The cooking water contains starch and is the best tool for finishing the sauce.","Drain slightly early and finish in the pan with sauce and pasta water. The creaminess is built there, not on the plate."]]
+        ],
+        questions:[
+          ["What is the classic Emilian ratio for egg pasta?",["1 egg per 50 g flour","1 yolk every 10 g flour","2 eggs per 200 g flour","1 egg white every 100 g flour"],1,"A rich traditional dough can use one yolk every 10 g flour."],
+          ["Why is dough resting important?",["To cool it","Gluten relaxes and moisture distributes evenly","To make it rise","To dry it before rolling"],1,"Resting relaxes gluten and makes the dough easier to roll."],
+          ["Which flour is most suitable for orecchiette and southern pasta?",["00 flour","Whole spelt flour","Remilled durum wheat semolina","Rice flour"],2,"Durum wheat semolina gives bite and structure to southern pasta shapes."],
+          ["What thickness works for tagliatelle?",["0.2 mm","1-1.5 mm","3 mm","5 mm"],1,"Tagliatelle are usually rolled to about 1-1.5 mm."],
+          ["What is the traditional width of tagliatelle?",["4 mm","6 mm","8 mm","12 mm"],2,"The Emilian reference is about 8 mm."],
+          ["Why is pasta cooking water precious?",["It can cook vegetables","It contains starch that helps emulsify the sauce","It replaces stock","It cools the sauce"],1,"The starch in the water helps bind and emulsify the sauce."],
+          ["How thin should pasta for filled shapes be?",["0.8-1 mm","3 mm","5 mm","As thick as possible"],0,"Filled pasta needs a thin sheet so the filling stays the protagonist."],
+          ["Where does professional mantecatura happen?",["On the plate","In the pan with sauce and pasta water","In cold water","Only in the oven"],1,"The sauce is finished in the pan with pasta water, not on the plate."]
+        ]
+      },
+      {
+        icon:"🍰", time:"11", title:"Molecular Pastry", card:"Gels, foams, sweet spherification and nitrogen gelato. Desserts that truly surprise.",
+        readerTitle:"<em>Molecular</em> Pastry", sub:"Precision, temperature and texture", meta:["🍰 Pastry","⏱ 11 min read","❓ 8 questions"],
+        sections:[
+          ["Structure in dessert",["A restaurant dessert is balance: sweetness, acidity, temperature and texture. Molecular tools help create clean contrasts.","The goal is not decoration. The goal is a spoonful that changes while you eat it."]],
+          ["Mirror glaze and chocolate",["Mirror glaze must be poured in the right temperature window, usually around 32-35°C, to cover cleanly and shine.","Chocolate tempering controls cocoa butter crystals; for dark chocolate the working range is usually around 31-32°C."]],
+          ["Sweet gels and inserts",["Fruit gels, fluid gels and inserts help organize acidity and freshness inside a dessert.","Agar is useful for heat-stable inserts; gelatin gives a softer melt-in-the-mouth effect."]],
+          ["Siphon and nitrogen",["A siphon can turn ganache, curd or cream into a lighter texture. Liquid nitrogen freezes fast and keeps crystals microscopic.","Fast freezing means smoother gelato and cleaner textures."]]
+        ],
+        questions:[
+          ["What is the ideal pouring range for mirror glaze?",["20-24°C","32-35°C","45-50°C","70°C"],1,"Mirror glaze usually covers best around 32-35°C."],
+          ["What problem do acidic fruit purees cause in alginate spherification?",["Too much sweetness","They block gelation","They become blue","They remove aroma"],1,"A low pH can block alginate gelation and must be corrected."],
+          ["At what temperature is dark chocolate usually worked after tempering?",["20°C","26°C","31-32°C","45°C"],2,"Dark chocolate is generally worked around 31-32°C."],
+          ["What happens if melted chocolate is poured into liquid nitrogen?",["It burns","It instantly sets into crisp shards","It becomes caramel","It dissolves"],1,"The extreme cold creates instant solidification and a crisp texture."],
+          ["Which gelling agent is useful for inserts that must resist heat?",["Gelatin","Agar agar","Butter","Sugar"],1,"Agar is heat-stable compared with gelatin."],
+          ["Why is nitrogen gelato very creamy?",["It has more sugar","Fast freezing creates tiny ice crystals","It has no fat","It is warmer"],1,"Rapid freezing limits ice crystal growth and gives a smooth texture."],
+          ["How many N2O charges are typical for a 0.5 L siphon?",["1-2","5-6","10","None"],0,"Most 0.5 L siphon preparations use 1-2 charges depending on density."],
+          ["What can be aerated in a siphon?",["Only cream","Many structured liquid bases","Only water","Only egg whites"],1,"Ganache, curd, creams and savory bases can work if they have enough structure."]
+        ]
+      },
+      {
+        icon:"🌡️", time:"10", title:"CBT — Sous Vide Cooking", card:"Temperatures, timing, collagen and safety. Precision changes everything.",
+        readerTitle:"Sous Vide <em>Precision</em>", sub:"Temperature, time and repeatability", meta:["🌡️ CBT","⏱ 10 min read","❓ 8 questions"],
+        sections:[
+          ["The logic of temperature",["Sous vide cooking means cooking vacuum-packed food in water held at a precise temperature.","Instead of fighting heat, you decide the final core temperature and cook there. The result is repeatable."]],
+          ["Texture and collagen",["Fish can stay silky at lower temperatures. Tough cuts become tender when collagen slowly converts into gelatin.","Time is as important as temperature: the right combination changes texture without drying the product."]],
+          ["Safety",["The danger zone must be respected. Long cooking at low temperature requires precision, hygiene and correct cooling.","For service, rapid chilling and controlled regeneration are part of the method."]],
+          ["Finishing",["After sous vide, the surface must be dried well. Moisture creates steam and blocks browning.","Finish fast and hot: the goal is crust, not cooking the inside again."]]
+        ],
+        questions:[
+          ["What defines sous vide cooking?",["Boiling food in open water","Vacuum-packed cooking in precisely controlled water","Cooking only with steam","Cooking only at 100°C"],1,"Sous vide uses vacuum bags and a precise water bath."],
+          ["Which range gives salmon a silky texture?",["42-46°C","60-65°C","75°C","90°C"],0,"Salmon becomes silky and translucent around 42-46°C."],
+          ["What happens to collagen during long controlled cooking?",["It disappears","It turns into gelatin","It becomes salt","It burns"],1,"Collagen slowly converts into gelatin and makes tough cuts tender."],
+          ["Why is the danger zone important?",["It improves flavor","Bacteria multiply faster there","It makes meat red","It stops cooking"],1,"Food safety depends on managing the temperature range where bacteria grow."],
+          ["Why must meat be dried before searing?",["To prevent sticking only","Moisture creates steam and prevents Maillard browning","To salt it better","To cool it"],1,"A dry surface browns faster and better."],
+          ["What is the reference pasteurization temperature for poultry in this module?",["50°C","56°C","63°C","75°C"],2,"The module uses 63°C as the safety reference point."],
+          ["How long should the final sear last?",["5-10 minutes per side","2-3 minutes per side","30-60 seconds per side on very high heat","No sear is needed"],2,"The sear is short and intense to create crust only."],
+          ["The liquid left in the bag is:",["Waste","Precious for sauces","Only salted water","Useful only for cleaning pans"],1,"The bag juice is full of flavor, collagen and cooking juices."]
+        ]
+      },
+      {
+        icon:"🧼", time:"9", title:"Cleaning & HACCP", card:"Cold chain, danger zones, hygiene and rules. The foundations that protect everyone.",
+        readerTitle:"Cleaning & <em>HACCP</em>", sub:"The foundations that protect guests and professionals", meta:["🧼 Hygiene","⏱ 9 min read","❓ 8 questions"],
+        sections:[
+          ["What HACCP means",["HACCP stands for Hazard Analysis and Critical Control Points. It is a food safety system based on identifying and controlling risks.","It is a legal obligation, but also a professional mindset."]],
+          ["Cold chain and danger zone",["Fresh meat and dairy products must be kept cold. Cooked products must be chilled quickly and safely.","The danger zone is where bacteria multiply quickly; time and temperature must be controlled."]],
+          ["Personal hygiene",["Hands are one of the main sources of contamination. Washing, covering wounds and avoiding jewelry are basic professional rules.","Hair protection and clean uniforms are part of the system, not decoration."]],
+          ["Cleaning and records",["Cleaning and sanitizing are different steps. Remove, wash, rinse, disinfect, rinse again and dry.","HACCP records document temperatures, cleaning, deliveries and non-conformities."]]
+        ],
+        questions:[
+          ["What does HACCP stand for?",["High Accuracy Cooking Control Process","Hazard Analysis and Critical Control Points","Hygienic and Clean Cooking Practices","Healthy Alimentary Care and Control Plan"],1,"HACCP means Hazard Analysis and Critical Control Points."],
+          ["What is the bacterial danger zone in this module?",["0°C-4°C","4°C-63°C","63°C-100°C","-18°C-0°C"],1,"Between 4°C and 63°C bacteria can multiply quickly."],
+          ["What maximum temperature is used for fresh meat and dairy storage?",["+8°C","+4°C","+10°C","0°C"],1,"+4°C is the maximum safe reference used here."],
+          ["Which board color is used for raw meat?",["Green","Blue","Red","Yellow"],2,"Red is used for raw meat in the color-coded system."],
+          ["What is the correct cleaning sequence?",["Disinfect, wash, dry","Wash, disinfect, dry","Remove residues, wash, rinse, disinfect, rinse, dry","Dry, disinfect, wash"],2,"Each step has a purpose; skipping one weakens the process."],
+          ["Where should raw foods be stored in the fridge?",["Above cooked foods","On the same shelf","Below cooked foods","Always outside the fridge"],2,"Raw foods stay below cooked foods to prevent dripping contamination."],
+          ["How long should HACCP records be kept?",["6 months","1 year","At least 2 years","5 years"],2,"The module uses at least 2 years as the reference for records."],
+          ["How should food be thawed safely?",["At room temperature","In hot water","In the refrigerator","Always in the microwave"],2,"Refrigerator thawing keeps food out of dangerous surface temperatures."]
+        ]
+      }
+    ]
+  },
+  de: {
+    ui: {
+      navTag:"Kostenlos", navCenter:"Locoselli Academy", homeLabel:"Locoselli Academy · Kostenlose Module",
+      homeTitle:"Lerne von den <em>Grundlagen</em>", homeSub:"Fünf kostenlose Module von Chef Antonio Locoselli",
+      homeDesc:"Lies die Lektionen, verstehe die wichtigsten Konzepte und teste dein Wissen mit den Abschlussquiz. Jedes abgeschlossene Modul bringt dich näher an professionelles Kochen.",
+      modulesLabel:"Wähle dein Modul — klicken und starten", free:"✦ Kostenlos", questions:"8 Fragen",
+      allModules:"← Alle Module", module:"Modul", reading:"Min. Lesezeit", quizLabel:"✦ Abschlussquiz",
+      quizTitle:"Teste dein Wissen", answered:"Antworten gegeben", resultAnswers:"richtige Antworten",
+      retry:"↺ Wiederholen", backHome:"✓ Zurück zu den Modulen", nextModule:"Modul",
+      deeperTitle:"Willst du tiefer gehen?", deeperText:"Das ist nur ein erster Einblick. Der Academy-Weg kann Unterricht, Praxis und direkte Begleitung nach deinem Ziel enthalten.", deeperBtn:"Academy-Weg entdecken",
+      correct:"Richtig. ", wrong:"Nicht ganz. ",
+      result:[
+        ["🏆 Perfekt!","Stark. Du hast alle Fragen richtig beantwortet und bist bereit für den Academy-Weg."],
+        ["🥇 Sehr gut!","Gute Vorbereitung. Der Academy-Weg bringt dieses Thema auf professionelles Niveau."],
+        ["🥈 Gut","Gute Basis. Lies die Abschnitte mit Fehlern noch einmal und gehe dann tiefer."],
+        ["📖 Noch einmal","Lies die Lektion aufmerksam und versuche es danach erneut. Einige Grundlagen müssen sich noch setzen."]
+      ]
+    },
+    modules: []
+  }
+};
+freeQuizData.de.modules = freeQuizData.en.modules.map(function(m, moduleIdx){
+  var titles = [
+    ["Molekulare Küche","Sphärisierung, Gele, Emulsionen und flüssiger Stickstoff. Wissenschaft im Dienst der Emotion.","Molekulare <em>Küche</em> Basis","Wissenschaft im Dienst der Emotion"],
+    ["Pasta, Füllungen und Saucen","Mehl, Eier, Teigruhe und regionale Formen. Die Wurzeln der italienischen Küche.","Italienische <em>frische Pasta</em>","Wurzeln, Technik und Tradition"],
+    ["Molekulare Patisserie","Gele, Schäume, süße Sphärisierung und Stickstoff-Gelato. Desserts, die wirklich überraschen.","<em>Molekulare</em> Patisserie","Präzision, Temperatur und Textur"],
+    ["CBT — Sous Vide Garen","Temperaturen, Zeiten, Kollagen und Sicherheit. Präzision verändert alles.","Sous Vide <em>Präzision</em>","Temperatur, Zeit und Wiederholbarkeit"],
+    ["Reinigung & HACCP","Kühlkette, Gefahrenzone, Hygiene und Regeln. Grundlagen, die alle schützen.","Reinigung & <em>HACCP</em>","Grundlagen, die Gäste und Profis schützen"]
+  ];
+  var sections = [
+    [["Was ist Molekularküche?",["Molekularküche ist kein Zaubertrick. Sie nutzt Chemie und Physik bewusst, um Lebensmittel präzise zu verändern.","Für Antonio Locoselli muss jede Technik dem Geschmack dienen. Die Regel bleibt: begeistern, ohne zu verfälschen."]],["Gelbildner",["Gelbildner lösen sich in Flüssigkeiten und geben Struktur. Agar, Gelatine, Carrageen und Methylcellulose erzeugen unterschiedliche Texturen.","Agar ist hitzestabil, Gelatine schmilzt im Mund, Methylcellulose funktioniert umgekehrt: fest bei Hitze, flüssig bei Kälte."]],["Sphärisierung",["Sphärisierung erzeugt eine dünne Gelhaut um einen flüssigen Kern. Beim Biss wird der Geschmack freigesetzt.","Direkt bedeutet: Alginat in der Flüssigkeit, Calcium im Bad. Umgekehrt bedeutet: Calcium in der Flüssigkeit, Alginat im Bad."]],["Schäume und Stickstoff",["Sojalecithin stabilisiert leichte Airs. Der Siphon mit N2O erzeugt Schäume, Mousses und Cremes.","Flüssiger Stickstoff siedet bei -196°C. Er friert sofort und verlangt Schutzbrille und Handschuhe."]]],
+    [["Mehl",["Frische Pasta beginnt mit dem Mehl. Protein, Aufnahmefähigkeit und Mahlung verändern Elastizität, Biss und Geschmack.","00-Mehl ist ideal für dünne Eierpasta; Hartweizengrieß gibt süditalienischen Formen Struktur."]],["Eier und Ruhe",["Eierteig lebt vom Eigelb: Farbe, Fett und natürliche Lecithine machen den Teig elastisch.","Die Ruhezeit entspannt das Gluten und verteilt die Feuchtigkeit gleichmäßig."]],["Ausrollen und Formen",["Handarbeit erzeugt eine feine Rauheit, die Sauce besser hält. Die Maschine bringt Tempo und Gleichmäßigkeit.","Tagliatelle, Orecchiette, Trofie, Pici und Bigoli sind regionale Erinnerungen."]],["Kochen und Mantecatura",["Frische Pasta kocht schnell. Das Kochwasser enthält Stärke und hilft, die Sauce zu binden.","Kurz vorher abgießen und in der Pfanne mit Sauce und Kochwasser fertigstellen."]]],
+    [["Struktur im Dessert",["Ein Restaurantdessert ist Balance: Süße, Säure, Temperatur und Textur.","Molekulare Werkzeuge schaffen klare Kontraste, nicht nur Dekoration."]],["Glasur und Schokolade",["Mirror Glaze wird meist bei 32-35°C gegossen, damit sie sauber deckt und glänzt.","Temperieren kontrolliert die Kristalle der Kakaobutter; dunkle Schokolade arbeitet oft bei 31-32°C."]],["Gele und Einlagen",["Fruchtgele, Fluid Gels und Einlagen organisieren Säure und Frische.","Agar ist für hitzestabile Einlagen nützlich; Gelatine schmilzt weicher im Mund."]],["Siphon und Stickstoff",["Der Siphon macht Ganache, Curd oder Creme leichter. Stickstoff friert extrem schnell.","Schnelles Gefrieren bedeutet kleinere Eiskristalle und cremigeres Gelato."]]],
+    [["Temperatur-Logik",["Sous Vide bedeutet vakuumiertes Garen in Wasser mit präziser Temperatur.","Du bestimmst die Zieltemperatur und garst genau dort. Das Ergebnis ist wiederholbar."]],["Textur und Kollagen",["Fisch bleibt bei niedriger Temperatur seidig. Zähe Stücke werden weich, wenn Kollagen zu Gelatine wird.","Zeit und Temperatur verändern die Textur ohne auszutrocknen."]],["Sicherheit",["Die Gefahrenzone muss respektiert werden. Niedrige Temperaturen brauchen Hygiene und Kontrolle.","Schnelles Kühlen und kontrolliertes Regenerieren gehören zur Methode."]],["Finish",["Nach Sous Vide muss die Oberfläche trocken sein. Feuchtigkeit verhindert Bräunung.","Kurz und sehr heiß anbraten: Kruste erzeugen, nicht den Kern erneut garen."]]],
+    [["Was HACCP bedeutet",["HACCP bedeutet Hazard Analysis and Critical Control Points. Es ist ein System zur Lebensmittelsicherheit.","Es ist Pflicht und zugleich professionelle Haltung."]],["Kühlkette und Gefahrenzone",["Frisches Fleisch und Milchprodukte müssen kalt bleiben. Gekochte Produkte müssen schnell heruntergekühlt werden.","In der Gefahrenzone vermehren sich Bakterien schnell; Zeit und Temperatur sind entscheidend."]],["Persönliche Hygiene",["Hände sind eine Hauptquelle für Kontamination. Waschen, Wunden abdecken und kein Schmuck sind Basisregeln.","Haarschutz und saubere Kleidung gehören zum System."]],["Reinigung und Dokumente",["Reinigen und Desinfizieren sind unterschiedliche Schritte: entfernen, waschen, spülen, desinfizieren, spülen, trocknen.","HACCP-Listen dokumentieren Temperaturen, Reinigung, Warenannahme und Abweichungen."]]]
+  ];
+  var questions = [
+    [["Bei welcher Temperatur schmilzt tierische Gelatine?",["Etwa 20°C","Etwa 35°C","Etwa 60°C","Etwa 100°C"],1,"Gelatine schmilzt um 35°C, also nahe der Körpertemperatur."],["Was kommt bei direkter Sphärisierung in die Flüssigkeit?",["Calciumchlorid","Agar Agar","Natriumalginat","Sojalecithin"],2,"Bei der direkten Methode kommt Alginat in die Flüssigkeit und Calcium ins Bad."],["Warum stören sehr saure Flüssigkeiten?",["Sie schmecken zu stark","Sie hemmen die Gelierung von Alginat","Sie lösen Calciumchlorid","Sie färben die Kugel dunkel"],1,"Ein niedriger pH-Wert blockiert Alginat; Natriumcitrat korrigiert die Säure."],["Was bedeutet Methylcellulose als umgekehrter Gelbildner?",["Fest bei Hitze, flüssig bei Kälte","Fest bei Kälte, flüssig bei Hitze","Nicht essbar","Nur für Stickstoff"],0,"Methylcellulose wird warm fest und beim Abkühlen wieder weich."],["Bei welcher Temperatur siedet flüssiger Stickstoff?",["-20°C","-78°C","-196°C","-100°C"],2,"Flüssiger Stickstoff siedet bei -196°C."],["Welche Agar-Dosis passt für ein weiches Gel?",["0,1 g pro 100 ml","0,5 g pro 100 ml","5 g pro 100 ml","10 g pro 100 ml"],1,"Etwa 0,5 g pro 100 ml ergibt ein weiches Gel."],["Was erzeugt Sojalecithin mit schrägem Stabmixer?",["Kugeln","Leichte Airs","Schnelle Gele","Zuckerkristalle"],1,"Lecithin stabilisiert Blasen und erzeugt leichte Airs."],["Was unterscheidet reverse von direkter Sphärisierung?",["Calcium ist in der Flüssigkeit","Nur für Desserts","Kein Alginat","Nur Agar"],0,"Bei reverse ist Calcium in der Flüssigkeit und Alginat im Bad."]],
+    [["Was ist die klassische Emilianische Logik für Eierpasta?",["1 Ei pro 50 g Mehl","1 Eigelb je 10 g Mehl","2 Eier pro 200 g Mehl","1 Eiweiß je 100 g Mehl"],1,"Reicher Teig kann ein Eigelb je 10 g Mehl verwenden."],["Warum ist Teigruhe wichtig?",["Zum Abkühlen","Gluten entspannt und Feuchtigkeit verteilt sich","Zum Aufgehen","Zum Trocknen"],1,"Ruhe entspannt Gluten und macht den Teig ausrollbar."],["Welches Mehl passt für Orecchiette?",["00-Mehl","Vollkorn-Dinkel","Remahlter Hartweizengrieß","Reismehl"],2,"Hartweizengrieß gibt Biss und Struktur."],["Welche Dicke passt für Tagliatelle?",["0,2 mm","1-1,5 mm","3 mm","5 mm"],1,"Tagliatelle liegen etwa bei 1-1,5 mm."],["Wie breit sind traditionelle Tagliatelle?",["4 mm","6 mm","8 mm","12 mm"],2,"Die Referenz liegt bei etwa 8 mm."],["Warum ist Pastawasser wichtig?",["Für Gemüse","Stärke bindet die Sauce","Es ersetzt Fond","Es kühlt"],1,"Die Stärke hilft bei der Emulsion."],["Wie dünn ist Pasta für Füllungen?",["0,8-1 mm","3 mm","5 mm","Sehr dick"],0,"Gefüllte Pasta braucht dünne Teigblätter."],["Wo passiert Mantecatura?",["Auf dem Teller","In der Pfanne mit Sauce und Kochwasser","In kaltem Wasser","Im Ofen"],1,"Professionell wird in der Pfanne gebunden."]],
+    [["Welche Temperatur passt für Mirror Glaze?",["20-24°C","32-35°C","45-50°C","70°C"],1,"Mirror Glaze deckt meist bei 32-35°C am besten."],["Was verursachen saure Fruchtpürees bei Alginat?",["Zu viel Süße","Sie blockieren Gelierung","Sie werden blau","Sie verlieren Aroma"],1,"Niedriger pH blockiert Alginat."],["Bei welcher Temperatur arbeitet dunkle Schokolade?",["20°C","26°C","31-32°C","45°C"],2,"Dunkle Schokolade arbeitet oft bei 31-32°C."],["Was passiert mit Schokolade in Stickstoff?",["Sie verbrennt","Sie wird sofort knusprig fest","Sie karamellisiert","Sie löst sich"],1,"Die Kälte sorgt für sofortiges Erstarren."],["Welcher Gelbildner ist hitzestabil?",["Gelatine","Agar Agar","Butter","Zucker"],1,"Agar ist hitzestabil."],["Warum ist Stickstoff-Gelato cremig?",["Mehr Zucker","Sehr kleine Eiskristalle","Kein Fett","Es ist wärmer"],1,"Schnelles Gefrieren verhindert große Eiskristalle."],["Wie viele Patronen für 0,5 L Siphon?",["1-2","5-6","10","Keine"],0,"Meist reichen 1-2 Patronen."],["Was kann im Siphon aufgeschäumt werden?",["Nur Sahne","Viele strukturierte Flüssigkeiten","Nur Wasser","Nur Eiweiß"],1,"Viele Basen funktionieren, wenn Struktur vorhanden ist."]],
+    [["Was definiert Sous Vide?",["Offenes Kochen im Wasser","Vakuumgaren im präzisen Wasserbad","Nur Dampf","Nur 100°C"],1,"Sous Vide nutzt Beutel und präzises Wasserbad."],["Welche Temperatur macht Lachs seidig?",["42-46°C","60-65°C","75°C","90°C"],0,"Lachs bleibt bei 42-46°C seidig."],["Was passiert mit Kollagen?",["Es verschwindet","Es wird zu Gelatine","Es wird Salz","Es verbrennt"],1,"Kollagen wird langsam zu Gelatine."],["Warum ist die Gefahrenzone wichtig?",["Mehr Geschmack","Bakterien vermehren sich schneller","Fleisch wird rot","Garen stoppt"],1,"Sicherheit hängt von Temperaturkontrolle ab."],["Warum vor dem Anbraten trocknen?",["Nur damit nichts klebt","Feuchtigkeit verhindert Maillard","Zum besseren Salzen","Zum Kühlen"],1,"Trockene Oberfläche bräunt besser."],["Welche Pasteurisierungstemperatur nutzt das Modul?",["50°C","56°C","63°C","75°C"],2,"Das Modul nutzt 63°C als Referenz."],["Wie lange dauert das Finish?",["5-10 Minuten je Seite","2-3 Minuten je Seite","30-60 Sekunden je Seite sehr heiß","Kein Finish"],2,"Kurz und sehr heiß für Kruste."],["Der Saft im Beutel ist:",["Abfall","Wertvoll für Saucen","Nur Salzwasser","Zum Reinigen"],1,"Er enthält Geschmack und Kollagen."]],
+    [["Was bedeutet HACCP?",["High Accuracy Cooking Control Process","Hazard Analysis and Critical Control Points","Hygienic and Clean Cooking Practices","Healthy Alimentary Care and Control Plan"],1,"HACCP bedeutet Hazard Analysis and Critical Control Points."],["Was ist die Gefahrenzone?",["0°C-4°C","4°C-63°C","63°C-100°C","-18°C-0°C"],1,"Zwischen 4°C und 63°C wachsen Bakterien schnell."],["Maximale Temperatur für Fleisch und Milchprodukte?",["+8°C","+4°C","+10°C","0°C"],1,"+4°C ist hier die sichere Referenz."],["Welche Brettfarbe für rohes Fleisch?",["Grün","Blau","Rot","Gelb"],2,"Rot steht für rohes Fleisch."],["Welche Reinigungsfolge ist korrekt?",["Desinfizieren, waschen, trocknen","Waschen, desinfizieren, trocknen","Reste entfernen, waschen, spülen, desinfizieren, spülen, trocknen","Trocknen, desinfizieren, waschen"],2,"Jeder Schritt hat eine Funktion."],["Wo lagert Rohware im Kühlschrank?",["Über gegarten Speisen","Im selben Fach","Unter gegarten Speisen","Immer außerhalb"],2,"Rohware liegt unten, damit nichts tropft."],["Wie lange bleiben HACCP-Unterlagen?",["6 Monate","1 Jahr","Mindestens 2 Jahre","5 Jahre"],2,"Das Modul nutzt mindestens 2 Jahre."],["Wie taut man sicher auf?",["Bei Raumtemperatur","In heißem Wasser","Im Kühlschrank","Immer Mikrowelle"],2,"Auftauen im Kühlschrank ist kontrolliert."]]
+  ];
+  return Object.assign({}, m, {title:titles[moduleIdx][0], card:titles[moduleIdx][1], readerTitle:titles[moduleIdx][2], sub:titles[moduleIdx][3], meta:[m.meta[0], "⏱ "+m.time+" Min. Lesezeit", "❓ 8 Fragen"], sections:sections[moduleIdx], questions:questions[moduleIdx]});
+});
+
 // stato per ogni modulo: array di risposte date
 const state = { 0:[], 1:[], 2:[], 3:[], 4:[] };
 const totalQ = 8;
+let currentLang = 'it';
+const originalHome = document.getElementById('view-home').innerHTML;
+const originalViews = [0,1,2,3,4].map(i => document.getElementById('view-'+i).innerHTML);
 
 // messaggi feedback per ogni modulo/domanda [ok, no]
 const fb = {
@@ -1016,17 +1196,119 @@ const fb = {
           'Sbagliato. Lo scongelamento va fatto in frigorifero a 0–4°C. Mai a temperatura ambiente.'],
 };
 
+function setActiveLangButton(lang) {
+  ['it','de','en'].forEach(function(l){
+    const b = document.getElementById('ql-'+l);
+    if (b) b.className = l === lang ? 'active' : '';
+  });
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, function(ch){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+  });
+}
+
+function renderTranslatedModule(mod, idx, ui) {
+  const questions = mod.questions.map(function(q, qIdx){
+    const opts = q[1].map(function(opt, optIdx){
+      return `<div class="opt" id="opt-${idx}-${qIdx}-${optIdx}" onclick="answer(${idx},${qIdx},${optIdx},${q[2]})"><span class="opt-letter">${String.fromCharCode(65+optIdx)}</span>${escapeHtml(opt)}</div>`;
+    }).join('');
+    return `<div class="question"><span class="q-num">${ui.module} ${idx+1} · ${qIdx+1} / 8</span><p class="q-text">${escapeHtml(q[0])}</p><div class="options">${opts}</div><div class="feedback" id="fb-${idx}-${qIdx}"></div></div>${qIdx<7?'<div class="q-divider"></div>':''}`;
+  }).join('');
+  const sections = mod.sections.map(function(sec){
+    return `<h2>${escapeHtml(sec[0])}</h2>${sec[1].map(p => `<p>${escapeHtml(p)}</p>`).join('')}`;
+  }).join('');
+  return `
+    <div class="reader-wrap">
+      <button class="reader-back" onclick="showHome()">${ui.allModules}</button>
+      <div class="reader-header">
+        <span class="reader-num">${ui.module} 0${idx+1} · ${ui.free.replace('✦ ','')}</span>
+        <h1 class="reader-title">${mod.readerTitle}</h1>
+        <p class="reader-sub">${escapeHtml(mod.sub)}</p>
+        <div class="reader-meta">${mod.meta.map(x=>`<span>${escapeHtml(x)}</span>`).join('')}</div>
+      </div>
+      <div class="article">${sections}</div>
+      <div class="quiz-wrap">
+        <div class="quiz-head">
+          <span class="quiz-head-label">${ui.quizLabel} — ${ui.module} 0${idx+1}</span>
+          <h2>${ui.quizTitle}</h2>
+          <p id="prog-${idx}">0 / 8 ${ui.answered}</p>
+        </div>
+        <div class="quiz-body" id="qbody-${idx}">
+          ${questions}
+          <button class="quiz-submit-btn" id="sub-${idx}" onclick="showResult(${idx},8)">${ui.quizTitle}</button>
+          <div class="quiz-result" id="res-${idx}"></div>
+        </div>
+      </div>
+      <div class="upgrade-box"><h3>${ui.deeperTitle}</h3><p>${ui.deeperText}</p><a href="mailto:info@ristorante-locoselli.de?subject=Locoselli%20Academy">${ui.deeperBtn}</a></div>
+    </div>`;
+}
+
+function renderTranslatedHome(lang) {
+  const data = freeQuizData[lang];
+  const ui = data.ui;
+  const cards = data.modules.map(function(m, i){
+    return `<div class="mcard" id="card-${i}" onclick="showModule(${i})">
+      <div class="mcard-num">${String(i+1).padStart(2,'0')}</div>
+      <span class="mcard-icon">${m.icon}</span>
+      <h3>${escapeHtml(m.title)}</h3>
+      <p>${escapeHtml(m.card)}</p>
+      <div class="mcard-tags">
+        <span class="mcard-tag">${m.time} ${ui.reading}</span>
+        <span class="mcard-tag">${ui.questions}</span>
+        <span class="mcard-free">${ui.free}</span>
+      </div>
+      <div class="mcard-done">✓</div>
+    </div>`;
+  }).join('');
+  document.getElementById('view-home').innerHTML = `
+    <div class="home-hero">
+      <span class="home-hero-label">${ui.homeLabel}</span>
+      <h1>${ui.homeTitle}</h1>
+      <p>${ui.homeSub}</p>
+      <p class="home-hero-desc">${ui.homeDesc}</p>
+    </div>
+    <div class="modules-wrap">
+      <span class="modules-label">${ui.modulesLabel}</span>
+      <div class="modules-grid">${cards}</div>
+    </div>`;
+  data.modules.forEach(function(m,i){
+    document.getElementById('view-'+i).innerHTML = renderTranslatedModule(m,i,ui);
+  });
+}
+
+function setFreeLang(lang) {
+  currentLang = freeQuizData[lang] ? lang : 'it';
+  document.documentElement.lang = currentLang;
+  setActiveLangButton(currentLang);
+  try { localStorage.setItem('lang', currentLang); } catch(e) {}
+  if (currentLang === 'it') {
+    document.getElementById('view-home').innerHTML = originalHome;
+    [0,1,2,3,4].forEach(i => document.getElementById('view-'+i).innerHTML = originalViews[i]);
+    document.getElementById('navTag').textContent = 'Gratuito';
+  } else {
+    renderTranslatedHome(currentLang);
+    document.getElementById('navTag').textContent = freeQuizData[currentLang].ui.navTag;
+  }
+  [0,1,2,3,4].forEach(i => { state[i] = []; });
+  assignOptIds();
+  showHome();
+}
+
 function showHome() {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-home').classList.add('active');
-  document.getElementById('navCenter').textContent = 'Locoselli Academy';
+  const ui = freeQuizData[currentLang]?.ui;
+  document.getElementById('navCenter').textContent = ui ? ui.navCenter : 'Locoselli Academy';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function showModule(idx) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-'+idx).classList.add('active');
-  document.getElementById('navCenter').textContent = 'Modulo 0'+(idx+1);
+  const ui = freeQuizData[currentLang]?.ui;
+  document.getElementById('navCenter').textContent = (ui ? ui.module : 'Modulo') + ' 0' + (idx+1);
   window.scrollTo({top:0, behavior:'smooth'});
   // reset state
   state[idx] = [];
@@ -1057,7 +1339,13 @@ function answer(mod, qIdx, optIdx, correctIdx) {
   // Feedback
   const fbEl = document.getElementById(`fb-${mod}-${qIdx}`);
   const isOk = optIdx === correctIdx;
-  fbEl.textContent = (isOk ? '✓ ' : '✗ ') + fb[prefix][isOk ? 0 : 1];
+  if (currentLang === 'it') {
+    fbEl.textContent = (isOk ? '✓ ' : '✗ ') + fb[prefix][isOk ? 0 : 1];
+  } else {
+    const ui = freeQuizData[currentLang].ui;
+    const why = freeQuizData[currentLang].modules[mod].questions[qIdx][3];
+    fbEl.textContent = (isOk ? '✓ ' + ui.correct : '✗ ' + ui.wrong) + why;
+  }
   fbEl.className = 'feedback show ' + (isOk ? 'ok' : 'no');
 
   updateProg(mod);
@@ -1067,7 +1355,8 @@ function answer(mod, qIdx, optIdx, correctIdx) {
 function updateProg(mod) {
   const answered = Object.keys(state[mod]).length;
   const el = document.getElementById('prog-'+mod);
-  if (el) el.textContent = answered + ' / ' + totalQ + ' risposte date';
+  const ui = freeQuizData[currentLang]?.ui;
+  if (el) el.textContent = answered + ' / ' + totalQ + ' ' + (ui ? ui.answered : 'risposte date');
 }
 
 function checkAllAnswered(mod) {
@@ -1087,12 +1376,19 @@ function showResult(mod, total) {
     3: [1,2,1,1,1,2,2,1],
     4: [1,1,1,2,2,2,2,2]
   };
+  if (currentLang !== 'it' && freeQuizData[currentLang]) {
+    correctMap[mod] = freeQuizData[currentLang].modules[mod].questions.map(q => q[2]);
+  }
   for (let i=0; i<total; i++) {
     if (state[mod][i] === correctMap[mod][i]) score++;
   }
   const pct = Math.round((score/total)*100);
   let badge, msg;
-  if (pct===100){ badge='🏆 Perfetto!'; msg='Straordinario! Hai risposto correttamente a tutte le domande. Sei pronto per il percorso Academy.'; }
+  const ui = freeQuizData[currentLang]?.ui;
+  if (ui) {
+    const row = pct === 100 ? ui.result[0] : pct >= 75 ? ui.result[1] : pct >= 50 ? ui.result[2] : ui.result[3];
+    badge = row[0]; msg = row[1];
+  } else if (pct===100){ badge='🏆 Perfetto!'; msg='Straordinario! Hai risposto correttamente a tutte le domande. Sei pronto per il percorso Academy.'; }
   else if (pct>=75){ badge='🥇 Ottimo!'; msg='Eccellente preparazione! Il percorso Academy ti aiuta a portare questo argomento a livello professionale.'; }
   else if (pct>=50){ badge='🥈 Buono'; msg='Buona base! Rileggi le sezioni dove hai sbagliato, poi valuta il percorso Academy per colmare le lacune.'; }
   else { badge='📖 Riprova'; msg='Rileggi l\'articolo con attenzione prima di riprovare. Ci sono concetti fondamentali da consolidare.'; }
@@ -1104,12 +1400,12 @@ function showResult(mod, total) {
   resEl.style.display='block';
   resEl.innerHTML = `
     <div class="result-pct">${pct}%</div>
-    <span class="result-lbl">${score} / ${total} risposte corrette</span>
+    <span class="result-lbl">${score} / ${total} ${ui ? ui.resultAnswers : 'risposte corrette'}</span>
     <div class="result-badge">${badge}</div>
     <p class="result-msg">${msg}</p>
     <div class="result-btns">
-      <button class="btn-retry" onclick="showModule(${mod})">↺ Riprova</button>
-      ${hasNext ? `<button class="btn-next" onclick="showModule(${nextIdx})">Modulo ${nextIdx+1} →</button>` : `<button class="btn-next" onclick="showHome()">✓ Torna ai Moduli</button>`}
+      <button class="btn-retry" onclick="showModule(${mod})">${ui ? ui.retry : '↺ Riprova'}</button>
+      ${hasNext ? `<button class="btn-next" onclick="showModule(${nextIdx})">${ui ? ui.nextModule : 'Modulo'} ${nextIdx+1} →</button>` : `<button class="btn-next" onclick="showHome()">${ui ? ui.backHome : '✓ Torna ai Moduli'}</button>`}
     </div>`;
   setTimeout(()=>resEl.scrollIntoView({behavior:'smooth',block:'center'}),200);
 
@@ -1118,6 +1414,7 @@ function showResult(mod, total) {
 }
 
 // fix: assign IDs to opts dynamically since they don't have static IDs
+function assignOptIds() {
 document.querySelectorAll('.question').forEach((q, globalIdx) => {
   q.querySelectorAll('.opt').forEach((opt, oi) => {
     // Extract mod and qIdx from onclick
@@ -1127,6 +1424,17 @@ document.querySelectorAll('.question').forEach((q, globalIdx) => {
       if (m) opt.id = `opt-${m[1]}-${m[2]}-${m[3]}`;
     }
   });
+});
+}
+
+assignOptIds();
+setActiveLangButton('it');
+window.addEventListener('load', function(){
+  let saved = '';
+  try { saved = localStorage.getItem('lang') || ''; } catch(e) {}
+  const browserLang = (navigator.language || 'it').slice(0,2);
+  const lang = saved || (browserLang === 'de' || browserLang === 'en' ? browserLang : 'it');
+  setFreeLang(lang);
 });
 </script>
 </body>
