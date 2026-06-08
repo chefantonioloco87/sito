@@ -62,7 +62,7 @@ nav.scrolled{background:rgba(6,5,4,0.97);padding:14px 60px;border-bottom:1px sol
 
 /* ══ HERO ══ */
 .hero{
-  height:100vh;min-height:700px;
+  height:86vh;min-height:620px;
   position:relative;display:flex;align-items:flex-end;
   overflow:hidden;
 }
@@ -217,6 +217,32 @@ nav.scrolled{background:rgba(6,5,4,0.97);padding:14px 60px;border-bottom:1px sol
 
 /* ══ SPECIAL COURSE ══ */
 .special-course{background:linear-gradient(135deg,#181310 0%,#070504 70%);padding:82px 60px;border-top:1px solid rgba(196,150,42,0.08);border-bottom:1px solid rgba(196,150,42,0.12);}
+.course-posters-highlight{background:linear-gradient(180deg,#070504 0%,#181310 100%);padding:54px 60px 64px;border-top:2px solid rgba(196,150,42,0.34);border-bottom:1px solid rgba(196,150,42,0.18);}
+.poster-highlight-head{max-width:1180px;margin:0 auto 24px;display:grid;grid-template-columns:1fr .64fr;gap:32px;align-items:end;}
+.poster-highlight-eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--oro2);display:block;margin-bottom:10px;font-weight:500;}
+.poster-highlight-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.8vw,76px);font-weight:300;line-height:.96;color:var(--avorio);}
+.poster-highlight-title em{font-style:italic;color:var(--oro);}
+.poster-highlight-copy{font-family:'EB Garamond',serif;font-size:24px;line-height:1.45;color:#f0e4d2;}
+.poster-highlight-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.poster-highlight-card{position:relative;min-height:430px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:2px solid rgba(196,150,42,0.42);background:#100c08;text-decoration:none;color:var(--avorio);box-shadow:0 28px 70px rgba(0,0,0,0.28);transition:transform .35s,border-color .35s;}
+.poster-highlight-card:hover{transform:translateY(-7px);border-color:rgba(232,201,106,0.72);}
+.poster-highlight-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.34) saturate(1.04);transition:transform .6s,filter .35s;}
+.poster-highlight-card:hover img{transform:scale(1.05);filter:brightness(.42) saturate(1.1);}
+.poster-highlight-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,5,4,0.20) 0%,rgba(6,5,4,0.72) 42%,rgba(6,5,4,0.97) 100%);}
+.poster-highlight-content{position:relative;z-index:1;padding:24px;display:flex;flex-direction:column;min-height:430px;justify-content:space-between;}
+.poster-highlight-topline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}
+.poster-highlight-tag,.poster-highlight-date{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--oro2);line-height:1.45;font-weight:500;}
+.poster-highlight-tag{padding:8px 12px;border:1px solid rgba(232,201,106,.55);background:rgba(6,5,4,.62);}
+.poster-highlight-date{text-align:right;color:#fff;background:rgba(196,150,42,.18);border:1px solid rgba(196,150,42,.34);padding:8px 10px;}
+.poster-highlight-name{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,4.5vw,70px);font-weight:300;line-height:.92;color:#fff;margin:0 0 12px;text-shadow:0 12px 34px rgba(0,0,0,.72);}
+.poster-highlight-desc{font-family:'EB Garamond',serif;font-size:22px;line-height:1.35;color:#f0e6d8;margin-bottom:14px;}
+.poster-highlight-mainfacts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0;}
+.poster-highlight-fact{background:rgba(244,239,230,.10);border:1px solid rgba(255,255,255,.18);padding:12px 10px;}
+.poster-highlight-fact strong{display:block;font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1;color:var(--oro2);font-style:italic;}
+.poster-highlight-fact span{display:block;margin-top:5px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f4efe6;line-height:1.35;}
+.poster-highlight-info{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.poster-highlight-pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.09);padding:8px 10px;}
+.poster-highlight-btn{display:block;text-align:center;background:var(--oro);color:var(--nero);padding:16px 18px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;}
 .special-course-card{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:0;border:1px solid rgba(196,150,42,0.22);background:rgba(6,5,4,0.58);position:relative;overflow:hidden;}
 .special-course-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(196,150,42,0.17),transparent 34%);pointer-events:none;}
 .special-course-copy{position:relative;padding:48px 46px;}
@@ -560,6 +586,15 @@ footer{background:var(--marrone);border-top:1px solid rgba(196,150,42,0.12);padd
   .academy-gateway{padding:60px 22px;}
   .gateway-head{grid-template-columns:1fr;gap:18px;}
   .gateway-grid{grid-template-columns:1fr;}
+  .course-posters-highlight{padding:58px 22px;}
+  .poster-highlight-head{grid-template-columns:1fr;gap:16px;}
+  .poster-highlight-grid{grid-template-columns:1fr;}
+  .poster-highlight-card{min-height:0;}
+  .poster-highlight-content{min-height:0;padding:24px;}
+  .poster-highlight-topline{align-items:flex-start;}
+  .poster-highlight-name{font-size:50px;}
+  .poster-highlight-desc{font-size:21px;}
+  .poster-highlight-mainfacts{grid-template-columns:1fr;}
   .special-course{padding:56px 22px;}
   .special-course-card{grid-template-columns:1fr;}
   .special-course-copy,.special-course-prices{padding:34px 26px;}
@@ -589,13 +624,13 @@ nav{top:36px!important;}
   <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="Locoselli"></a>
   <ul class="nav-menu">
     <li><a href="#about" id="l54">Chi Sono</a></li>
-    <li><a href="#courses" id="l55">Percorsi</a></li>
+    <li><a href="#locandine-corsi" id="l55">Corsi</a></li>
     <li><a href="manifesti.html" id="l56">Manifesti</a></li>
     <li><a href="quiz.html" id="l57">Quiz</a></li>
     <li><a href="#formats" id="navFormats">Formati</a></li>
     <li><a href="#contact" id="navContact">Contatti</a></li>
   </ul>
-  <a href="#courses" class="nav-btn" id="navCta">Scopri i Percorsi</a>
+  <a href="#locandine-corsi" class="nav-btn" id="navCta">Scopri i Corsi</a>
 </nav>
 
 <!-- HERO -->
@@ -609,8 +644,8 @@ nav{top:36px!important;}
     <p class="hero-sub" id="ls">Chef · Formatore · Innovatore</p>
     <p class="hero-mantra" id="lm">✦ Stupire senza storpiare ✦</p>
     <div class="hero-actions">
-      <a href="manifesti.html" class="btn-primary" id="lb1" style="font-size:10px;padding:16px 44px;">Inizia Gratis</a>
-      <a href="#courses" class="btn-ghost" id="lb2">Scopri i Percorsi</a>
+      <a href="#locandine-corsi" class="btn-primary" id="lb1" style="font-size:10px;padding:16px 44px;">Vedi i Corsi</a>
+      <a href="manifesti.html" class="btn-ghost" id="lb2">Manifesti Gratis</a>
     </div>
   </div>
   <div class="hero-proof">
@@ -653,6 +688,85 @@ nav{top:36px!important;}
     </div>
   </div>
 </div>
+
+<!-- LOCANDINE CORSI IN EVIDENZA -->
+<section class="course-posters-highlight" id="locandine-corsi">
+  <div class="poster-highlight-head">
+    <div>
+      <span class="poster-highlight-eyebrow">Corsi in evidenza</span>
+      <h2 class="poster-highlight-title">Scegli il corso <em>subito</em></h2>
+    </div>
+    <p class="poster-highlight-copy">Date, prezzi e contenuto sono in grande. Clicca la locandina e vai direttamente ai dettagli.</p>
+  </div>
+  <div class="poster-highlight-grid">
+    <a class="poster-highlight-card" href="#impiattamento" aria-label="Vai al corso di impiattamento">
+      <img src="assets/asset-05-6f358933ecb2.jpg" alt="Corso di impiattamento contemporaneo">
+      <div class="poster-highlight-content">
+        <div class="poster-highlight-topline">
+          <span class="poster-highlight-tag">Masterclass</span>
+          <span class="poster-highlight-date">29-30 giugno</span>
+        </div>
+        <div>
+          <h3 class="poster-highlight-name">Impiattamento</h3>
+          <p class="poster-highlight-desc">Composizione, colore, precisione, pulizia e ritmo del piatto.</p>
+          <div class="poster-highlight-mainfacts">
+            <div class="poster-highlight-fact"><strong>50€</strong><span>online soci AIC</span></div>
+            <div class="poster-highlight-fact"><strong>150€</strong><span>non soci 2 giorni</span></div>
+          </div>
+          <div class="poster-highlight-info">
+            <span class="poster-highlight-pill">Online o presenza</span>
+            <span class="poster-highlight-pill">Posti limitati</span>
+          </div>
+          <span class="poster-highlight-btn">Vedi impiattamento</span>
+        </div>
+      </div>
+    </a>
+    <a class="poster-highlight-card" href="#italian-world-course" aria-label="Vai al corso per principianti">
+      <img src="assets/asset-04-c8f44b4dfc5f.jpg" alt="Corso di cucina per principianti">
+      <div class="poster-highlight-content">
+        <div class="poster-highlight-topline">
+          <span class="poster-highlight-tag">Principianti</span>
+          <span class="poster-highlight-date">26 giugno</span>
+        </div>
+        <div>
+          <h3 class="poster-highlight-name">Principianti</h3>
+          <p class="poster-highlight-desc">Corso semplice e pratico: prepari 5 piatti e mangi quello che cucini.</p>
+          <div class="poster-highlight-mainfacts">
+            <div class="poster-highlight-fact"><strong>120€</strong><span>tutto incluso</span></div>
+            <div class="poster-highlight-fact"><strong>5</strong><span>piatti + attestato</span></div>
+          </div>
+          <div class="poster-highlight-info">
+            <span class="poster-highlight-pill">Mangiare e bere</span>
+            <span class="poster-highlight-pill">Ricettario incluso</span>
+          </div>
+          <span class="poster-highlight-btn">Vedi principianti</span>
+        </div>
+      </div>
+    </a>
+    <a class="poster-highlight-card" href="#grigliata-italiana" aria-label="Vai alla grigliata italiana">
+      <img src="assets/asset-13-3750e352c5d4.jpg" alt="Corso grigliata italiana live cooking">
+      <div class="poster-highlight-content">
+        <div class="poster-highlight-topline">
+          <span class="poster-highlight-tag">Live cooking</span>
+          <span class="poster-highlight-date">20 giugno</span>
+        </div>
+        <div>
+          <h3 class="poster-highlight-name">Grigliata</h3>
+          <p class="poster-highlight-desc">Serata alla griglia con antipasti, pasta, secondi, dessert e spiegazione live.</p>
+          <div class="poster-highlight-mainfacts">
+            <div class="poster-highlight-fact"><strong>80€</strong><span>senza vini</span></div>
+            <div class="poster-highlight-fact"><strong>100€</strong><span>con vini</span></div>
+          </div>
+          <div class="poster-highlight-info">
+            <span class="poster-highlight-pill">Serata completa</span>
+            <span class="poster-highlight-pill">Posti limitati</span>
+          </div>
+          <span class="poster-highlight-btn">Vedi grigliata</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
 
 <!-- ACADEMY GATEWAY -->
 <section class="academy-gateway">
@@ -1109,7 +1223,7 @@ nav{top:36px!important;}
       </div>
     </div>
     <div class="events-layout">
-      <div class="evt-main">
+      <div class="evt-main" id="grigliata-italiana">
         <img class="evt-main-img" src="assets/asset-04-c8f44b4dfc5f.jpg" alt="Grigliata italiana live cooking">
         <div class="evt-main-body">
           <span class="evt-badge" id="evtBadge">In evidenza</span>
